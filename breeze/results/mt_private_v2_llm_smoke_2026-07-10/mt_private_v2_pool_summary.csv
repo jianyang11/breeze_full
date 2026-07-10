@@ -1,0 +1,4 @@
+accepted,class_name,slot_acceptance_rate,target_slots
+5,normal_machining,0.5,10
+5,lead_screw_anomaly,0.5,10
+5,base_imbalance,0.5,10

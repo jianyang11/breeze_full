@@ -1,0 +1,32 @@
+{
+  "accepted_counts": {
+    "base_imbalance": 5,
+    "lead_screw_anomaly": 5,
+    "normal_machining": 5
+  },
+  "allowed_next_stage": "failure_analysis_only",
+  "api_budget": 60,
+  "api_end_cumulative": 1131,
+  "api_requests_this_stage": 60,
+  "api_start_cumulative": 1071,
+  "balanced_n_syn": 5,
+  "core_cells_passed_vs_random": 1,
+  "core_cells_passed_vs_real_noise": 0,
+  "core_cells_passed_vs_rule": 2,
+  "downstream_gate_passed": false,
+  "feedback_gate_passed": true,
+  "feedback_rescue_rate": 0.631578947368421,
+  "formal_test_files_read": 0,
+  "lead_screw_gate_passed": true,
+  "pool_gate_passed": false,
+  "reasons": [
+    "downstream core gate failed"
+  ],
+  "slot_acceptance_by_class": {
+    "base_imbalance": 0.5,
+    "lead_screw_anomaly": 0.5,
+    "normal_machining": 0.5
+  },
+  "status": "BLOCKED",
+  "target_per_class": 10
+}

@@ -1,0 +1,103 @@
+{
+  "additionalProperties": false,
+  "normalization": "Valid numeric recipe values are clipped only to these frozen recipe-domain bounds before rendering. Generated waveforms are never post-processed after verifier rejection.",
+  "properties": {
+    "channel_mean_shift_std": {
+      "channels": [
+        "X",
+        "Y",
+        "Z",
+        "Current"
+      ],
+      "range": [
+        -0.1,
+        0.1
+      ]
+    },
+    "channel_std_mult": {
+      "channels": [
+        "X",
+        "Y",
+        "Z",
+        "Current"
+      ],
+      "range": [
+        0.8,
+        1.2
+      ]
+    },
+    "class_name": {
+      "enum": [
+        "normal_machining",
+        "lead_screw_anomaly",
+        "base_imbalance"
+      ]
+    },
+    "noise_gain": {
+      "range": [
+        0.0,
+        0.06
+      ]
+    },
+    "phase_randomization_strength": {
+      "range": [
+        0.5,
+        1.0
+      ]
+    },
+    "rationale": {
+      "max_length": 300,
+      "type": "string"
+    },
+    "shared_component_gain": {
+      "range": [
+        0.0,
+        0.15
+      ]
+    },
+    "soft_band_gain": {
+      "bands": 8,
+      "channels": [
+        "X",
+        "Y",
+        "Z",
+        "Current"
+      ],
+      "range": [
+        0.7,
+        1.3
+      ]
+    },
+    "spectral_mix": {
+      "range": [
+        0.0,
+        0.5
+      ]
+    },
+    "template_rank": {
+      "maximum": 611,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "trend_strength": {
+      "range": [
+        -0.05,
+        0.05
+      ]
+    }
+  },
+  "required": [
+    "channel_mean_shift_std",
+    "channel_std_mult",
+    "class_name",
+    "noise_gain",
+    "phase_randomization_strength",
+    "rationale",
+    "shared_component_gain",
+    "soft_band_gain",
+    "spectral_mix",
+    "template_rank",
+    "trend_strength"
+  ],
+  "type": "object"
+}

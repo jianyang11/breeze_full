@@ -1,0 +1,5 @@
+acceptance_rate,accepted_at_round,api_slots,cumulative_accepted,round_id
+0.13636363636363635,3,22,3,0
+0.42105263157894735,8,19,11,1
+0.2727272727272727,3,11,14,2
+0.125,1,8,15,3

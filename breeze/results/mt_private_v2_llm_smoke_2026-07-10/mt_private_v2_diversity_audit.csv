@@ -1,0 +1,16 @@
+class_name,diversity_minimum,diversity_passed,exact_synthetic_duplicate,exact_train_duplicate,expansion_id,nearest_train_distance,round_id,slot
+normal_machining,3.693709878562434,True,False,False,0,5.961847167148233,3,0
+lead_screw_anomaly,2.4236589111645213,True,False,False,2,9.485502329218903,2,0
+base_imbalance,3.49985822652848,True,False,False,0,4.939050898484795,0,0
+base_imbalance,3.49985822652848,True,False,False,0,6.174369147171897,1,1
+lead_screw_anomaly,2.4236589111645213,True,False,False,1,4.749723879408694,1,2
+base_imbalance,3.49985822652848,True,False,False,0,5.012588208149671,1,2
+normal_machining,3.693709878562434,True,False,False,0,8.180773695119948,2,3
+lead_screw_anomaly,2.4236589111645213,True,False,False,0,6.761583779538762,1,3
+base_imbalance,3.49985822652848,True,False,False,0,7.48296277448356,2,3
+normal_machining,3.693709878562434,True,False,False,0,7.196806185610605,0,4
+normal_machining,3.693709878562434,True,False,False,0,7.863358995367694,1,5
+lead_screw_anomaly,2.4236589111645213,True,False,False,0,4.654158008448198,1,5
+base_imbalance,3.49985822652848,True,False,False,0,6.946493445801877,1,5
+lead_screw_anomaly,2.4236589111645213,True,False,False,0,6.183312890517468,0,6
+normal_machining,3.693709878562434,True,False,False,0,7.963112194163354,1,7

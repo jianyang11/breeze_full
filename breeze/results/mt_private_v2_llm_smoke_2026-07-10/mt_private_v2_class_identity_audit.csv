@@ -1,0 +1,16 @@
+class_identity_passed,class_identity_prediction,class_identity_probability,class_name,expansion_id,round_id,slot
+True,normal_machining,0.9475,normal_machining,0,3,0
+True,lead_screw_anomaly,0.8675,lead_screw_anomaly,2,2,0
+True,base_imbalance,0.98,base_imbalance,0,0,0
+True,base_imbalance,0.935,base_imbalance,0,1,1
+True,lead_screw_anomaly,0.53,lead_screw_anomaly,1,1,2
+True,base_imbalance,0.95,base_imbalance,0,1,2
+True,normal_machining,0.8725,normal_machining,0,2,3
+True,lead_screw_anomaly,0.9725,lead_screw_anomaly,0,1,3
+True,base_imbalance,0.92,base_imbalance,0,2,3
+True,normal_machining,0.955,normal_machining,0,0,4
+True,normal_machining,0.9675,normal_machining,0,1,5
+True,lead_screw_anomaly,0.5475,lead_screw_anomaly,0,1,5
+True,base_imbalance,0.965,base_imbalance,0,1,5
+True,lead_screw_anomaly,0.9775,lead_screw_anomaly,0,0,6
+True,normal_machining,0.965,normal_machining,0,1,7

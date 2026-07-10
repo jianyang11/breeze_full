@@ -1,0 +1,5 @@
+count,failure_reason
+5,class_identity
+1,diversity
+5,psd_w1
+25,slot_already_retained

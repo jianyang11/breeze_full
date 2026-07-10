@@ -1,6 +1,6 @@
 # BREEZE 执行 todos
 
-最后更新：2026-07-08 Asia/Shanghai
+最后更新：2026-07-10 Asia/Shanghai
 
 工作根目录：`/Users/jianyang/Desktop/学校相关课程/回所/论文/合成数据sci/breeze_full-2`
 
@@ -10,7 +10,7 @@ Python 环境：`breeze/.venv-breeze/bin/python` (`3.12.13`)。所有 Python 命
 
 1. [completed] `12.A KinematicsPlugin`：统一运动学插件接口、轴承/铣削插件最小实现已完成；PU smoke 回归与 Phase-A v2 对应冻结行完全一致。
 2. [completed] `12.B CWRU 修正版`：统一 `n_syn=20/class`、40 seeds、within+LOLO 四折已跑完、汇总并冻结；2400/2400 行齐全，90 个预注册 Wilcoxon/Holm 比较全部通过。
-3. [in_progress] `12.C/12.D`：优先级按用户 2026-07-08 最新铣削 v2 指令更新：Berkeley/NASA milling 先按文献标准 0.2/0.7 mm 重构协议并重新 inner-val 攻坚；UMich CNC 二分类并行优先作为第二达标路径；LOCO v3 是高价值可选线。Berkeley v1 inner-val 攻坚已按 §0-§5 穷尽 Step 1-4，但原 0.2/0.45 分档未达到 5/6 gate；正式 40-seed held-out test 未跑。Berkeley v2 binary 已预注册并一次性 formal，结果 15/18 比较通过但 LLM>rule 三项未过，冻结为 partial/no-go。UMich v2 二分类 inner-val 已完成，最佳 LLM v2 仅 2/6 gate；UMich v3 加入 `passed_visual_inspection` 纯血 exemplar 后最佳仍仅 1/6 gate，均未进入 formal。API 总上限 3000，当前保守累计 1020/3000；Berkeley v2 API 预算 ≤150，UMich API 预算 ≤200。
+3. [in_progress] `12.C/12.D`：优先级按用户 2026-07-08 最新铣削 v2 指令更新：Berkeley/NASA milling 先按文献标准 0.2/0.7 mm 重构协议并重新 inner-val 攻坚；UMich CNC 二分类并行优先作为第二达标路径；LOCO v3 是高价值可选线。Berkeley v1 inner-val 攻坚已按 §0-§5 穷尽 Step 1-4，但原 0.2/0.45 分档未达到 5/6 gate；正式 40-seed held-out test 未跑。Berkeley v2 binary 已预注册并一次性 formal，结果 15/18 比较通过但 LLM>rule 三项未过，冻结为 partial/no-go。UMich v2 二分类 inner-val 已完成，最佳 LLM v2 仅 2/6 gate；UMich v3 加入 `passed_visual_inspection` 纯血 exemplar 后最佳仍仅 1/6 gate，均未进入 formal。私有机床 v2 LLM smoke 已在冻结 inner split 上结束并 BLOCKED，formal test 未读。API 总上限 3000，当前真实累计 1131/3000；Berkeley v2 API 预算 ≤150，UMich API 预算 ≤200。
 4. [pending] `Phase C/D/E/F`：baseline/物理真实性/消融/论文重写只能在两条实验线关账后进行。
 
 当前状态：任务 1“冻结当前实验快照”、任务 2“BREEZE-v2 高危 gate 改进准备”、任务 3“BREEZE-v2 离线重筛实验”、任务 4“下游结果补强”、任务 5“自建机床跨数据集实验”、任务 6“主结果统计与图表最终化”、任务 7“论文写作”、任务 8“终审与投稿准备”和任务 9“按审稿意见大修论文”均已完成到当时数据允许的边界。Phase-A v2 补丁已在预算对等、20 seeds 和预注册检验族下通过，且 2026-07-06 已冻结全部 Phase-A v2 产物。用户 2026-07-07 最新补丁将论文定位锁定为 A：BREEZE 是面向工业旋转机械监测信号的零训练 LLM 生成 + 物理验证准入统一框架，轴承与铣削为平级实例化；私有机床数据彻底移出论文，IMS 取消。当前主线改为 5 个公开数据集：PU、CWRU、XJTU-SY、UC Berkeley/NASA milling、UMich Kaggle CNC。不能由真实数据支持的 claim 继续标为 BLOCKER，不用写作替代实验。核心报告：
@@ -731,3 +731,15 @@ Python 环境：`breeze/.venv-breeze/bin/python` (`3.12.13`)。所有 Python 命
 - [x] 最弱类记录：signal_feature_only full 的 mean F1 最低为 `lead_screw_anomaly` 0.6216；worst per-fold F1 也在 `lead_screw_anomaly` 上最低，需在后续 LLM smoke 中重点跟踪。
 - [x] 单独运行 private-MT verifier 到 `breeze/runs/mt_private_v1_preflight_2026-07-10/` 与本轮 results summary；旧 `mt_verifier_c90.json`、旧 pass CSV 未覆盖。
 - [x] `mt_private_preflight_decision.json` 状态为 `PASS`，`allowed_next_stage=llm_smoke`；本轮 API 新增 0，累计 API 仍为 1071。
+
+## 10. Private-MT v2 LLM closed-loop smoke（2026-07-10）
+
+- [x] 冻结 development split：每类 file IDs `1/2/4/5` 为 inner-train，file ID `10` 为 inner-val；加载器将 formal file IDs `7/8` 作为运行时硬错误，本轮 formal test 读取次数为 0。
+- [x] 新增 `breeze/scripts/mt_private_v2_llm_smoke.py`：仅基于 inner-train 的四通道 exemplar、通用 IAAFT-style surrogate renderer、MachineToolVerifier、real-real diversity 与固定 ExtraTrees class-identity certificate 运行可断点续跑闭环；无 TPF、转频、丝杠阶次或虚构机床参数。
+- [x] prepare-only 通过：verifier、prompt、schema 和 renderer 都仅使用 inner-train；prompt 不含 raw class ID、file ID、路径、inner-val 或 formal test 信息；API=0。
+- [x] 在冻结 60 次串行 API ceiling 内完成 LLM 闭环：实际 requests=60，accepted slots=`normal_machining=5`、`lead_screw_anomaly=5`、`base_imbalance=5`；每类 slot acceptance=0.50，balanced `n_syn=5`，未扩展 API 预算。
+- [x] feedback gate 通过：round 0/1/2/3 新接受数为 3/8/3/1，initial-failure feedback rescue rate=0.6316；全部 accepted 无 exact train/synthetic duplicate，均通过四个 verifier hard gates、diversity 与 class-identity。
+- [x] 在 frozen inner-val 上完成 5 methods × `n_real={10,25,50}` × 10 seeds downstream smoke；LLM 对 real+noise 核心 cells=0/6、对 rule=2/6、对 random=1/6，故 downstream gate 失败。
+- [blocked] `mt_private_v2_smoke_decision.json` 为 `BLOCKED`，`allowed_next_stage=failure_analysis_only`；不得写 formal preregistration、不得运行 formal test、不得以更改 gate 或扩大本轮 API 预算继续攻击。
+- [x] 新增测试 `breeze/tests/test_mt_private_v2_llm_smoke.py`；覆盖 file 7/8 guard、frozen split、recipe bounds、renderer、verifier/admission、resume/API log、pool balancing、downstream subset fairness 和 decision schema。
+- [x] API 用量：本阶段新增 60 次，累计从 1071 到 1131/3000；密钥未写入结果、日志或 Git。

@@ -1,0 +1,16 @@
+class_name,display_name,file_id,n_rows,raw_class_id,source_file,split,window_count
+normal_machining,Normal machining,1,196608,1,1_1_pre.csv,inner_train,191
+normal_machining,Normal machining,2,180224,1,1_2_pre.csv,inner_train,175
+normal_machining,Normal machining,4,118784,1,1_4_pre.csv,inner_train,115
+normal_machining,Normal machining,5,126976,1,1_5_pre.csv,inner_train,123
+lead_screw_anomaly,Lead-screw anomaly,1,65536,2,2_1_pre.csv,inner_train,63
+lead_screw_anomaly,Lead-screw anomaly,2,61440,2,2_2_pre.csv,inner_train,59
+lead_screw_anomaly,Lead-screw anomaly,4,73728,2,2_4_pre.csv,inner_train,71
+lead_screw_anomaly,Lead-screw anomaly,5,73728,2,2_5_pre.csv,inner_train,71
+base_imbalance,Base imbalance,1,172032,3,3_1_pre.csv,inner_train,167
+base_imbalance,Base imbalance,2,217088,3,3_2_pre.csv,inner_train,211
+base_imbalance,Base imbalance,4,118784,3,3_4_pre.csv,inner_train,115
+base_imbalance,Base imbalance,5,122880,3,3_5_pre.csv,inner_train,119
+normal_machining,Normal machining,10,not_loaded,1,not_loaded_in_prepare,inner_val,not_loaded
+lead_screw_anomaly,Lead-screw anomaly,10,not_loaded,2,not_loaded_in_prepare,inner_val,not_loaded
+base_imbalance,Base imbalance,10,not_loaded,3,not_loaded_in_prepare,inner_val,not_loaded

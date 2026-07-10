@@ -1,0 +1,13 @@
+accepted,class_name,method,offline_attempts,target,verifier_used
+5,normal_machining,rule_verified,5,5,True
+5,lead_screw_anomaly,rule_verified,5,5,True
+5,base_imbalance,rule_verified,5,5,True
+5,normal_machining,random_open_loop,5,5,False
+5,lead_screw_anomaly,random_open_loop,5,5,False
+5,base_imbalance,random_open_loop,5,5,False
+5,normal_machining,noise_aug,0,5,False
+5,normal_machining,llm_closed_loop,api,5,True
+5,lead_screw_anomaly,noise_aug,0,5,False
+5,lead_screw_anomaly,llm_closed_loop,api,5,True
+5,base_imbalance,noise_aug,0,5,False
+5,base_imbalance,llm_closed_loop,api,5,True
