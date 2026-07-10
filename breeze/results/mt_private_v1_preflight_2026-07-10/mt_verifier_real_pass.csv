@@ -1,0 +1,7 @@
+class,display_name,fail_psd_w1,fail_soft_spectrum,fail_stats_union,n,pass_rate,raw_class_id,split
+normal_machining,Normal machining,34,5,38,166,0.7590361445783133,1,test
+lead_screw_anomaly,Lead-screw anomaly,11,5,,166,0.9337349397590361,2,test
+base_imbalance,Base imbalance,35,,,154,0.7727272727272727,3,test
+normal_machining,Normal machining,25,2,4,675,0.9585185185185185,1,train
+lead_screw_anomaly,Lead-screw anomaly,16,2,2,383,0.9530026109660574,2,train
+base_imbalance,Base imbalance,39,4,4,679,0.9381443298969072,3,train

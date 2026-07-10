@@ -1,0 +1,23 @@
+{
+  "allowed_next_stage": "llm_smoke",
+  "class_mapping_confirmed": true,
+  "cnn_learnability_passed": true,
+  "exact_train_test_file_duplicates": 0,
+  "exact_train_test_window_duplicates": 0,
+  "metadata_confound_passed": true,
+  "metrics": {
+    "metadata_safe_extra_trees_mean_macro_f1": 0.32222222222222213,
+    "signal_feature_full_mean_macro_f1": 0.7981236416001962,
+    "signal_feature_full_per_class_mean_f1": {
+      "base_imbalance": 0.9611774991571448,
+      "lead_screw_anomaly": 0.6215909405943577,
+      "normal_machining": 0.8116024850490863
+    },
+    "signal_feature_full_worst_macro_f1": 0.5371724121909445,
+    "simple_cnn_full_mean_macro_f1": 0.8200220629814583,
+    "window_position_extra_trees_mean_macro_f1": 0.22982151076248117
+  },
+  "reasons": [],
+  "signal_learnability_passed": true,
+  "status": "PASS"
+}

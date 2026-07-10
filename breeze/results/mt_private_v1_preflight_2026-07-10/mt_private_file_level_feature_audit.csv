@@ -1,0 +1,6 @@
+baseline,model,fold,heldout_file_id,n_train,n_val,acc,macro_f1,f1_normal_machining,f1_lead_screw_anomaly,f1_base_imbalance,confusion
+file_level_signal_features,extra_trees,file_id_1,1,12,3,0.6666666666666666,0.5555555555555555,1.0,0.0,0.6666666666666666,"[[1,0,0],[0,0,1],[0,0,1]]"
+file_level_signal_features,extra_trees,file_id_2,2,12,3,1.0,1.0,1.0,1.0,1.0,"[[1,0,0],[0,1,0],[0,0,1]]"
+file_level_signal_features,extra_trees,file_id_4,4,12,3,1.0,1.0,1.0,1.0,1.0,"[[1,0,0],[0,1,0],[0,0,1]]"
+file_level_signal_features,extra_trees,file_id_5,5,12,3,1.0,1.0,1.0,1.0,1.0,"[[1,0,0],[0,1,0],[0,0,1]]"
+file_level_signal_features,extra_trees,file_id_10,10,12,3,0.3333333333333333,0.3333333333333333,0.0,0.0,1.0,"[[0,1,0],[1,0,0],[0,0,1]]"

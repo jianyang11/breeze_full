@@ -20,11 +20,8 @@ from sklearn.metrics import confusion_matrix, f1_score
 
 sys.path.insert(0, str(Path(__file__).parent))
 from config import RESULTS_DIR
-from data_mt import load_mt
+from data_mt import MT_CLASSES, load_mt
 from models import SimpleCNN
-
-
-MT_CLASSES = ["MT-1", "MT-2", "MT-3"]
 
 
 def few_shot_subset(X: np.ndarray, y: np.ndarray, n_per_class: int, rng: np.random.Generator):

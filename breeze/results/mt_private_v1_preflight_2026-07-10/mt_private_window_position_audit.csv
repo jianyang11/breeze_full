@@ -1,0 +1,6 @@
+baseline,model,fold,heldout_file_id,n_train,n_val,acc,macro_f1,f1_normal_machining,f1_lead_screw_anomaly,f1_base_imbalance,confusion
+window_position_only,extra_trees,file_id_1,1,1316,421,0.6033254156769596,0.5652701882210079,0.6958105646630237,1.0,0.0,"[[191,0,0],[0,63,0],[167,0,0]]"
+window_position_only,extra_trees,file_id_2,2,1292,445,0.13258426966292136,0.3333333333333333,0.0,1.0,0.0,"[[0,0,175],[0,59,0],[211,0,0]]"
+window_position_only,extra_trees,file_id_4,4,1436,301,0.23588039867109634,0.12724014336917563,0.0,0.3817204301075269,0.0,"[[0,115,0],[0,71,0],[0,115,0]]"
+window_position_only,extra_trees,file_id_5,5,1424,313,0.2268370607028754,0.1232638888888889,0.0,0.3697916666666667,0.0,"[[0,123,0],[0,71,0],[0,119,0]]"
+window_position_only,extra_trees,file_id_10,10,1480,257,0.0,0.0,0.0,0.0,0.0,"[[0,71,0],[0,0,119],[0,67,0]]"

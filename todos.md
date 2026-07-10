@@ -717,3 +717,17 @@ Python 环境：`breeze/.venv-breeze/bin/python` (`3.12.13`)。所有 Python 命
 - [x] 准备 cover letter 和 highlights：`breeze/paper/cover_letter.md`、`breeze/paper/highlights.txt`。
 - [x] 按目标期刊最新要求检查格式、图分辨率、参考文献格式；见 `breeze/paper/submission_checklist.md`，仍需作者补齐真实作者、基金、利益冲突和 MechaForge 精确参考文献信息。
 - [x] 检查用户下载的 `breeze/els-cas-templates`，确认包含 `cas-sc.cls`、`cas-dc.cls`、`cas-model2-names.bst`；已用本地模板生成并编译 `breeze/paper/main_cas.tex` / `breeze/paper/main_cas.pdf`。
+
+## 9. 私有机床数据集正式实验前审计（2026-07-10）
+
+- [x] 同步 `origin/main` 后开始本轮审计；`main` 与 `origin/main` 为同一提交 `2901557c812195e4368c69a9d0a02cc5ec3f2b56`。
+- [x] 将项目 owner 确认的正式类别映射写入唯一代码源：`1 -> normal_machining`、`2 -> lead_screw_anomaly`、`3 -> base_imbalance`；报告中明确该映射不是 MechaForge PDF 文本来源，也不是波形推断。
+- [x] 新增 zero-API 预审计脚本 `breeze/scripts/mt_private_v1_preflight.py`，按 inventory / split-audit / duplicate-audit / confound-audit / learnability / summarize 断点执行。
+- [x] 新增测试 `breeze/tests/test_mt_private_preflight.py`；`breeze/.venv-breeze/bin/python -m pytest breeze/tests/test_mt_private_preflight.py -q` 通过 10/10。
+- [x] 生成独立结果目录 `breeze/results/mt_private_v1_preflight_2026-07-10/`；扫描 21 个 CSV，4 通道 schema 全部通过，train/test 文件数 15/6，train/test 窗口数 1737/486。
+- [x] 生成 split manifest、exact duplicate 与 nearest-neighbor 审计；exact train/test raw-file duplicates=0，exact train/test window duplicates=0。
+- [x] 完成 train-only LOFO confound 审计；metadata_safe ExtraTrees mean Macro-F1=0.3222，window_position_only mean Macro-F1=0.2298，均低于 0.80 high-risk 阈值。
+- [x] 完成 train-only LOFO learnability 审计；signal_feature_only full mean Macro-F1=0.7981、worst-fold Macro-F1=0.5372；SimpleCNN full mean Macro-F1=0.8200。
+- [x] 最弱类记录：signal_feature_only full 的 mean F1 最低为 `lead_screw_anomaly` 0.6216；worst per-fold F1 也在 `lead_screw_anomaly` 上最低，需在后续 LLM smoke 中重点跟踪。
+- [x] 单独运行 private-MT verifier 到 `breeze/runs/mt_private_v1_preflight_2026-07-10/` 与本轮 results summary；旧 `mt_verifier_c90.json`、旧 pass CSV 未覆盖。
+- [x] `mt_private_preflight_decision.json` 状态为 `PASS`，`allowed_next_stage=llm_smoke`；本轮 API 新增 0，累计 API 仍为 1071。

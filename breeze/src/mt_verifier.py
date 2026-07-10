@@ -1,13 +1,12 @@
 """Training-free verifier for the private machine-tool dataset.
 
-The machine-tool data use four channels (X/Y/Z acceleration + Current). Local
-dataset documentation reports a 4000 Hz acquisition sampling rate, but the
-workspace still does not include machine geometry, spindle speed, or a verified
-mapping from raw prefixes 1/2/3 to physical state names. This verifier therefore
-calibrates only equipment-generic constraints from the train split: time
-statistics, channel energy/correlation structure, smooth spectral-band
-fractions, and normalized PSD-CDF W1 distances. No PU bearing kinematics are
-used here.
+The machine-tool data use four channels (X/Y/Z acceleration + Current). The
+raw class-prefix mapping was confirmed by the project owner on 2026-07-10, but
+the workspace still does not include machine geometry, spindle speed, or feed
+metadata. This verifier therefore calibrates only equipment-generic constraints
+from the train split: time statistics, channel energy/correlation structure,
+smooth spectral-band fractions, and normalized PSD-CDF W1 distances. No PU
+bearing kinematics or unsupported machine-tool frequencies are used here.
 """
 
 from __future__ import annotations
@@ -27,14 +26,28 @@ from scipy.signal import welch
 
 sys.path.insert(0, str(Path(__file__).parent))
 from config import RESULTS_DIR, RUNS_DIR
-from data_mt import MT_DIR, STRIDE_MT, TEST_FILES, TRAIN_FILES, WIN_MT
+from data_mt import (
+    CLASS_ID_TO_DISPLAY_NAME,
+    CLASS_ID_TO_NAME,
+    CLASS_MAPPING_CONFIRMED_DATE,
+    CLASS_MAPPING_SOURCE,
+    CLASS_MAPPING_STATUS,
+    MT_CHANNELS,
+    MT_CLASSES,
+    MT_DIR,
+    MT_SAMPLING_RATE_HZ,
+    RAW_CLASS_IDS,
+    STRIDE_MT,
+    TEST_FILES,
+    TRAIN_FILES,
+    WIN_MT,
+    class_name_to_raw_id,
+    normalize_mt_class,
+    parse_mt_filename,
+)
 from verifier.features import time_stats
 
 
-MT_CLASSES = ["MT-1", "MT-2", "MT-3"]
-RAW_CLASS_IDS = ["1", "2", "3"]
-MT_CHANNELS = ["X", "Y", "Z", "Current"]
-MT_SAMPLING_RATE_HZ = 4000.0
 STAT_KEYS = ["rms", "peak", "std", "kurtosis", "skewness", "crest"]
 NORM_SPEC_BANDS = 8
 
@@ -65,8 +78,10 @@ def load_mt_with_files(split: str) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     Xs, ys, files = [], [], []
     wanted = TRAIN_FILES if split == "train" else TEST_FILES
     for f in sorted(glob.glob(str(MT_DIR / "*.csv"))):
-        base = os.path.basename(f).replace("_pre", "").replace(".csv", "")
-        cls_id, fid = base.split("_")
+        parsed = parse_mt_filename(f)
+        if not parsed["parse_ok"]:
+            raise ValueError(f"invalid private machine-tool filename: {f}")
+        cls_id, fid = str(parsed["raw_class_id"]), str(parsed["file_id"])
         if fid not in wanted:
             continue
         d = np.genfromtxt(f, delimiter=",", skip_header=1)
@@ -228,12 +243,20 @@ class MachineToolVerifier:
                 "frequency_axis": "normalized cycles/sample for verifier gates; acquisition sampling rate is 4000 Hz",
                 "class_names": MT_CLASSES,
                 "raw_class_ids": RAW_CLASS_IDS,
+                "class_id_to_name": CLASS_ID_TO_NAME,
+                "class_id_to_display_name": CLASS_ID_TO_DISPLAY_NAME,
                 "documented_operating_states": [
-                    "normal machining",
-                    "lead-screw anomaly",
-                    "base imbalance",
+                    "Normal machining",
+                    "Lead-screw anomaly",
+                    "Base imbalance",
                 ],
-                "class_mapping_status": "raw prefixes 1/2/3 are not yet mapped to documented state names",
+                "class_mapping_status": CLASS_MAPPING_STATUS,
+                "class_mapping_source": CLASS_MAPPING_SOURCE,
+                "class_mapping_confirmed_date": CLASS_MAPPING_CONFIRMED_DATE,
+                "class_mapping_note": (
+                    "This mapping is confirmed by the project owner, not by the "
+                    "published MechaForge PDF text and not inferred from waveforms."
+                ),
             },
             "feature_names": names,
             "classes": {},
@@ -281,6 +304,8 @@ class MachineToolVerifier:
 
             self.calib["classes"][cls] = {
                 "raw_class_id": RAW_CLASS_IDS[ci],
+                "class_name": cls,
+                "display_name": CLASS_ID_TO_DISPLAY_NAME[RAW_CLASS_IDS[ci]],
                 "n_train": int(len(Wc)),
                 "train_files": sorted(np.unique(fc).tolist()),
                 "stats_quantile": {
@@ -315,8 +340,16 @@ class MachineToolVerifier:
             }
 
     def verify(self, w: np.ndarray, cls: str) -> dict[str, Any]:
+        class_name = normalize_mt_class(cls)
+        raw_class_id = class_name_to_raw_id(class_name)
+        class_key = class_name
+        legacy_key = f"MT-{raw_class_id}"
+        if class_key not in self.calib.get("classes", {}) and legacy_key in self.calib.get("classes", {}):
+            class_key = legacy_key
         report: dict[str, Any] = {
-            "class": cls,
+            "class": class_name,
+            "raw_class_id": raw_class_id,
+            "display_name": CLASS_ID_TO_DISPLAY_NAME[raw_class_id],
             "schema": "machine_tool_4ch",
             "feasible": True,
             "gates": {},
@@ -342,7 +375,7 @@ class MachineToolVerifier:
         if sanity_messages:
             return _tolist(report)
 
-        cal = self.calib["classes"][cls]
+        cal = self.calib["classes"][class_key]
 
         stats = stat_vector(w)
         stats_lo = np.asarray(cal["stats_quantile"]["lo"])
@@ -467,6 +500,8 @@ def summarize_reports(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
             row = {
                 "split": split,
                 "class": cls,
+                "raw_class_id": class_name_to_raw_id(cls),
+                "display_name": CLASS_ID_TO_DISPLAY_NAME[class_name_to_raw_id(cls)],
                 "n": len(sub),
                 "pass_rate": sum(r["feasible"] for r in sub) / len(sub),
             }
@@ -494,12 +529,16 @@ def write_eval_outputs(
             rows.append({
                 "split": split,
                 "class": cls,
+                "raw_class_id": report["raw_class_id"],
+                "display_name": report["display_name"],
                 "feasible": bool(report["feasible"]),
                 "failed_gates": failed,
             })
             detail_rows.append({
                 "split": split,
                 "class": cls,
+                "raw_class_id": report["raw_class_id"],
+                "display_name": report["display_name"],
                 "index": idx,
                 "file_id": fid,
                 "feasible": bool(report["feasible"]),
