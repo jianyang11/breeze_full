@@ -1,0 +1,7 @@
+comparison,holm_q,mean_delta,metric,n_real,p_raw
+s_b_carrier_mix>noise_aug,1.0,-0.08287937743190661,acc,10,0.9990234375
+s_b_carrier_mix>noise_aug,1.0,-0.07870238110667457,macro_f1,10,0.9990234375
+s_b_carrier_mix>noise_aug,1.0,-0.05019455252918287,acc,25,0.9970703125
+s_b_carrier_mix>noise_aug,1.0,-0.050506694802068576,macro_f1,25,0.9970703125
+s_b_carrier_mix>noise_aug,0.10546875,0.02373540856031131,acc,50,0.017578125
+s_b_carrier_mix>noise_aug,1.0,0.011235627236624367,macro_f1,50,0.2158203125

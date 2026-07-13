@@ -1,0 +1,53 @@
+{
+  "api_requests": 0,
+  "cells": [
+    {
+      "candidate": 0.2591439688715953,
+      "candidate_ge_noise": false,
+      "metric": "acc",
+      "n_real": 10,
+      "noise_aug": 0.3003891050583657
+    },
+    {
+      "candidate": 0.2690261618748598,
+      "candidate_ge_noise": false,
+      "metric": "macro_f1",
+      "n_real": 10,
+      "noise_aug": 0.2883745469119584
+    },
+    {
+      "candidate": 0.33229571984435796,
+      "candidate_ge_noise": true,
+      "metric": "acc",
+      "n_real": 25,
+      "noise_aug": 0.3116731517509727
+    },
+    {
+      "candidate": 0.31732860495955334,
+      "candidate_ge_noise": true,
+      "metric": "macro_f1",
+      "n_real": 25,
+      "noise_aug": 0.3036242498194546
+    },
+    {
+      "candidate": 0.4101167315175097,
+      "candidate_ge_noise": true,
+      "metric": "acc",
+      "n_real": 50,
+      "noise_aug": 0.3653696498054474
+    },
+    {
+      "candidate": 0.4015890479268699,
+      "candidate_ge_noise": true,
+      "metric": "macro_f1",
+      "n_real": 50,
+      "noise_aug": 0.3743638868388087
+    }
+  ],
+  "cells_at_least_noise_aug": 4,
+  "formal_test_files_read": 0,
+  "method": "s_a_directional",
+  "next_allowed_stage": "conditional_s_c_or_failure_analysis",
+  "status": "BLOCKED",
+  "total_cells": 6
+}
