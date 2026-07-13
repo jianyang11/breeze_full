@@ -43,7 +43,8 @@ ALL_MORPHOLOGY_FEATURES = (
 DEMODULATION_BANDS = {"OR": (600.0, 1200.0), "IR": (3000.0, 3600.0)}
 INTERVAL_QUANTILES = (0.05, 0.95)
 LOO_MULTIPLIER = 2.0
-PHYSICAL_FAULT_LOWER_Q = 0.01
+ENVELOPE_FAULT_LOWER_Q = 0.10
+MCSA_FAULT_LOWER_Q = 0.01
 PHYSICAL_HEALTHY_UPPER_Q = 0.99
 
 
@@ -104,6 +105,8 @@ def _envelope_evidence(vibration: np.ndarray, cls: str, freqs: dict[str, float])
     df = float(f[1] - f[0])
     tolerance = max(2.0 * df, 0.02 * f0)
     fundamental = env_peak_metrics(f, spectrum, f0, tolerance)
+    competing_hz = float(freqs["BPFI"] if cls == "OR" else freqs["BPFO"])
+    competing = env_peak_metrics(f, spectrum, competing_hz, max(2.0 * df, 0.02 * competing_hz))
     shaft = env_peak_metrics(f, spectrum, float(freqs["fr"]), tolerance)
     return {
         "target_hz": f0,
@@ -111,6 +114,9 @@ def _envelope_evidence(vibration: np.ndarray, cls: str, freqs: dict[str, float])
         "fund_prominence": float(fundamental["prominence"]),
         "fund_peak_hz": float(fundamental["peak_freq"]),
         "fund_proximity_err_hz": float(fundamental["proximity_err"]),
+        "competing_hz": competing_hz,
+        "competing_prominence": float(competing["prominence"]),
+        "rate_contrast": float(np.log1p(fundamental["prominence"]) - np.log1p(competing["prominence"])),
         "shaft_prominence": float(shaft["prominence"]),
     }
 
@@ -244,35 +250,43 @@ def _physical_calibration(
     y_train: np.ndarray,
     condition_labels: np.ndarray,
     source_conditions: list[str],
+    target_condition: str,
     vector_current_fn: Callable[..., dict[str, float]],
 ) -> dict[str, Any]:
     physical: dict[str, Any] = {"healthy": {"healthy_absence": {}}}
     healthy_index = CLASSES.index("healthy")
     for fault in ("OR", "IR"):
         fault_index = CLASSES.index(fault)
-        fault_env, fault_mcsa, healthy_env, healthy_mcsa = [], [], [], []
+        fault_env, fault_contrast, fault_mcsa, healthy_env, healthy_mcsa = [], [], [], [], []
         for condition in source_conditions:
-            freqs = _fault_freqs(condition)
+            source_freqs = _fault_freqs(condition)
+            target_freqs = _fault_freqs(target_condition)
             fault_windows = X_train[(y_train == fault_index) & (condition_labels == condition)]
             healthy_windows = X_train[(y_train == healthy_index) & (condition_labels == condition)]
             for window in fault_windows:
-                fault_env.append(_envelope_evidence(window[0], fault, freqs)["fund_prominence"])
-                fault_mcsa.append(vector_current_fn(window[1], window[2], freqs, fault)["sideband_prominence"])
+                evidence = _envelope_evidence(window[0], fault, source_freqs)
+                fault_env.append(evidence["fund_prominence"])
+                fault_contrast.append(evidence["rate_contrast"])
+                fault_mcsa.append(vector_current_fn(window[1], window[2], source_freqs, fault)["sideband_prominence"])
             for window in healthy_windows:
-                healthy_env.append(_envelope_evidence(window[0], fault, freqs)["fund_prominence"])
-                healthy_mcsa.append(vector_current_fn(window[1], window[2], freqs, fault)["sideband_prominence"])
-        env_fault_floor = float(np.quantile(fault_env, PHYSICAL_FAULT_LOWER_Q))
+                # Healthy has no observed bearing-fault rate.  Its false target
+                # evidence must therefore be calibrated at the target rate.
+                healthy_env.append(_envelope_evidence(window[0], fault, target_freqs)["fund_prominence"])
+                healthy_mcsa.append(vector_current_fn(window[1], window[2], target_freqs, fault)["sideband_prominence"])
+        env_fault_floor = float(np.quantile(fault_env, ENVELOPE_FAULT_LOWER_Q))
+        contrast_fault_floor = float(np.quantile(fault_contrast, ENVELOPE_FAULT_LOWER_Q))
         env_healthy_ceiling = float(np.quantile(healthy_env, PHYSICAL_HEALTHY_UPPER_Q))
-        mc_fault_floor = float(np.quantile(fault_mcsa, PHYSICAL_FAULT_LOWER_Q))
+        mc_fault_floor = float(np.quantile(fault_mcsa, MCSA_FAULT_LOWER_Q))
         mc_healthy_ceiling = float(np.quantile(healthy_mcsa, PHYSICAL_HEALTHY_UPPER_Q))
         physical[fault] = {
             "envelope_fault_floor": env_fault_floor,
+            "envelope_contrast_floor": contrast_fault_floor,
             "envelope_healthy_ceiling": env_healthy_ceiling,
-            "envelope_quantiles": {"fault_lower": PHYSICAL_FAULT_LOWER_Q, "healthy_upper": PHYSICAL_HEALTHY_UPPER_Q},
+            "envelope_quantiles": {"fault_lower": ENVELOPE_FAULT_LOWER_Q, "healthy_upper": PHYSICAL_HEALTHY_UPPER_Q},
             "mcsa_fault_floor": mc_fault_floor,
             "mcsa_healthy_ceiling": mc_healthy_ceiling,
             "mcsa_hard_gate": bool(mc_fault_floor > mc_healthy_ceiling),
-            "mcsa_quantiles": {"fault_lower": PHYSICAL_FAULT_LOWER_Q, "healthy_upper": PHYSICAL_HEALTHY_UPPER_Q},
+            "mcsa_quantiles": {"fault_lower": MCSA_FAULT_LOWER_Q, "healthy_upper": PHYSICAL_HEALTHY_UPPER_Q},
         }
         physical["healthy"]["healthy_absence"][fault] = {
             "prominence_ceiling": env_healthy_ceiling,
@@ -349,7 +363,7 @@ def calibrate_extrapolation(
             "condition_scale": _condition_scale(),
         },
         "classes": classes,
-        "physical": _physical_calibration(X_train, y_train, labels, sources, vector_current_fn),
+        "physical": _physical_calibration(X_train, y_train, labels, sources, target, vector_current_fn),
         "report_only": _report_only_calibration(X_train, y_train, soft_band_fn, psd_cdf_fn, psd_w1_fn, stat_vector_fn),
         "boundary": _boundary_payload(boundary),
     }, boundary)
@@ -452,16 +466,25 @@ def verify_extrapolation(
     if cls in ("OR", "IR"):
         evidence = _envelope_evidence(w[0], cls, freqs)
         floor = float(physical[cls]["envelope_fault_floor"])
+        contrast_floor = float(physical[cls]["envelope_contrast_floor"])
         position_pass = bool(evidence["fund_proximity_err_hz"] <= evidence["tolerance_hz"])
-        envelope_pass = bool(position_pass and evidence["fund_prominence"] >= floor)
+        envelope_pass = bool(
+            position_pass
+            and evidence["fund_prominence"] >= floor
+            and evidence["rate_contrast"] >= contrast_floor
+        )
         report["gates"]["envelope_kinematics"] = {
             "passed": envelope_pass,
             "messages": [] if envelope_pass else [
-                f"{cls} envelope peak {evidence['fund_peak_hz']:.3f} Hz / prominence {evidence['fund_prominence']:.3f} fails strict target-rate evidence"
+                f"{cls} envelope peak {evidence['fund_peak_hz']:.3f} Hz / prominence {evidence['fund_prominence']:.3f} / rate contrast {evidence['rate_contrast']:.3f} fails strict target-rate evidence"
             ],
-            "boundary_source": "strict_fixed_demodulation_band_target_kinematics_source_q01_evidence",
+            "boundary_source": "strict_fixed_demodulation_band_target_kinematics_source_q10_evidence_and_rate_contrast",
         }
-        report["scores"]["envelope_kinematics"] = {**evidence, "source_q01_floor": floor}
+        report["scores"]["envelope_kinematics"] = {
+            **evidence,
+            "source_q10_prominence_floor": floor,
+            "source_q10_rate_contrast_floor": contrast_floor,
+        }
         report["feasible"] = report["feasible"] and envelope_pass
 
         mcsa = vector_current_fn(w[1], w[2], freqs, cls)
