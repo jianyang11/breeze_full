@@ -1445,8 +1445,8 @@ repair enters Layer 3; a certificate cleanly distinguishes `pass`, `fail`, and
 - [x] Define S-A from inner-train only: select the strongest signed pairwise class-difference features already reported by the frozen normalized soft-band/statistics extractor; use deterministic target-class IAAFT carriers and fixed, feature-directional renderer gains rather than an LLM or physical-frequency assumption.
 - [x] Define S-B from inner-train only: mix two nonidentical target-class real carriers through the same deterministic surrogate renderer; retain target class label, source-carrier hashes/IDs inside run manifests, and no cross-class carrier borrowing.
 - [x] Keep the existing `MachineToolVerifier` and its existing ExtraTrees class-identity audit unchanged as exploratory admission components; record that neither is a component-physics certificate.
-- [ ] Add a v3 entry point with independent `prepare`, `audit`, `smoke`, `pool`, `downstream`, and `summarize` checkpoints, deterministic seeds, dedicated v3 run/result paths, and no write to any frozen v1/v2 artifact.
-- [ ] Add unit tests for formal-file guards, target-class-only carriers, signed directional rendering, no exact real/synthetic duplicate, all four admission controls, resume keys, and deterministic small-pool construction.
+- [x] Add a v3 entry point with independent `prepare`, `audit`, `smoke`, `pool`, `downstream`, and `summarize` checkpoints, deterministic seeds, dedicated v3 run/result paths, and no write to any frozen v1/v2 artifact.
+- [x] Add unit tests for formal-file guards, target-class-only carriers, signed directional rendering, no exact real/synthetic duplicate, all four admission controls, resume keys, and deterministic small-pool construction; focused v2/v3 tests pass `26/26`.
 
 ### 13.2 Admission-audit four-piece gate (must precede downstream)
 
