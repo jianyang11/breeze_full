@@ -1431,6 +1431,7 @@ repair enters Layer 3; a certificate cleanly distinguishes `pass`, `fail`, and
 - [x] Read the private-MT v1 preflight reports, v2 smoke report, v2 failure analysis, v2 inner-train class-difference report, PU-v5 S4 failure analysis, and the active todo boundary in that order.
 - [x] Correct the v2 causal statement: all three five-sample closed-loop pools were admitted; `BLOCKED` was caused by the downstream core gate (`0/6` versus real/noise), not an empty/admission-rejected pool.
 - [x] Search the local `合成数据sci` project tree for factual spindle speed, feed, lead/pitch or transmission, sensor mounting, current definition, sampling, and file-to-operation records; distinguish direct evidence from missing fields and never infer a physical order from waveform appearance or filenames.
+- [x] Inspect the owner-supplied earlier project copy at `Desktop/code/时序检测`; establish same-dataset SHA-256 provenance, record that its `datasets_test/` view is duplicate data, and exclude unassigned IDs `11/13/14` pending an owner split decision.
 - [x] Write and freeze an auditable v3 machine-tool data-card search record with a field-by-field provenance table, exact local search scope, and an explicit `unavailable` status for every absent physical datum.
 - [x] Keep file IDs `7/8` unread during all v3 development, calibration, candidate selection, and diagnostics; retain a loader-level hard error for any attempted access.
 - [x] Lock the only development split: per class IDs `1/2/4/5` inner train and ID `10` inner validation; prohibit all tuning on formal files.
