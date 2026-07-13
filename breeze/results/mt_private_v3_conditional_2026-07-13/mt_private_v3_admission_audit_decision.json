@@ -1,0 +1,52 @@
+{
+  "api_requests": 0,
+  "constant_admitted": 0,
+  "constant_total": 300,
+  "controls_per_class": 100,
+  "formal_test_files_read": 0,
+  "next_allowed_stage": "s_a_s_b_smoke",
+  "real_carrier": [
+    {
+      "all_sources_nonzero": true,
+      "class_name": "normal_machining",
+      "core_admission_rate": 0.9337748344370861,
+      "n": 604,
+      "source_rates": {
+        "1_1": 0.93717277486911,
+        "1_2": 0.9085714285714286,
+        "1_4": 0.9217391304347826,
+        "1_5": 0.975609756097561
+      }
+    },
+    {
+      "all_sources_nonzero": true,
+      "class_name": "lead_screw_anomaly",
+      "core_admission_rate": 0.9318181818181818,
+      "n": 264,
+      "source_rates": {
+        "2_1": 0.8253968253968254,
+        "2_2": 1.0,
+        "2_4": 0.9577464788732394,
+        "2_5": 0.9436619718309859
+      }
+    },
+    {
+      "all_sources_nonzero": true,
+      "class_name": "base_imbalance",
+      "core_admission_rate": 0.9330065359477124,
+      "n": 612,
+      "source_rates": {
+        "3_1": 0.9700598802395209,
+        "3_2": 0.8909952606635071,
+        "3_4": 0.9652173913043478,
+        "3_5": 0.9243697478991597
+      }
+    }
+  ],
+  "real_carrier_min_rate": 0.8,
+  "status": "PASS",
+  "white_noise_admitted": 0,
+  "white_noise_total": 300,
+  "wrong_label_admitted": 0,
+  "wrong_label_total": 2960
+}

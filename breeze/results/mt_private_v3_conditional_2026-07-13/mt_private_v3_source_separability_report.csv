@@ -1,0 +1,10 @@
+count,identity_prediction,mean_asserted_probability,source_class
+564,normal_machining,0.9337748344370861,normal_machining
+0,lead_screw_anomaly,0.9337748344370861,normal_machining
+0,base_imbalance,0.9337748344370861,normal_machining
+0,normal_machining,0.9318181818181818,lead_screw_anomaly
+246,lead_screw_anomaly,0.9318181818181818,lead_screw_anomaly
+0,base_imbalance,0.9318181818181818,lead_screw_anomaly
+0,normal_machining,0.9330065359477124,base_imbalance
+0,lead_screw_anomaly,0.9330065359477124,base_imbalance
+571,base_imbalance,0.9330065359477124,base_imbalance

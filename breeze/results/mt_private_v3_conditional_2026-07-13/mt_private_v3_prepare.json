@@ -1,0 +1,39 @@
+{
+  "api_requests": 0,
+  "files_read": [
+    "1_1_pre.csv",
+    "1_2_pre.csv",
+    "1_4_pre.csv",
+    "1_5_pre.csv",
+    "2_1_pre.csv",
+    "2_2_pre.csv",
+    "2_4_pre.csv",
+    "2_5_pre.csv",
+    "3_1_pre.csv",
+    "3_2_pre.csv",
+    "3_4_pre.csv",
+    "3_5_pre.csv"
+  ],
+  "forbidden_file_ids": [
+    "7",
+    "8"
+  ],
+  "formal_test_files_read": 0,
+  "inner_train_file_ids": [
+    "1",
+    "2",
+    "4",
+    "5"
+  ],
+  "inner_validation_file_id": "10",
+  "renderer_constants": {
+    "direction_clip": 2.0,
+    "direction_gain_strength": 0.08,
+    "max_attempts_per_class": 80,
+    "mix_alphas": [
+      0.35,
+      0.5,
+      0.65
+    ]
+  }
+}

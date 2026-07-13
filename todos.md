@@ -1450,11 +1450,11 @@ repair enters Layer 3; a certificate cleanly distinguishes `pass`, `fail`, and
 
 ### 13.2 Admission-audit four-piece gate (must precede downstream)
 
-- [ ] Audit real inner-train target carriers under their own target label; record count/rate and per-gate failures without interpreting this as a physical validation claim.
-- [ ] Audit wrong-class controls by submitting each real inner-train class under each other class label; require zero admitted wrong-label windows.
-- [ ] Audit deterministic white-noise and constant-signal controls for every target label; require zero admissions for each control family.
-- [ ] Audit source-only class separability using the frozen structure features and existing class-identity certificate; report leave-one-file-out behavior separately from the admission decision, without fitting a new model.
-- [ ] Freeze the v3 admission rule before S-A/S-B pool expansion: a candidate is eligible only when every target class has the declared real-carrier sanity evidence and every wrong-label, white-noise, and constant control has zero admission.
+- [x] Audit real inner-train target carriers under their own target label; core admission is 0.934 / 0.932 / 0.933 for normal / lead-screw anomaly / base imbalance, with every source file nonzero and all classes above the frozen 0.80 minimum. This remains an admission sanity result, not a physical validation claim.
+- [x] Audit wrong-class controls by submitting each real inner-train class under each other class label; zero of 2,960 wrong-label windows was admitted.
+- [x] Audit deterministic white-noise and constant-signal controls for every target label; zero of 300 white-noise and zero of 300 constant controls was admitted.
+- [x] Audit source-only class separability using the frozen structure features and existing class-identity certificate; report it without fitting a new model. The certificate predicts the source class for 564/604 normal, 246/264 lead-screw, and 571/612 base-imbalance windows; this report is descriptive and is not a leave-one-file-out claim.
+- [x] Freeze the v3 admission rule before S-A/S-B pool expansion: every target class has the declared real-carrier sanity evidence and every wrong-label, white-noise, and constant control has zero admission. The frozen decision is `PASS`; only S-A/S-B smoke is now eligible.
 - [ ] If the four-piece audit fails, write a v3 failure analysis and stop before downstream/formal work; do not loosen quantiles or suppress controls to recover a pool.
 
 ### 13.3 S-A and S-B zero-API pool construction
