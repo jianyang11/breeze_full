@@ -55,6 +55,12 @@ class PrivateMachineToolV3ConditionalTests(unittest.TestCase):
         self.assertEqual(v3.FORBIDDEN_FILE_IDS, {"7", "8"})
         self.assertEqual(v3.CONTROLS_PER_CLASS, 100)
         self.assertEqual(v3.MAX_ATTEMPTS_PER_CLASS, 80)
+        self.assertEqual(v3.DOWNSTREAM_N_SYN_BY_N_REAL, {10: 10, 25: 20, 50: 20})
+        self.assertEqual(v3.n_syn_for_n_real(10), 10)
+        self.assertEqual(v3.n_syn_for_n_real(25), 20)
+        self.assertEqual(v3.n_syn_for_n_real(50), 20)
+        with self.assertRaises(ValueError):
+            v3.n_syn_for_n_real(5)
 
     def test_directional_profile_is_renderer_bounded(self) -> None:
         for cls in v3.MT_CLASSES:

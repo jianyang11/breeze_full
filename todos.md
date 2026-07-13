@@ -1467,7 +1467,8 @@ repair enters Layer 3; a certificate cleanly distinguishes `pass`, `fail`, and
 
 ### 13.4 Internal downstream comparison and conditional S-C/S-E
 
-- [ ] Compare each eligible S-A/S-B pool against `real_only` and `noise_aug` on inner validation only, with `n_real={10,25,50}`, ten fixed seeds, target-class-balanced `n_syn=20/class`, fixed model/training settings, Acc, Macro-F1, per-class F1, confusion matrices, and paired Wilcoxon/Holm summaries.
+- [x] Freeze and commit downstream amendment 1 before any metric is produced: use target-class-balanced `n_syn=10/class` for `n_real=10`, and `n_syn=20/class` for `n_real=25/50`, identically for every non-real method. This preserves the low-shot cell and the existing no-replacement `noise_aug` definition.
+- [ ] Compare each eligible S-A/S-B pool against `real_only` and `noise_aug` on inner validation only, with `n_real={10,25,50}`, ten fixed seeds, the amended target-class-balanced synthetic-budget mapping, fixed model/training settings, Acc, Macro-F1, per-class F1, confusion matrices, and paired Wilcoxon/Holm summaries.
 - [ ] Predeclare S-A/S-B success as mean Acc and mean Macro-F1 each at least `noise_aug` in at least five of the six `(shot, metric)` cells; report all cells rather than selecting a favorable shot count.
 - [ ] Enable S-C only if a zero-API candidate passes all four admission controls and fills its pool but fails the inner downstream gate; before any request, write an API budget plan, confirm `DASHSCOPE_API_KEY` configuration without exposing a secret, and obtain/record explicit user authorization if credentials or endpoint configuration are unresolved.
 - [ ] For any activated S-C run, cap cumulative v3 requests at 100, count HTTP/format failures, retain the same renderer/admission/audit/downstream rules, and forbid repair of rejected waveforms.

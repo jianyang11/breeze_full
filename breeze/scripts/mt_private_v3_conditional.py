@@ -62,7 +62,8 @@ DIRECTION_CLIP = 2.0
 MIX_ALPHAS = (0.35, 0.50, 0.65)
 DOWNSTREAM_SEEDS = 10
 DOWNSTREAM_N_REALS = (10, 25, 50)
-DOWNSTREAM_N_SYN = 20
+POOL_N_SYN = 20
+DOWNSTREAM_N_SYN_BY_N_REAL = {10: 10, 25: 20, 50: 20}
 
 
 def json_ready(value: Any) -> Any:
@@ -462,7 +463,7 @@ def pool_is_balanced(method: str, target_per_class: int) -> bool:
     return bool(json.loads(decision_path.read_text()).get("balanced"))
 
 
-def load_pool(method: str, target_per_class: int = DOWNSTREAM_N_SYN) -> dict[str, np.ndarray]:
+def load_pool(method: str, target_per_class: int = POOL_N_SYN) -> dict[str, np.ndarray]:
     if not pool_is_balanced(method, target_per_class):
         raise RuntimeError(f"balanced {method} n={target_per_class} pool is unavailable")
     pools: dict[str, np.ndarray] = {}
@@ -497,22 +498,30 @@ def _append_csv(path: Path, fields: list[str], rows: list[dict[str, Any]]) -> No
 DOWNSTREAM_FIELDS = ["method", "n_real", "n_syn", "seed", "train_sample_count", "acc", "macro_f1", *[f"f1_{cls}" for cls in MT_CLASSES], "confusion"]
 
 
+def n_syn_for_n_real(n_real: int) -> int:
+    try:
+        return DOWNSTREAM_N_SYN_BY_N_REAL[n_real]
+    except KeyError as exc:
+        raise ValueError(f"no preregistered synthetic budget for n_real={n_real}") from exc
+
+
 def run_downstream(context: Context, method: str) -> list[dict[str, Any]]:
     pool = load_pool(method)
     X_val, y_val, _, _, _, files_read = load_inner_validation()
     if any(any(file_id in name for file_id in FORBIDDEN_FILE_IDS) for name in files_read):
         raise RuntimeError("formal private-MT file was loaded")
-    static_x = np.concatenate([pool[cls] for cls in MT_CLASSES])
-    static_y = np.concatenate([np.full(DOWNSTREAM_N_SYN, ci, dtype=np.int64) for ci in range(len(MT_CLASSES))])
     path = OUT_DIR / f"mt_private_v3_{method}_downstream.csv"
     prior = read_csv(path)
     done = {(row["method"], int(row["n_real"]), int(row["seed"])) for row in prior}
     class_std = {cls: context.templates[cls].std(axis=(0, 2)) for cls in MT_CLASSES}
     rows: list[dict[str, Any]] = []
     for n_real in DOWNSTREAM_N_REALS:
+        n_syn = n_syn_for_n_real(n_real)
+        static_x = np.concatenate([pool[cls][:n_syn] for cls in MT_CLASSES])
+        static_y = np.concatenate([np.full(n_syn, ci, dtype=np.int64) for ci in range(len(MT_CLASSES))])
         for seed in range(DOWNSTREAM_SEEDS):
             X_real, y_real = sample_real_subset(context.dev.X_train, context.dev.y_train, n_real, seed)
-            X_noise, y_noise = noise_augment(X_real, y_real, DOWNSTREAM_N_SYN, seed, class_std)
+            X_noise, y_noise = noise_augment(X_real, y_real, n_syn, seed, class_std)
             methods = {
                 "real_only": (X_real, y_real),
                 "noise_aug": (np.concatenate([X_real, X_noise]), np.concatenate([y_real, y_noise])),
@@ -528,7 +537,7 @@ def run_downstream(context: Context, method: str) -> list[dict[str, Any]]:
                 rows.append({
                     "method": method_name,
                     "n_real": n_real,
-                    "n_syn": DOWNSTREAM_N_SYN if method_name != "real_only" else 0,
+                    "n_syn": n_syn if method_name != "real_only" else 0,
                     "seed": seed,
                     "train_sample_count": len(y_train),
                     "acc": float(accuracy_score(y_val, predicted)),
