@@ -372,6 +372,19 @@ def pool_manifest_path(method: str, target_per_class: int) -> Path:
     return _pool_dir(method, target_per_class) / "manifest.csv"
 
 
+def row_is_accepted(row: dict[str, Any]) -> bool:
+    """Interpret an in-memory boolean and a CSV-reloaded manifest consistently."""
+    value = row["accepted"]
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, str):
+        if value == "True":
+            return True
+        if value == "False":
+            return False
+    raise ValueError(f"invalid manifest accepted value: {value!r}")
+
+
 def build_pool(context: Context, method: str, target_per_class: int) -> dict[str, Any]:
     if target_per_class not in {1, 5, 20}:
         raise ValueError("target_per_class must be one of 1, 5, 20")
@@ -387,7 +400,7 @@ def build_pool(context: Context, method: str, target_per_class: int) -> dict[str
     render = _renderer(method)
     for cls in MT_CLASSES:
         existing = [row for row in rows if row["class_name"] == cls]
-        accepted = [row for row in existing if row["accepted"] == "True"]
+        accepted = [row for row in existing if row_is_accepted(row)]
         hashes = {str(row["candidate_sha256"]) for row in accepted}
         done_attempts = {int(row["attempt"]) for row in existing}
         for attempt in range(MAX_ATTEMPTS_PER_CLASS):
@@ -426,7 +439,7 @@ def build_pool(context: Context, method: str, target_per_class: int) -> dict[str
     write_csv(manifest, rows)
     selected: dict[str, list[dict[str, Any]]] = {}
     for cls in MT_CLASSES:
-        selected[cls] = sorted((row for row in rows if row["class_name"] == cls and row["accepted"] == "True"), key=lambda row: int(row["attempt"]))[:target_per_class]
+        selected[cls] = sorted((row for row in rows if row["class_name"] == cls and row_is_accepted(row)), key=lambda row: int(row["attempt"]))[:target_per_class]
     counts = {cls: len(selected[cls]) for cls in MT_CLASSES}
     decision = {
         "method": method,
@@ -454,7 +467,7 @@ def load_pool(method: str, target_per_class: int = DOWNSTREAM_N_SYN) -> dict[str
         raise RuntimeError(f"balanced {method} n={target_per_class} pool is unavailable")
     pools: dict[str, np.ndarray] = {}
     for cls in MT_CLASSES:
-        rows = sorted((row for row in read_csv(pool_manifest_path(method, target_per_class)) if row["class_name"] == cls and row["accepted"] == "True"), key=lambda row: int(row["attempt"]))[:target_per_class]
+        rows = sorted((row for row in read_csv(pool_manifest_path(method, target_per_class)) if row["class_name"] == cls and row_is_accepted(row)), key=lambda row: int(row["attempt"]))[:target_per_class]
         pools[cls] = np.stack([np.load(RUN_DIR / row["path"]) for row in rows]).astype(np.float32)
     return pools
 

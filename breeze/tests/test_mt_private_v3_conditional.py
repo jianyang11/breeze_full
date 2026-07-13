@@ -110,6 +110,14 @@ class PrivateMachineToolV3ConditionalTests(unittest.TestCase):
             self.assertTrue(v3.pool_is_balanced("s_a_directional", 1))
             v3.OUT_DIR = old_out
 
+    def test_manifest_acceptance_is_stable_before_and_after_csv_reload(self) -> None:
+        self.assertTrue(v3.row_is_accepted({"accepted": True}))
+        self.assertFalse(v3.row_is_accepted({"accepted": False}))
+        self.assertTrue(v3.row_is_accepted({"accepted": "True"}))
+        self.assertFalse(v3.row_is_accepted({"accepted": "False"}))
+        with self.assertRaises(ValueError):
+            v3.row_is_accepted({"accepted": "true"})
+
 
 if __name__ == "__main__":
     unittest.main()

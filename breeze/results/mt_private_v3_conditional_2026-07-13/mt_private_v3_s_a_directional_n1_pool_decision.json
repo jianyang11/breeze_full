@@ -1,0 +1,13 @@
+{
+  "accepted_counts": {
+    "base_imbalance": 1,
+    "lead_screw_anomaly": 1,
+    "normal_machining": 1
+  },
+  "api_requests": 0,
+  "attempt_ceiling_per_class": 80,
+  "balanced": true,
+  "formal_test_files_read": 0,
+  "method": "s_a_directional",
+  "target_per_class": 1
+}
