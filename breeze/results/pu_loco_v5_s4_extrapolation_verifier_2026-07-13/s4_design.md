@@ -78,16 +78,19 @@ presence/absence evidence, not for target-specific background similarity.
 
 For each target verifier, sample 100 source train-bearing healthy windows per
 source condition using the v4 deterministic carrier-audit schedule. The
-predeclared necessary condition is pooled **raw** healthy admission of at
-least 60/100 and no source-condition raw admission below 40/100. Frozen-noise
+predeclared necessary condition is pooled **raw** healthy admission rate at
+least 0.60 (therefore at least 180/300 when three source conditions each
+contribute 100) and no source-condition raw rate below 0.40. Frozen-noise
 admission is reported but does not select a boundary.
 
 The fault transfer audit reports OR and IR separately under the two semantics
 above. It is diagnostic evidence, not a source of threshold tuning. Negative
-controls are mandatory: a real OR window labeled IR, a real IR window labeled
-OR, white-noise windows, and constant windows must all be rejected. If the
-healthy criterion or any negative control fails, no S2/S1 pool is reopened;
-the result is an S4 failure/audit report rather than a relaxed gate.
+controls are mandatory and fixed at **100 windows per target/control**: real
+OR windows labeled IR, real IR windows labeled OR, unit-variance white-noise
+windows labeled as each class, and constant windows labeled as each class must
+all be rejected. If the healthy criterion or any negative control fails, no
+S2/S1 pool is reopened; the result is an S4 failure/audit report rather than a
+relaxed gate.
 
 ## Downstream protocol after a successful sanity audit
 
