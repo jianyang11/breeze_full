@@ -40,13 +40,55 @@ def load_npz(path: Path) -> tuple[np.ndarray, np.ndarray, list[str]]:
     return X, y, class_names
 
 
-def done_keys(path: Path) -> set[tuple[str, str, str, int, int]]:
+NORMALIZATION_MODES = ("none", "per-window-rms")
+
+
+def normalize_per_window_rms(X: np.ndarray) -> np.ndarray:
+    """Normalize each window and channel by its own finite, nonzero RMS.
+
+    This is a representation transform, not an augmentation: it is applied
+    only after a baseline has formed its complete training set, and the same
+    transform is applied independently to every evaluation window.
+    """
+    if X.ndim != 3:
+        raise ValueError(f"expected (windows, channels, samples), got {X.shape}")
+    if not np.isfinite(X).all():
+        raise ValueError("per-window-rms normalization requires finite windows")
+    X64 = X.astype(np.float64, copy=False)
+    rms = np.sqrt(np.mean(X64 * X64, axis=2, keepdims=True))
+    if not np.isfinite(rms).all() or np.any(rms <= 0.0):
+        raise ValueError("per-window-rms normalization requires nonzero finite channel RMS")
+    return (X64 / rms).astype(np.float32)
+
+
+def apply_normalization(X: np.ndarray, mode: str) -> np.ndarray:
+    if mode == "none":
+        return X
+    if mode == "per-window-rms":
+        return normalize_per_window_rms(X)
+    raise ValueError(f"unknown normalization mode: {mode}")
+
+
+def done_keys(path: Path) -> set[tuple[str, str, str, str, int, int]]:
     if not path.exists():
         return set()
     with path.open(newline="") as fh:
+        reader = csv.DictReader(fh)
+        if reader.fieldnames is None or "normalization" not in reader.fieldnames:
+            raise RuntimeError(
+                f"{path} uses the legacy downstream schema without normalization; "
+                "write normalized results to a new CSV"
+            )
         return {
-            (r["dataset"], r["split"], r["baseline"], int(r["n_real"]), int(r["seed"]))
-            for r in csv.DictReader(fh)
+            (
+                r["dataset"],
+                r["split"],
+                r["baseline"],
+                r["normalization"],
+                int(r["n_real"]),
+                int(r["seed"]),
+            )
+            for r in reader
         }
 
 
@@ -142,6 +184,7 @@ def main() -> None:
     parser.add_argument("--n-real", type=int, nargs="+", default=[5, 10])
     parser.add_argument("--n-syn", type=int, default=150)
     parser.add_argument("--epochs", type=int, default=60)
+    parser.add_argument("--normalize", choices=NORMALIZATION_MODES, default="none")
     parser.add_argument("--out", required=True)
     args = parser.parse_args()
 
@@ -154,6 +197,7 @@ def main() -> None:
     n_classes = len(class_names)
     if args.baseline == "custom_pool" and not args.pool:
         raise SystemExit("--pool is required for custom_pool")
+    Xte_eval = apply_normalization(Xte, args.normalize)
 
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
@@ -167,6 +211,7 @@ def main() -> None:
                     "dataset",
                     "split",
                     "baseline",
+                    "normalization",
                     "n_real",
                     "seed",
                     "actual_real_per_class",
@@ -180,7 +225,7 @@ def main() -> None:
             )
         for n_real in args.n_real:
             for seed in range(args.seeds):
-                key = (args.dataset, args.split, args.baseline, n_real, seed)
+                key = (args.dataset, args.split, args.baseline, args.normalize, n_real, seed)
                 if key in done:
                     continue
                 rng = np.random.default_rng(1000 * n_real + seed)
@@ -193,8 +238,9 @@ def main() -> None:
                 else:
                     Xs, ys = sample_pool(Path(args.pool), args.n_syn, n_classes, rng)
                     Xa, ya, n_syn = np.concatenate([Xr, Xs]), np.concatenate([yr, ys]), len(ys)
-                model, mean, std = fit(Xa, ya, seed, args.epochs, n_classes)
-                acc, macro, pred = evaluate(model, mean, std, Xte, yte)
+                Xa_eval = apply_normalization(Xa, args.normalize)
+                model, mean, std = fit(Xa_eval, ya, seed, args.epochs, n_classes)
+                acc, macro, pred = evaluate(model, mean, std, Xte_eval, yte)
                 per = f1_score(yte, pred, average=None, labels=list(range(n_classes)), zero_division=0)
                 cm = confusion_matrix(yte, pred, labels=list(range(n_classes)))
                 writer.writerow(
@@ -202,6 +248,7 @@ def main() -> None:
                         args.dataset,
                         args.split,
                         args.baseline,
+                        args.normalize,
                         n_real,
                         seed,
                         json.dumps(actual, sort_keys=True, separators=(",", ":")),
@@ -215,7 +262,7 @@ def main() -> None:
                 )
                 fh.flush()
                 print(
-                    f"{args.dataset}/{args.split} {args.baseline} n_real={n_real} "
+                    f"{args.dataset}/{args.split} {args.baseline} normalize={args.normalize} n_real={n_real} "
                     f"seed={seed} n_syn={n_syn} acc={acc:.4f} macro_f1={macro:.4f}",
                     flush=True,
                 )
