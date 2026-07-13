@@ -336,6 +336,244 @@ reachable from it; each decision is reproducible from the artifact and report;
 rejected signals are never post-processed into acceptance; generic and
 domain-physics claims are separable in every certificate.
 
+## Framework design: Layer 3 -- metadata-gated domain-physics evidence (planned 2026-07-13)
+
+### Position lock
+
+Layer 3 is not an additional generic classifier and it is not a collection of
+hard-coded frequency bands. It verifies an explicitly declared mechanical
+mechanism after a candidate has passed Layer 0 legality and Layer 2 generic
+structure. A Layer-3 decision is valid only for the tuple `(plugin, mechanism,
+sensor_schema, regime_id, data-card version)`. It must never be promoted to a
+general fault-diagnosis claim outside that tuple.
+
+The only legal results are `pass`, `fail`, and `unavailable`. `unavailable`
+means a required physical measurement, label definition, or independent
+calibration group is absent. It blocks the corresponding physical certificate;
+it is not converted into a generic pass, an inferred frequency, a classifier
+score, or a repaired signal. Layer 2 may still issue its strictly generic
+structural report in that situation.
+
+### Literature basis for the design
+
+- Envelope analysis is appropriate for rolling-bearing local defects because
+  impacts recur at geometry- and speed-derived BPFO/BPFI/BSF/FTF frequencies;
+  the demodulation carrier band must be chosen with the resonance mechanism in
+  mind rather than treating raw-spectrum peaks as the defect itself. Kim, An,
+  and Choi, *Applied Sciences* 10(20), 7302, 2020:
+  https://doi.org/10.3390/app10207302
+- The relationship between spectral-kurtosis indices and squared-envelope
+  evidence supports using a resonance-band family to expose impulsive carrier
+  responses, but it does not support one globally fixed band or a fixed number
+  of selected bands. Antoni and Randall, *Mechanical Systems and Signal
+  Processing* 40(2), 2013:
+  https://doi.org/10.1016/j.ymssp.2013.02.023
+- Motor-current signature analysis can expose mechanical/electrical fault
+  components, but its sidebands depend on motor topology, supply fundamental,
+  load, and measurement configuration. MCSA is therefore optional evidence
+  conditional on documented current channels and train-source separability:
+  https://pmc.ncbi.nlm.nih.gov/articles/PMC11858980/
+- Milling monitoring studies use the rotational/tooth-passing process together
+  with cutting-state measurements; vibration cannot reliably distinguish air
+  cutting from material removal on its own. Thus TPF claims require verified
+  spindle/teeth and an active-cut interval. Mohamad et al., *Machines* 13(4),
+  276, 2025:
+  https://doi.org/10.3390/machines13040276
+- MU-TCM publishes synchronized internal/external signals, cutting-condition
+  information, and wear observations. Its synchronization and experiment
+  provenance are prerequisites for a milling physics claim:
+  https://doi.org/10.1038/s41597-025-05168-5
+- Ball-screw preload-loss experiments report signatures that vary with the
+  feed-drive construction, preload, worktable position, and loading. Some
+  studies track ball-pass frequency/order changes, not a universal 1X rule.
+  Wang et al., *MSSP* 48, 77-91, 2014:
+  https://doi.org/10.1016/j.ymssp.2014.02.017
+  and NIST, *Manufacturing Letters*, 2024:
+  https://doi.org/10.1016/j.mfglet.2024.09.148
+
+### Unified physical-plugin contract
+
+```text
+PhysicsPlugin(
+    CandidateWindow, SensorSchema, PhysicsMetadata, CalibrationArtifact,
+    GenericReport, declared_class, declared_regime
+) -> PhysicsReport
+
+required_metadata() -> typed fields
+validate_metadata() -> valid | unavailable with reasons
+derive_targets() -> mechanism-specific targets and uncertainty intervals
+calibrate(reference_source_groups, calibration_source_groups) -> PhysicsArtifact
+verify(candidate) -> PhysicsReport
+```
+
+`PhysicsArtifact` is frozen separately from the Layer-1 generic artifact but
+must reference its hash, split manifest, feature-definition version, plugin
+version, data-card hash, physical target definitions, reference/calibration
+source IDs, group counts, and exact thresholds. `PhysicsReport` must expose
+the derived targets, observed evidence, uncertainty interval, source-calibrated
+score, decision, and an explicit claim scope.
+
+No plugin may access outer-test sources, synthetic-pool statistics, LLM text,
+or a downstream classifier during calibration. A candidate is physics-admitted
+only when Layer 2 passes and every *required, available* Layer-3 plugin passes.
+No plugin may modify a failed waveform.
+
+### Common calibration algorithm
+
+1. Validate the signed data card and sensor schema before calculating any
+   physical target. Unknown geometry, speed, sensor placement, label meaning,
+   or synchronization produces `unavailable`.
+2. Derive target frequencies/orders and their uncertainty intervals only from
+   typed metadata: geometry, measured speed/position, cutting parameters,
+   acquisition clock, and documented measurement uncertainty. Do not derive a
+   target from the class label or from a candidate spectrum.
+3. On Layer-1 `reference` source groups, calculate the plugin's deterministic
+   evidence vector. A physical evidence definition is fixed before calibration:
+   the declared frequency/order family, frequency-resolution rule,
+   carrier/analysis band family, source-level aggregation, and class/regime
+   mapping.
+4. Use the disjoint Layer-1 `calibration` source groups to form one joint
+   physical nonconformity score per `source_id` and freeze its exact empirical
+   order-statistic threshold. A plugin must record that a requested coverage
+   level is non-vacuous at the available group count.
+5. Report all component scores but decide only with the frozen joint score.
+   Component gates cannot be independently tuned on test data or compensated
+   by a learned class-identity model.
+6. Re-run the plugin against held-out real source groups before any synthetic
+   generation. Report pass rates by class, source, and regime; a physical
+   plugin with systematic real-data failure is invalid rather than a reason to
+   relax its threshold.
+
+### Plugin A: `BearingPhysicsPlugin` for PU and CWRU
+
+Required metadata: bearing geometry (rolling-element count, ball and pitch
+diameter, contact angle), explicit class-to-mechanism mapping, measured RPM or
+RPM interval for every source, vibration channel mapping, sampling rate,
+sensor bandwidth/usable analysis range, and, when MCSA is requested, documented
+motor topology plus a synchronized current-channel pair.
+
+Evidence design:
+
+- Compute BPFO/BPFI/BSF/FTF from geometry and source RPM. Class mapping must
+  come from the data card; no label-synonym lookup is permitted in the formal
+  plugin.
+- Build a deterministic, metadata-bounded resonance-band family. Evaluate the
+  physically targeted envelope evidence over the full family and aggregate it
+  before source-level calibration. Do not retain a hard-coded Top-3
+  spectral-kurtosis selection; calibrating the aggregate over the entire
+  declared family accounts for the selection operation.
+- For a local defect, evaluate target-frequency alignment, fundamental and
+  harmonic evidence, and where the mechanism calls for it, shaft/cage
+  modulation. Frequency tolerance is derived from DFT resolution plus declared
+  RPM/geometry uncertainty; an unrecorded percentage tolerance is prohibited.
+- For a healthy class, score the absence of the same documented fault evidence
+  with its own calibrated healthy distribution; it must not borrow a fault
+  lower bound.
+- MCSA is a separate optional evidence block. It activates only for a declared
+  current sensor topology and only becomes a hard component when calibration
+  sources demonstrate fault-versus-healthy separation. Otherwise its report is
+  `unavailable`, not an automatic pass.
+
+PU uses its documented 6203 geometry and vibration/current schema; CWRU uses
+the drive-end 6205 geometry and its vibration-only schema. CWRU must never
+receive a synthetic current channel or an MCSA decision.
+
+### Plugin B: `MillingPhysicsPlugin` for MU-TCM
+
+Required metadata: experiment and insert-edge IDs, wear observation/VB and
+measurement time, material, cutting speed or measured spindle-speed trace,
+tooth count, feed per tooth or feed trace, axial/radial depth, lubrication,
+sampling clocks, synchronized channel mapping, and verified active-cut bounds.
+
+The plugin has three separately certified evidence scopes; each is enabled only
+when its own fields are present:
+
+| scope | required additional measurement | admissible evidence |
+|---|---|---|
+| `process_spectrum` | spindle speed and tooth count | TPF/spindle order family and channel-specific process energy during active cutting |
+| `cycle_synchronous` | spindle encoder/phase reference or equivalent synchronized tooth events | per-tooth force/vibration/current/AE evidence indexed by actual tooth phase |
+| `wear_trajectory` | repeated VB observations, insert-edge identity, and chronological machining order | source-level relationship between measured wear progression and calibrated process evidence |
+
+No scope may encode a universal rule such as “wear always increases RMS” or
+“TPF amplitude must grow.” The reference source groups establish the signed
+class/regime relationship. Air-cut and transient regions are outside the
+plugin's admissible window manifest. Manual label-name mappings such as
+`worn -> severity=0.5` in the current `MillingKinematicsPlugin` are prompt
+assistance only and must be removed from formal admission logic.
+
+### Plugin C: `CncMachinePhysicsPlugin` for the private machine-tool data
+
+This plugin must expose two independent modes and must not claim a physical
+relation merely because the source label is `lead_screw_anomaly` or
+`base_imbalance`.
+
+| mode | required signed metadata | evidence allowed after validation |
+|---|---|---|
+| `lead_screw` | exact failure mechanism (for example preload loss, recirculation defect, or misalignment), measured axis position/velocity or encoder trace, screw lead, screw/nut geometry as applicable, table mass/load, axis/run direction, sensor mounting, and label acquisition protocol | screw rotational/order targets and only those ball-pass, modal-shift, sideband, or position-dependent features justified by the stated mechanism |
+| `base_imbalance` | exact physical meaning of the label, affected rotating assembly or structural path, measured RPM/phase if rotational imbalance is claimed, sensor orientation/mounting, machine foundation state, and controlled operating regime | 1X/harmonic evidence only for a confirmed rotating imbalance; otherwise a separately documented structural/modal mechanism with its own measured excitation/reference |
+
+For a lead-screw preload-loss claim, commanded feed is insufficient when the
+axis may lag; use measured motion/encoder data. For a base-structure label that
+does not denote rotating imbalance, 1X is not a valid target. Until these data
+cards exist and calibration groups are sufficient, both modes return
+`unavailable`; the private dataset remains a Layer-2 empirical case study.
+
+### Migration boundary from current code
+
+| current component | destination under the new framework |
+|---|---|
+| `BearingKinematicsPlugin.char_freqs()` and physically explicit envelope/MCSA feature functions | extract into `BearingPhysicsPlugin`; retain only train-source regression compatibility with frozen PU/CWRU legacy rows |
+| `BreezeVerifierV2` statistics, soft spectrum, PSD-W1, and generic diversity | move to Layer 2; they must not remain part of a physics certificate |
+| fixed Top-3 resonance selection and implicit 2 percent target tolerance | replace with the declared full band-family aggregate and metadata-derived uncertainty interval |
+| `MillingKinematicsPlugin` TPF calculations | retain as target derivation inside `MillingPhysicsPlugin`; remove hand-coded label severity from formal verification |
+| `MachineToolVerifier` and `ExtraTrees` certificate | retain generic portions in Layer 2; do not promote `ExtraTrees` to Layer 3; add no CNC physics rule until data-card validation passes |
+
+### Execution plan
+
+- [ ] L3.1: Add `breeze/src/physics/base.py` with typed `PhysicsPlugin`,
+  `PhysicsMetadataRequirements`, `PhysicsArtifact`, `PhysicsReport`, and the
+  explicit `pass/fail/unavailable` status. Unit-test that unavailable metadata
+  cannot yield a physics pass.
+- [ ] L3.2: Add immutable domain data cards: `bearing_pu.md`, `bearing_cwru.md`,
+  `mutcm_milling.md`, and `machine_tool_data_card.md`. Include provenance,
+  field-level source, unit, uncertainty, and a list of missing values.
+- [ ] L3.3: Extract `BearingPhysicsPlugin` from the legacy PU/CWRU verifier.
+  Implement geometry/RPM target derivation, full-band-family envelope aggregate,
+  healthy evidence, and schema-gated MCSA. Preserve frozen legacy outputs in
+  a dedicated compatibility test; do not overwrite existing results.
+- [ ] L3.4: Audit PU and CWRU real source groups with the new plugin. Report
+  per-class/per-RPM-group calibration and untouched-test pass rates, target
+  uncertainty, MCSA availability, and every unavailable reason.
+- [ ] L3.5: Implement `MillingPhysicsPlugin` only after MU-TCM raw extraction,
+  synchronization audit, experiment/insert-edge split, and active-cut manifest
+  are frozen. Start with `process_spectrum`; add the other scopes only when
+  their required measurements are verified.
+- [ ] L3.6: Audit the private machine-tool metadata against both CNC mode
+  tables. Obtain a signed owner response for every missing field. Implement no
+  physical frequency/order test before this audit passes.
+- [ ] L3.7: Implement each validated CNC mode as a separate class with source-
+  level calibration and regime-specific real-data audit. Keep any unavailable
+  mode visible in reports and certificates.
+- [ ] L3.8: Add a `CompositeAdmissionReport` requiring Layer 0, Layer 2, and
+  all declared Layer-3 plugin decisions. Its certificate must state which
+  claims are generic and which are mechanism-specific.
+- [ ] L3.9: Run negative-control tests: wrong bearing geometry, RPM outside
+  the declared interval, missing current topology, air-cut milling segment,
+  missing spindle phase, absent screw lead, and ambiguous base label must all
+  fail validation or return `unavailable`, never a physics pass.
+- [ ] L3.10: Before new LLM experiments, freeze all artifacts, manifests,
+  source-group audits, and regression results. Then update the paper claim to
+  match the plugins actually available; no unavailable CNC/milling mechanism
+  may be presented as verified.
+
+Acceptance criteria: every physical target is reproducible from documented
+metadata rather than labels or candidate spectra; every threshold is calibrated
+on independent training sources; PU/CWRU, MU-TCM, and private CNC issue
+separate evidence scopes; no fixed Top-K band choice, guessed 1X/TPF/screw
+order, synthetic current channel, trained identity classifier, or waveform
+repair enters Layer 3; a certificate cleanly distinguishes `pass`, `fail`, and
+`unavailable` physical evidence.
+
 ## 当前执行游标（2026-07-08，必须按顺序）
 
 1. [completed] `12.A KinematicsPlugin`：统一运动学插件接口、轴承/铣削插件最小实现已完成；PU smoke 回归与 Phase-A v2 对应冻结行完全一致。
