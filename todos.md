@@ -1311,3 +1311,57 @@ repair enters Layer 3; a certificate cleanly distinguishes `pass`, `fail`, and
 - [blocked] `mt_private_v2_smoke_decision.json` 为 `BLOCKED`，`allowed_next_stage=failure_analysis_only`；不得写 formal preregistration、不得运行 formal test、不得以更改 gate 或扩大本轮 API 预算继续攻击。
 - [x] 新增测试 `breeze/tests/test_mt_private_v2_llm_smoke.py`；覆盖 file 7/8 guard、frozen split、recipe bounds、renderer、verifier/admission、resume/API log、pool balancing、downstream subset fairness 和 decision schema。
 - [x] API 用量：本阶段新增 60 次，累计从 1071 到 1131/3000；密钥未写入结果、日志或 Git。
+
+## 11. PU LOCO v4 cross-condition recovery（started 2026-07-13; internal-development only）
+
+### 11.0 Protocol lock and audit trail
+
+- [x] Synchronize local `main` with `origin/main` before inspecting or changing this workstream.
+- [x] Read the frozen PU LOCO v1/v2 failure analyses and the train-only v3 morphology-condition map before selecting any development change.
+- [x] Confirm that all candidate selection uses only four internal pseudo-held-out conditions; the registered PU held-out test remains unread for development, selection, and hyperparameter changes.
+- [x] Lock the API ledger at 1131/3000 and set this workstream's incremental API ceiling to 200; prioritize zero-API candidates.
+- [x] Create a distinct result directory for every subexperiment and retain checkpointed CSV rows, commands, manifests, and decision reports.
+- [ ] After each repository change, inspect the intended diff, commit only the scoped files, push `main` to `origin/main`, and verify the pushed commit is present remotely.
+
+### 11.1 S3 — scale-invariant downstream representation (zero API)
+
+- [ ] Define per-window, per-channel RMS normalization exactly as `x[c, :] / sqrt(mean(x[c, :]**2))`; reject non-finite or zero-RMS windows rather than silently replacing values.
+- [ ] Add `--normalize {none,per-window-rms}` to `breeze/src/eval_npz_downstream.py`; apply it after every method has formed its full training set and independently to each evaluation window, so all baselines and custom pools receive the same representation.
+- [ ] Include normalization mode in result identity/checkpoint keys and output rows so differently normalized runs cannot be mixed or skipped erroneously.
+- [ ] Unit-test normalizer shape preservation, channel-wise unit RMS, invalid-window rejection, and checkpoint separation by normalization mode.
+- [ ] Record the implementation contract and exact command schedule in `breeze/results/pu_loco_v4_s3_scale_invariant_2026-07-13/`.
+- [ ] Smoke-run all internal folds with `real_only` and `noise_aug` at `n_real={5,10,25}`, two seeds, `n_syn=20`, and identical epochs; verify row completeness and deterministic resume behavior.
+- [ ] Run the completed internal baseline comparison at ten seeds for `real_only` and `noise_aug` under both `none` and `per-window-rms`; summarize Acc and Macro-F1 by fold and shot count without a formal-test claim.
+- [ ] Decide, from the internal summary only, whether the scale-invariant representation belongs in subsequent candidate comparison; do not add order-domain resampling unless its angular-reference/data contract is established without inference.
+
+### 11.2 S2 — condition-aware morphology candidates (zero API first)
+
+- [ ] Audit `morphology_idw` and `morphology_nearest` pool construction: source windows, v2 calibration data, target kinematics, and pseudo-held-out access boundary.
+- [ ] Replace point extrapolation for features marked `not_predictable` in the morphology map with the union of three source-condition support intervals, then deliberately sample multiple admissible resonance/band-weight variants within that envelope.
+- [ ] Preserve a train-only v2 admission gate for every candidate; rejected windows are discarded, never waveform-repaired.
+- [ ] Generate/checkpoint each candidate pool separately for all four pseudo-held-out conditions; record per-class requested/accepted counts, acceptance rates, and verifier failure reasons.
+- [ ] Run a five-sample-per-class acceptance smoke, inspect certificates, then use `n_syn=20/class` only after pool integrity passes.
+- [ ] Evaluate `morphology_idw` and `morphology_nearest` against the selected S3 baseline using `n_real={5,10,25}` and ten internal seeds; report fold-level Acc and Macro-F1 deltas.
+- [ ] Check the selection rule mechanically: a candidate must meet or exceed `noise_aug` on both metrics in at least three of four internal folds for every shot-count cell before formal preregistration is possible.
+- [ ] Only if both zero-API candidates fail, prepare an explicit condition-extrapolation LLM prompt from the three train-condition feature tables; cap calls at 50 and record the API ledger before any request.
+
+### 11.3 S1 — BREEZE-H real-carrier plus synthetic-fault injection (only after S2 decision)
+
+- [ ] Specify healthy-carrier sampling strictly from source-condition healthy training windows and fault injection strictly from the target-condition kinematics; do not draw pseudo-held-out windows.
+- [ ] Reuse the renderer impulse train for fault channels and retain existing current-channel rendering; make carrier identity and recipe provenance auditable per generated item.
+- [ ] Generate healthy synthetic samples as healthy real carriers plus noise augmentation at the fixed `noise_aug` scale, then submit every candidate to the v2 gate without post-hoc repair.
+- [ ] Add small-batch, per-class five-sample acceptance checks; inspect failure reasons before any `n_syn=20/class` construction.
+- [ ] Evaluate BREEZE-H against the selected S3 baseline and all eligible S2 candidates on internal pseudo-LOCO only.
+
+### 11.4 S5 — BREEZE-U union-pool ablation (zero API)
+
+- [ ] Construct BREEZE-U by sampling equal per-class contributions from `noise_aug` and v2-admitted BREEZE synthetic samples without changing either source waveform after admission.
+- [ ] Preserve source labels and exact composition in pool metadata; use the same total `n_syn=20/class` and downstream settings as comparators.
+- [ ] Run the internal comparison and include BREEZE-U in the same fold/metric decision table.
+
+### 11.5 Decision, formal boundary, and honest closeout
+
+- [ ] If exactly one candidate meets the internal gate, write `pu_loco_v4_preregistration.md` before any formal held-out execution: name the one candidate, frozen code hash, all parameters, 40 seeds, Wilcoxon direction, and complete Holm family.
+- [ ] Execute the formal registered held-out experiment exactly once only after that preregistration; freeze all outputs and write an outcome report regardless of result.
+- [ ] If no candidate meets the internal gate, do not run formal held-out evaluation; write a failure analysis with empirical failure modes and manuscript-safe language that scopes cross-condition PU LOCO to a stress test.
+- [ ] Update the API ledger, result manifests, checksums, `todos.md` statuses, and reproducibility commands; do not commit raw data, environments, checkpoints, or unreviewed training runs.
