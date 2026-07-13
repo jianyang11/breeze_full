@@ -1398,7 +1398,8 @@ repair enters Layer 3; a certificate cleanly distinguishes `pass`, `fail`, and
 - [ ] Run fixed negative controls for wrong-class fault labels, white-noise windows, and constant windows; require all to be rejected before reopening pool construction.
 - [x] Complete the zero-API v1 audit for all four targets. The batch was already in flight when the first target failed; all four failure checkpoints are retained, no pools were started, and every target admitted prohibited negatives (221, 311, 319, and 350 of 800 respectively). `N09_M07_F10` also fails healthy sanity at 87/300 (0.290), with every source below 0.40.
 - [x] Write `s4_v1_failure.md` and freeze `s4_design_amendment_1.md` before any v1.1 calibration. The correction tightens class/rate discrimination and fixes target-frequency healthy calibration; it does not use pseudo-held-out or formal windows and does not relax a threshold to increase admission.
-- [ ] Re-run all four targets under v1.1 only after the amended design and implementation are committed; apply the unchanged healthy and negative-control stop criteria.
+- [x] Re-run all four targets under v1.1 in independent `v1_1/` run/result directories. Healthy raw rates now pass (0.783--0.923), but prohibited negatives still admit 103--231 of 800 per target; no pool construction is eligible.
+- [ ] Run a source-only rate/harmonic/modulation separability diagnostic before proposing any further S4 change. Do not change a quantile merely to eliminate the observed controls; a v1.2 proposal requires a distinct physically defined feature with an auditable source-only separation check.
 
 ### 12.3 Step 2: zero-API S2/S1 pool reopening
 

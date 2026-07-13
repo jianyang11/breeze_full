@@ -1,0 +1,218 @@
+{
+  "target_condition": "N15_M07_F10",
+  "boundary": "only the three non-target conditions' config.SPLIT train-bearing windows are loaded; target and formal held-out windows are unread",
+  "regime": "extrapolation",
+  "source_conditions": [
+    "N09_M07_F10",
+    "N15_M01_F10",
+    "N15_M07_F04"
+  ],
+  "n_per_source_condition": 100,
+  "healthy_carrier_rows": [
+    {
+      "target_condition": "N15_M07_F10",
+      "source_condition": "N09_M07_F10",
+      "class": "healthy",
+      "n": 100,
+      "raw_pass": 88,
+      "noise_aug_scale_jitter_pass": 81
+    },
+    {
+      "target_condition": "N15_M07_F10",
+      "source_condition": "N15_M01_F10",
+      "class": "healthy",
+      "n": 100,
+      "raw_pass": 90,
+      "noise_aug_scale_jitter_pass": 90
+    },
+    {
+      "target_condition": "N15_M07_F10",
+      "source_condition": "N15_M07_F04",
+      "class": "healthy",
+      "n": 100,
+      "raw_pass": 99,
+      "noise_aug_scale_jitter_pass": 99
+    }
+  ],
+  "fault_transfer_rows": [
+    {
+      "target_condition": "N15_M07_F10",
+      "source_condition": "N09_M07_F10",
+      "class": "OR",
+      "n": 100,
+      "morphology_transfer_source_kinematics_pass": 94,
+      "literal_target_kinematics_pass": 36
+    },
+    {
+      "target_condition": "N15_M07_F10",
+      "source_condition": "N09_M07_F10",
+      "class": "IR",
+      "n": 100,
+      "morphology_transfer_source_kinematics_pass": 84,
+      "literal_target_kinematics_pass": 74
+    },
+    {
+      "target_condition": "N15_M07_F10",
+      "source_condition": "N15_M01_F10",
+      "class": "OR",
+      "n": 100,
+      "morphology_transfer_source_kinematics_pass": 81,
+      "literal_target_kinematics_pass": 81
+    },
+    {
+      "target_condition": "N15_M07_F10",
+      "source_condition": "N15_M01_F10",
+      "class": "IR",
+      "n": 100,
+      "morphology_transfer_source_kinematics_pass": 86,
+      "literal_target_kinematics_pass": 86
+    },
+    {
+      "target_condition": "N15_M07_F10",
+      "source_condition": "N15_M07_F04",
+      "class": "OR",
+      "n": 100,
+      "morphology_transfer_source_kinematics_pass": 79,
+      "literal_target_kinematics_pass": 79
+    },
+    {
+      "target_condition": "N15_M07_F10",
+      "source_condition": "N15_M07_F04",
+      "class": "IR",
+      "n": 100,
+      "morphology_transfer_source_kinematics_pass": 64,
+      "literal_target_kinematics_pass": 64
+    }
+  ],
+  "negative_control_rows": [
+    {
+      "target_condition": "N15_M07_F10",
+      "control": "real_OR_labeled_IR",
+      "n": 100,
+      "admitted": 48
+    },
+    {
+      "target_condition": "N15_M07_F10",
+      "control": "real_IR_labeled_OR",
+      "n": 100,
+      "admitted": 42
+    },
+    {
+      "target_condition": "N15_M07_F10",
+      "control": "white_noise_labeled_healthy",
+      "n": 100,
+      "admitted": 0
+    },
+    {
+      "target_condition": "N15_M07_F10",
+      "control": "white_noise_labeled_OR",
+      "n": 100,
+      "admitted": 59
+    },
+    {
+      "target_condition": "N15_M07_F10",
+      "control": "white_noise_labeled_IR",
+      "n": 100,
+      "admitted": 82
+    },
+    {
+      "target_condition": "N15_M07_F10",
+      "control": "constant_labeled_healthy",
+      "n": 100,
+      "admitted": 0
+    },
+    {
+      "target_condition": "N15_M07_F10",
+      "control": "constant_labeled_OR",
+      "n": 100,
+      "admitted": 0
+    },
+    {
+      "target_condition": "N15_M07_F10",
+      "control": "constant_labeled_IR",
+      "n": 100,
+      "admitted": 0
+    }
+  ],
+  "criteria": {
+    "healthy_pooled_raw_rate_min": 0.6,
+    "healthy_source_raw_rate_min": 0.4,
+    "negative_admitted_required": 0
+  },
+  "decision": {
+    "healthy_pooled_raw_rate": 0.9233333333333333,
+    "healthy_source_raw_rates": {
+      "N09_M07_F10": 0.88,
+      "N15_M01_F10": 0.9,
+      "N15_M07_F04": 0.99
+    },
+    "negative_admitted": 231,
+    "sanity_pass": false
+  },
+  "top_healthy_failures": {
+    "healthy_fault_absence: healthy candidate contains source-incompatible periodic fault evidence at target kinematics": 6,
+    "morphology_interpolated: vib_rms=0.0672222 outside extrapolated interval [0.0674445,0.203586]": 1,
+    "morphology_interpolated: vib_rms=0.0666932 outside extrapolated interval [0.0674445,0.203586]": 1,
+    "morphology_interpolated: vib_rms=0.0645184 outside extrapolated interval [0.0674445,0.203586]": 1,
+    "morphology_interpolated: vib_rms=0.0650659 outside extrapolated interval [0.0674445,0.203586]": 1,
+    "morphology_interpolated: vib_rms=0.0594837 outside extrapolated interval [0.0674445,0.203586]": 1,
+    "morphology_interpolated: vib_rms=0.0668716 outside extrapolated interval [0.0674445,0.203586]": 1,
+    "morphology_interpolated: vib_rms=0.062176 outside extrapolated interval [0.0674445,0.203586]": 1,
+    "morphology_interpolated: vib_rms=0.0648149 outside extrapolated interval [0.0674445,0.203586]": 1,
+    "morphology_interpolated: vib_rms=0.0650297 outside extrapolated interval [0.0674445,0.203586]": 1,
+    "morphology_interpolated: vib_rms=0.0648014 outside extrapolated interval [0.0674445,0.203586]": 1,
+    "morphology_interpolated: vib_rms=0.0636225 outside extrapolated interval [0.0674445,0.203586]": 1,
+    "morphology_interpolated: vib_rms=0.0656097 outside extrapolated interval [0.0674445,0.203586]": 1,
+    "morphology_interpolated: vib_rms=0.0630935 outside extrapolated interval [0.0674445,0.203586]": 1,
+    "morphology_interpolated: vib_rms=0.0598211 outside extrapolated interval [0.0674445,0.203586]": 1,
+    "morphology_interpolated: vib_rms=0.0606687 outside extrapolated interval [0.0674445,0.203586]": 1,
+    "morphology_interpolated: vib_rms=0.0650271 outside extrapolated interval [0.0674445,0.203586]": 1,
+    "morphology_interpolated: vib_rms=0.0642143 outside extrapolated interval [0.0674445,0.203586]": 1,
+    "morphology_interpolated: vib_rms=0.0662394 outside extrapolated interval [0.0674445,0.203586]": 1,
+    "morphology_interpolated: vib_rms=0.0636089 outside extrapolated interval [0.0674445,0.203586]": 1
+  },
+  "top_fault_transfer_failures": {
+    "envelope_kinematics: OR envelope peak 50.781 Hz / prominence 1.825 / rate contrast -0.096 fails strict target-rate evidence": 1,
+    "envelope_kinematics: OR envelope peak 39.062 Hz / prominence 3.119 / rate contrast -0.420 fails strict target-rate evidence": 1,
+    "envelope_kinematics: OR envelope peak 50.781 Hz / prominence 1.563 / rate contrast -0.131 fails strict target-rate evidence": 1,
+    "envelope_kinematics: OR envelope peak 39.062 Hz / prominence 1.190 / rate contrast -0.086 fails strict target-rate evidence": 1,
+    "envelope_kinematics: OR envelope peak 50.781 Hz / prominence 1.270 / rate contrast 0.111 fails strict target-rate evidence": 1,
+    "envelope_kinematics: OR envelope peak 50.781 Hz / prominence 1.269 / rate contrast -0.214 fails strict target-rate evidence": 1,
+    "morphology_interpolated: vib_kurtosis=14.8946 outside extrapolated interval [1.86434,13.0121]": 1,
+    "envelope_kinematics: IR envelope peak 74.219 Hz / prominence 0.888 / rate contrast -0.233 fails strict target-rate evidence": 1,
+    "envelope_kinematics: IR envelope peak 66.406 Hz / prominence 0.996 / rate contrast -0.352 fails strict target-rate evidence": 1,
+    "morphology_interpolated: vib_kurtosis=14.7276 outside extrapolated interval [1.86434,13.0121]": 1,
+    "morphology_interpolated: vib_kurtosis=15.7362 outside extrapolated interval [1.86434,13.0121]": 1,
+    "morphology_interpolated: vib_kurtosis=15.9154 outside extrapolated interval [1.86434,13.0121]": 1,
+    "morphology_interpolated: vib_crest=8.89235 outside extrapolated interval [2.67739,8.46591]": 1,
+    "envelope_kinematics: IR envelope peak 74.219 Hz / prominence 0.786 / rate contrast -0.441 fails strict target-rate evidence": 1,
+    "envelope_kinematics: IR envelope peak 78.125 Hz / prominence 1.121 / rate contrast -0.594 fails strict target-rate evidence": 1,
+    "morphology_interpolated: env_peak_prominence=0.354879 outside extrapolated interval [0.634035,3.04229]": 1,
+    "envelope_kinematics: IR envelope peak 70.312 Hz / prominence 0.355 / rate contrast -0.858 fails strict target-rate evidence": 1,
+    "envelope_kinematics: IR envelope peak 70.312 Hz / prominence 1.009 / rate contrast -0.074 fails strict target-rate evidence": 1,
+    "envelope_kinematics: IR envelope peak 66.406 Hz / prominence 0.927 / rate contrast -0.490 fails strict target-rate evidence": 1,
+    "envelope_kinematics: IR envelope peak 74.219 Hz / prominence 1.373 / rate contrast -0.510 fails strict target-rate evidence": 1
+  },
+  "top_negative_rejections": {
+    "sanity: X constant": 300,
+    "sanity: Y constant": 300,
+    "sanity: Z constant": 300,
+    "sanity: large repeated segments": 300,
+    "morphology_interpolated: vib_rms=1.02749 outside extrapolated interval [0.0674445,0.203586]": 2,
+    "healthy_fault_absence: healthy candidate contains source-incompatible periodic fault evidence at target kinematics": 2,
+    "envelope_kinematics: IR envelope peak 121.094 Hz / prominence 1.007 / rate contrast -0.974 fails strict target-rate evidence": 1,
+    "envelope_kinematics: IR envelope peak 125.000 Hz / prominence 0.899 / rate contrast -0.801 fails strict target-rate evidence": 1,
+    "morphology_interpolated: ir_resonance_3000_3600=0.119422 outside extrapolated interval [0.12983,0.765054]": 1,
+    "envelope_kinematics: IR envelope peak 125.000 Hz / prominence 1.321 / rate contrast -1.025 fails strict target-rate evidence": 1,
+    "morphology_interpolated: ir_resonance_3000_3600=0.1014 outside extrapolated interval [0.12983,0.765054]": 1,
+    "morphology_interpolated: ir_resonance_3000_3600=0.0852049 outside extrapolated interval [0.12983,0.765054]": 1,
+    "envelope_kinematics: IR envelope peak 125.000 Hz / prominence 1.660 / rate contrast -0.629 fails strict target-rate evidence": 1,
+    "morphology_interpolated: env_peak_prominence=3.16468 outside extrapolated interval [0.634035,3.04229]": 1,
+    "envelope_kinematics: IR envelope peak 121.094 Hz / prominence 2.023 / rate contrast -0.519 fails strict target-rate evidence": 1,
+    "morphology_interpolated: ir_resonance_3000_3600=0.114071 outside extrapolated interval [0.12983,0.765054]": 1,
+    "envelope_kinematics: IR envelope peak 128.906 Hz / prominence 1.278 / rate contrast -0.980 fails strict target-rate evidence": 1,
+    "envelope_kinematics: IR envelope peak 128.906 Hz / prominence 1.491 / rate contrast -0.767 fails strict target-rate evidence": 1,
+    "morphology_interpolated: mod_depth_fr=0.57379 outside extrapolated interval [0.687579,3.99607]": 1,
+    "envelope_kinematics: IR envelope peak 125.000 Hz / prominence 2.426 / rate contrast -0.739 fails strict target-rate evidence": 1
+  }
+}
