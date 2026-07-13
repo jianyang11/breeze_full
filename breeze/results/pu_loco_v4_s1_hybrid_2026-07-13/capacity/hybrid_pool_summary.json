@@ -1,0 +1,40 @@
+[
+  {
+    "heldout": "N09_M07_F10",
+    "train_conditions": [
+      "N15_M01_F10",
+      "N15_M07_F04",
+      "N15_M07_F10"
+    ],
+    "slots_per_class": 5,
+    "healthy_slots": 800,
+    "accepted_before_diversity": 6,
+    "kept_counts": {
+      "healthy": 4,
+      "OR": 1,
+      "IR": 1
+    },
+    "top_failures": {
+      "healthy: healthy candidate has OR envelope prominence 3.143 above 1.816 in band (1800.0, 2800.0)": 4,
+      "healthy: healthy candidate has OR envelope prominence 4.127 above 2.760 in band (600.0, 1600.0)": 3,
+      "healthy: healthy candidate has OR envelope prominence 3.304 above 1.752 in band (200.0, 1200.0)": 3,
+      "healthy: healthy candidate has OR envelope prominence 3.261 above 2.760 in band (600.0, 1600.0)": 3,
+      "healthy: healthy candidate has OR envelope prominence 3.572 above 1.752 in band (200.0, 1200.0)": 3,
+      "healthy: healthy candidate has OR envelope prominence 3.096 above 1.816 in band (1800.0, 2800.0)": 3,
+      "healthy: healthy candidate has OR envelope prominence 2.807 above 1.752 in band (200.0, 1200.0)": 3,
+      "healthy: healthy candidate has OR envelope prominence 2.999 above 1.816 in band (1800.0, 2800.0)": 3,
+      "healthy: healthy candidate has OR envelope prominence 3.847 above 1.816 in band (1800.0, 2800.0)": 3,
+      "healthy: healthy candidate has OR envelope prominence 2.851 above 2.760 in band (600.0, 1600.0)": 2,
+      "healthy: healthy candidate has OR envelope prominence 2.850 above 2.760 in band (600.0, 1600.0)": 2,
+      "healthy: healthy candidate has OR envelope prominence 4.650 above 1.816 in band (1800.0, 2800.0)": 2,
+      "healthy: healthy candidate has OR envelope prominence 3.447 above 1.752 in band (200.0, 1200.0)": 2,
+      "healthy: healthy candidate has OR envelope prominence 3.221 above 1.752 in band (200.0, 1200.0)": 2,
+      "healthy: healthy candidate has OR envelope prominence 3.638 above 1.816 in band (1800.0, 2800.0)": 2,
+      "healthy: healthy candidate has OR envelope prominence 4.352 above 1.752 in band (200.0, 1200.0)": 2,
+      "healthy: healthy candidate has OR envelope prominence 3.234 above 1.816 in band (1800.0, 2800.0)": 2,
+      "healthy: healthy candidate has OR envelope prominence 4.028 above 1.752 in band (200.0, 1200.0)": 2,
+      "healthy: healthy candidate has OR envelope prominence 2.817 above 2.760 in band (600.0, 1600.0)": 2,
+      "healthy: healthy candidate has OR envelope prominence 3.569 above 2.760 in band (600.0, 1600.0)": 2
+    }
+  }
+]

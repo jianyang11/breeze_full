@@ -8,7 +8,9 @@ from __future__ import annotations
 
 import argparse
 import csv
+import fcntl
 import json
+from contextlib import contextmanager
 from pathlib import Path
 
 import numpy as np
@@ -43,6 +45,22 @@ def load_npz(path: Path) -> tuple[np.ndarray, np.ndarray, list[str]]:
 NORMALIZATION_MODES = ("none", "per-window-rms")
 
 
+@contextmanager
+def locked_result(path: Path):
+    """Hold an exclusive POSIX lock for one checkpointed result CSV.
+
+    A resumed evaluator must not compute ``done_keys`` while another evaluator
+    is still appending rows to the same CSV. Holding the lock for the full
+    invocation serializes that read-compute-append transaction.
+    """
+    with path.open("a+", newline="") as fh:
+        fcntl.flock(fh.fileno(), fcntl.LOCK_EX)
+        try:
+            yield fh
+        finally:
+            fcntl.flock(fh.fileno(), fcntl.LOCK_UN)
+
+
 def normalize_per_window_rms(X: np.ndarray) -> np.ndarray:
     """Normalize each window and channel by its own finite, nonzero RMS.
 
@@ -70,7 +88,7 @@ def apply_normalization(X: np.ndarray, mode: str) -> np.ndarray:
 
 
 def done_keys(path: Path) -> set[tuple[str, str, str, str, int, int]]:
-    if not path.exists():
+    if not path.exists() or path.stat().st_size == 0:
         return set()
     with path.open(newline="") as fh:
         reader = csv.DictReader(fh)
@@ -201,9 +219,10 @@ def main() -> None:
 
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
-    new_file = not out.exists()
-    done = done_keys(out)
-    with out.open("a", newline="") as fh:
+    with locked_result(out) as fh:
+        fh.seek(0, 2)
+        new_file = fh.tell() == 0
+        done = done_keys(out)
         writer = csv.writer(fh)
         if new_file:
             writer.writerow(

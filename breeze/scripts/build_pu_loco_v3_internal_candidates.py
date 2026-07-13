@@ -124,6 +124,36 @@ def _subsample(values: list[float], label: str, n: int = 600) -> list[float]:
     return [float(values[int(i)]) for i in idx]
 
 
+def envelope_band_pool(
+    profiles: dict[str, dict[str, ClassProfile]],
+    train_conditions: list[str],
+    cls: str,
+    per_condition: int = 200,
+) -> list[list[float]]:
+    """Return a balanced union of train-condition spectral-shape support.
+
+    The morphology map marks condition-sensitive band features as not
+    predictable. A target-condition point estimate for those features would
+    be unsupported. Sampling full empirical band vectors from every source
+    condition preserves their joint dependencies while deliberately covering
+    the three-condition envelope.
+    """
+    pool: list[list[float]] = []
+    for cond in train_conditions:
+        rows = profiles[cond][cls].band_pool
+        if not rows:
+            rows = [profiles[cond][cls].band_median]
+        take = min(len(rows), per_condition)
+        rng = np.random.default_rng(stable_seed(f"pu-loco-v4-band-envelope:{cond}:{cls}"))
+        for index in rng.choice(len(rows), take, replace=False):
+            band = np.asarray(rows[int(index)], dtype=float)
+            band = np.clip(band, 1e-12, None)
+            pool.append((band / band.sum()).astype(float).tolist())
+    if not pool:
+        raise ValueError(f"empty morphology envelope for {cls}")
+    return pool
+
+
 def interpolate_profile(
     profiles: dict[str, dict[str, ClassProfile]],
     weights: dict[str, float],
@@ -136,9 +166,8 @@ def interpolate_profile(
     target_current_kurt = _weighted_float(profiles, weights, cls, "current_kurtosis_q50")
     target_current_crest = _weighted_float(profiles, weights, cls, "current_crest_q50")
 
-    band = np.zeros(len(BANDS), dtype=float)
-    for cond, w in weights.items():
-        band += w * np.asarray(profiles[cond][cls].band_median, dtype=float)
+    band_pool = envelope_band_pool(profiles, list(weights), cls)
+    band = np.median(np.asarray(band_pool, dtype=float), axis=0)
     band = np.clip(band, 1e-12, None)
     band = band / band.sum()
 
@@ -151,7 +180,6 @@ def interpolate_profile(
     current_rms_values: list[float] = []
     current_kurtosis_values: list[float] = []
     current_crest_values: list[float] = []
-    band_pool: list[list[float]] = []
     for cond, w in weights.items():
         prof = profiles[cond][cls]
         quota = max(40, int(round(600 * w)))
@@ -175,16 +203,6 @@ def interpolate_profile(
                 target_current_crest,
             )
         )
-        source_band = np.asarray(prof.band_median, dtype=float)
-        ratio = band / np.clip(source_band, 1e-12, None)
-        rng = np.random.default_rng(stable_seed(f"pu-loco-v3-bandpool:{cond}:{cls}"))
-        rows = prof.band_pool
-        take = min(len(rows), quota)
-        for idx in rng.choice(len(rows), take, replace=False):
-            b = np.asarray(rows[int(idx)], dtype=float) * ratio
-            b = np.clip(b, 1e-12, None)
-            band_pool.append((b / b.sum()).astype(float).tolist())
-
     nearest = max(weights, key=weights.get)
     base = profiles[nearest][cls]
     comp_scale = target_rms / max(base.rms_q50, 1e-12)
@@ -278,9 +296,7 @@ def physical_resonance(cls: str, seed_key: str, base_value: float | None) -> flo
         lo, hi = 3000.0, 3600.0
     else:
         return float(base_value) if base_value is not None else 1800.0
-    if base_value is not None and lo <= float(base_value) <= hi:
-        return float(base_value)
-    rng = np.random.default_rng(stable_seed(f"pu-loco-v3-resonance:{seed_key}"))
+    rng = np.random.default_rng(stable_seed(f"pu-loco-v4-resonance-envelope:{seed_key}"))
     return float(rng.uniform(lo, hi))
 
 
@@ -344,7 +360,7 @@ def project_recipe(
         "target_rms": new_rms,
         "target_peak": float(vals["target_peak"]),
         "target_kurtosis": float(vals["target_kurtosis"]),
-        "band_weights_source": "predicted_train_condition_morphology",
+        "band_weights_source": "three-source-condition support envelope",
     }
     return out
 
@@ -368,10 +384,10 @@ def calibrate_verifier(
     path = out_dir / f"verifier_{candidate}_to_{heldout}_c90_soft_w1.json"
     if path.exists():
         return BreezeVerifierV2.load(path)
-    if candidate == "morphology_nearest":
-        conds = [nearest]
-    else:
-        conds = train_conditions
+    # Both candidates are admitted against the union of all three source
+    # conditions. The nearest candidate changes the generation morphology, not
+    # the training-only support available to the verifier.
+    conds = train_conditions
     X = np.concatenate([loaded[c][0] for c in conds])
     y = np.concatenate([loaded[c][1] for c in conds])
     bearings = np.concatenate([loaded[c][2] for c in conds])
@@ -574,18 +590,34 @@ def build_candidate_fold(args: argparse.Namespace, candidate: str, heldout: str)
     verifier = calibrate_verifier(candidate, heldout, fold_dir, loaded, train_conditions, nearest)
 
     records = [p for p in source_records(heldout) if json.loads(p.read_text()).get("accepted")]
-    if candidate == "morphology_nearest":
-        nearest_records = [p for p in records if json.loads(p.read_text()).get("condition") == nearest]
-        if nearest_records:
-            records = nearest_records
+    # Recipe records provide LLM structural templates, not target morphology.
+    # Restricting them to a nearest condition discards available training-only
+    # diversity and can leave classes below the fixed 20-sample pool target.
     if args.max_records_per_class > 0:
         kept: list[Path] = []
-        counts: Counter[str] = Counter()
+        by_class_condition: dict[str, dict[str, list[Path]]] = {cls: {} for cls in CLASSES}
         for path in records:
-            cls = json.loads(path.read_text()).get("class", "")
-            if counts[cls] < args.max_records_per_class:
-                kept.append(path)
-                counts[cls] += 1
+            source = json.loads(path.read_text())
+            cls = str(source.get("class", ""))
+            cond = str(source.get("condition", ""))
+            if cls in by_class_condition:
+                by_class_condition[cls].setdefault(cond, []).append(path)
+        for cls in CLASSES:
+            groups = by_class_condition[cls]
+            selected = 0
+            offsets = {cond: 0 for cond in groups}
+            while selected < args.max_records_per_class:
+                added = False
+                for cond in sorted(groups):
+                    index = offsets[cond]
+                    if index >= len(groups[cond]) or selected >= args.max_records_per_class:
+                        continue
+                    kept.append(groups[cond][index])
+                    offsets[cond] += 1
+                    selected += 1
+                    added = True
+                if not added:
+                    break
         records = kept
 
     for rec_path in records:
@@ -606,8 +638,7 @@ def build_candidate_fold(args: argparse.Namespace, candidate: str, heldout: str)
     return summary
 
 
-def write_report(out_root: Path, summaries: list[dict[str, Any]]) -> None:
-    result_dir = ROOT / "breeze" / "results" / "pu_loco_v3_2026-07-08"
+def write_report(out_root: Path, result_dir: Path, summaries: list[dict[str, Any]]) -> None:
     result_dir.mkdir(parents=True, exist_ok=True)
     rows: list[dict[str, Any]] = []
     for s in summaries:
@@ -652,6 +683,7 @@ def write_report(out_root: Path, summaries: list[dict[str, Any]]) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--out-root", default="breeze/runs/pu_loco_v3_internal_candidates_2026-07-08")
+    parser.add_argument("--result-dir", default="breeze/results/pu_loco_v4_s2_morphology_2026-07-13")
     parser.add_argument("--candidates", nargs="+", default=list(CANDIDATES))
     parser.add_argument("--heldout", nargs="+", default=list(CONDITIONS))
     parser.add_argument("--expansions", type=int, default=10)
@@ -669,7 +701,7 @@ def main() -> None:
     for cand in args.candidates:
         for heldout in args.heldout:
             summaries.append(build_candidate_fold(args, cand, heldout))
-    write_report(ROOT / args.out_root, summaries)
+    write_report(ROOT / args.out_root, ROOT / args.result_dir, summaries)
 
 
 if __name__ == "__main__":

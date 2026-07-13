@@ -1,0 +1,39 @@
+[
+  {
+    "heldout": "N09_M07_F10",
+    "train_conditions": [
+      "N15_M01_F10",
+      "N15_M07_F04",
+      "N15_M07_F10"
+    ],
+    "slots_per_class": 5,
+    "accepted_before_diversity": 2,
+    "kept_counts": {
+      "healthy": 0,
+      "OR": 1,
+      "IR": 1
+    },
+    "top_failures": {
+      "healthy: healthy candidate has OR envelope prominence 4.824 above 1.752 in band (200.0, 1200.0)": 1,
+      "healthy: healthy candidate has OR envelope prominence 3.486 above 1.816 in band (1800.0, 2800.0)": 1,
+      "healthy: healthy candidate has IR envelope prominence 1.718 above 1.717 in band (200.0, 1200.0)": 1,
+      "healthy: healthy candidate has OR envelope prominence 4.675 above 1.752 in band (200.0, 1200.0)": 1,
+      "healthy: healthy candidate has OR envelope prominence 2.851 above 2.760 in band (600.0, 1600.0)": 1,
+      "healthy: healthy candidate has OR envelope prominence 4.327 above 1.816 in band (1800.0, 2800.0)": 1,
+      "healthy: healthy candidate has OR envelope prominence 3.498 above 1.752 in band (200.0, 1200.0)": 1,
+      "healthy: healthy candidate has OR envelope prominence 4.237 above 1.816 in band (1800.0, 2800.0)": 1,
+      "healthy: healthy candidate has OR envelope prominence 3.124 above 1.752 in band (200.0, 1200.0)": 1,
+      "healthy: healthy candidate has OR envelope prominence 4.127 above 2.760 in band (600.0, 1600.0)": 1,
+      "healthy: healthy candidate has OR envelope prominence 3.808 above 1.816 in band (1800.0, 2800.0)": 1,
+      "healthy: healthy candidate has IR envelope prominence 1.963 above 1.916 in band (2200.0, 3200.0)": 1,
+      "healthy: healthy candidate has OR envelope prominence 4.146 above 1.752 in band (200.0, 1200.0)": 1,
+      "healthy: healthy candidate has OR envelope prominence 3.033 above 1.816 in band (1800.0, 2800.0)": 1,
+      "OR: candidate is outside both train-supported statistical domains: legacy_quantile=False, axis_dist=12.057>6.992": 1,
+      "OR: largest robust deviations: Y_kurtosis=9.71 IQR-sigma, X_crest=4.10 IQR-sigma, Z_crest=2.95 IQR-sigma, X_kurtosis=2.76 IQR-sigma, Y_crest=1.98 IQR-sigma": 1,
+      "OR: X_kurtosis=7.376 is above legacy train quantile [2.793,6.557]": 1,
+      "OR: X_crest=5.872 is above legacy train quantile [3.099,5.383]": 1,
+      "OR: Y_kurtosis=1.548 is above legacy train quantile [1.488,1.512]": 1,
+      "OR: soft spectral coordinate 3=0.2069 outside [0.0445,0.1627]": 1
+    }
+  }
+]

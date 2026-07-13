@@ -1325,37 +1325,37 @@ repair enters Layer 3; a certificate cleanly distinguishes `pass`, `fail`, and
 
 ### 11.1 S3 — scale-invariant downstream representation (zero API)
 
-- [ ] Define per-window, per-channel RMS normalization exactly as `x[c, :] / sqrt(mean(x[c, :]**2))`; reject non-finite or zero-RMS windows rather than silently replacing values.
-- [ ] Add `--normalize {none,per-window-rms}` to `breeze/src/eval_npz_downstream.py`; apply it after every method has formed its full training set and independently to each evaluation window, so all baselines and custom pools receive the same representation.
-- [ ] Include normalization mode in result identity/checkpoint keys and output rows so differently normalized runs cannot be mixed or skipped erroneously.
-- [ ] Unit-test normalizer shape preservation, channel-wise unit RMS, invalid-window rejection, and checkpoint separation by normalization mode.
-- [ ] Record the implementation contract and exact command schedule in `breeze/results/pu_loco_v4_s3_scale_invariant_2026-07-13/`.
-- [ ] Smoke-run all internal folds with `real_only` and `noise_aug` at `n_real={5,10,25}`, two seeds, `n_syn=20`, and identical epochs; verify row completeness and deterministic resume behavior.
-- [ ] Run the completed internal baseline comparison at ten seeds for `real_only` and `noise_aug` under both `none` and `per-window-rms`; summarize Acc and Macro-F1 by fold and shot count without a formal-test claim.
-- [ ] Decide, from the internal summary only, whether the scale-invariant representation belongs in subsequent candidate comparison; do not add order-domain resampling unless its angular-reference/data contract is established without inference.
+- [x] Define per-window, per-channel RMS normalization exactly as `x[c, :] / sqrt(mean(x[c, :]**2))`; reject non-finite or zero-RMS windows rather than silently replacing values.
+- [x] Add `--normalize {none,per-window-rms}` to `breeze/src/eval_npz_downstream.py`; apply it after every method has formed its full training set and independently to each evaluation window, so all baselines and custom pools receive the same representation.
+- [x] Include normalization mode in result identity/checkpoint keys and output rows so differently normalized runs cannot be mixed or skipped erroneously.
+- [x] Unit-test normalizer shape preservation, channel-wise unit RMS, invalid-window rejection, checkpoint separation by normalization mode, and an empty locked checkpoint.
+- [x] Record the implementation contract and exact command schedule in `breeze/results/pu_loco_v4_s3_scale_invariant_2026-07-13/`.
+- [x] Smoke-run all internal folds with `real_only` and `noise_aug` at `n_real={5,10,25}`, two seeds, `n_syn=20`, and identical epochs; verify row completeness and deterministic resume behavior.
+- [x] Run the completed internal baseline comparison at ten seeds for `real_only` and `noise_aug` under both `none` and `per-window-rms`; summarize Acc and Macro-F1 by fold and shot count without a formal-test claim.
+- [x] Decide, from the internal summary only, whether the scale-invariant representation belongs in subsequent candidate comparison; do not add order-domain resampling unless its angular-reference/data contract is established without inference. RMS did not consistently improve `noise_aug`; retain `none`. Processed NPZs lack an angular-reference contract, so order-domain resampling is not admissible.
 
 ### 11.2 S2 — condition-aware morphology candidates (zero API first)
 
-- [ ] Audit `morphology_idw` and `morphology_nearest` pool construction: source windows, v2 calibration data, target kinematics, and pseudo-held-out access boundary.
-- [ ] Replace point extrapolation for features marked `not_predictable` in the morphology map with the union of three source-condition support intervals, then deliberately sample multiple admissible resonance/band-weight variants within that envelope.
-- [ ] Preserve a train-only v2 admission gate for every candidate; rejected windows are discarded, never waveform-repaired.
-- [ ] Generate/checkpoint each candidate pool separately for all four pseudo-held-out conditions; record per-class requested/accepted counts, acceptance rates, and verifier failure reasons.
-- [ ] Run a five-sample-per-class acceptance smoke, inspect certificates, then use `n_syn=20/class` only after pool integrity passes.
-- [ ] Evaluate `morphology_idw` and `morphology_nearest` against the selected S3 baseline using `n_real={5,10,25}` and ten internal seeds; report fold-level Acc and Macro-F1 deltas.
-- [ ] Check the selection rule mechanically: a candidate must meet or exceed `noise_aug` on both metrics in at least three of four internal folds for every shot-count cell before formal preregistration is possible.
-- [ ] Only if both zero-API candidates fail, prepare an explicit condition-extrapolation LLM prompt from the three train-condition feature tables; cap calls at 50 and record the API ledger before any request.
+- [x] Audit `morphology_idw` and `morphology_nearest` pool construction: source windows, v2 calibration data, target kinematics, and pseudo-held-out access boundary.
+- [x] Replace point extrapolation for features marked `not_predictable` in the morphology map with the union of three source-condition support intervals, then deliberately sample multiple admissible resonance/band-weight variants within that envelope.
+- [x] Preserve a train-only v2 admission gate for every candidate; rejected windows are discarded, never waveform-repaired.
+- [x] Run a five-sample-per-class acceptance smoke and inspect certificates. Both candidates fail the first internal fold's balanced healthy pool gate; details are in `breeze/results/pu_loco_v4_s2_morphology_2026-07-13/s2_s1_acceptance_failure.md`.
+- [ ] Generate/checkpoint each candidate pool separately for all four pseudo-held-out conditions only if its five/class smoke pool passes; not eligible after the first-fold failure.
+- [ ] Evaluate `morphology_idw` and `morphology_nearest` against the selected S3 baseline using `n_real={5,10,25}` and ten internal seeds; not eligible because the balanced smoke-pool prerequisite failed.
+- [ ] Check the selection rule mechanically: a candidate must meet or exceed `noise_aug` on both metrics in at least three of four internal folds for every shot-count cell before formal preregistration is possible; not reached.
+- [ ] Only if both zero-API candidates fail, prepare an explicit condition-extrapolation LLM prompt from the three train-condition feature tables; cap calls at 50 and record the API ledger before any request. Awaiting a configured API credential; no request made.
 
 ### 11.3 S1 — BREEZE-H real-carrier plus synthetic-fault injection (only after S2 decision)
 
-- [ ] Specify healthy-carrier sampling strictly from source-condition healthy training windows and fault injection strictly from the target-condition kinematics; do not draw pseudo-held-out windows.
-- [ ] Reuse the renderer impulse train for fault channels and retain existing current-channel rendering; make carrier identity and recipe provenance auditable per generated item.
-- [ ] Generate healthy synthetic samples as healthy real carriers plus noise augmentation at the fixed `noise_aug` scale, then submit every candidate to the v2 gate without post-hoc repair.
-- [ ] Add small-batch, per-class five-sample acceptance checks; inspect failure reasons before any `n_syn=20/class` construction.
-- [ ] Evaluate BREEZE-H against the selected S3 baseline and all eligible S2 candidates on internal pseudo-LOCO only.
+- [x] Specify healthy-carrier sampling strictly from source-condition healthy training windows and fault injection strictly from the target-condition kinematics; do not draw pseudo-held-out windows.
+- [x] Reuse the renderer impulse train for fault channels and retain existing current-channel rendering; make carrier identity and recipe provenance auditable per generated item.
+- [x] Generate healthy synthetic samples as healthy real carriers plus noise augmentation at the fixed `noise_aug` scale, then submit every candidate to the v2 gate without post-hoc repair.
+- [x] Add small-batch, per-class five-sample acceptance checks and inspect failure reasons. BREEZE-H fails the healthy 5/class prerequisite even after an 800-attempt capacity diagnostic; see the S2/S1 failure record.
+- [ ] Evaluate BREEZE-H against the selected S3 baseline and all eligible S2 candidates on internal pseudo-LOCO only; not eligible because its balanced smoke-pool prerequisite failed.
 
 ### 11.4 S5 — BREEZE-U union-pool ablation (zero API)
 
-- [ ] Construct BREEZE-U by sampling equal per-class contributions from `noise_aug` and v2-admitted BREEZE synthetic samples without changing either source waveform after admission.
+- [ ] Construct BREEZE-U by sampling equal per-class contributions from `noise_aug` and v2-admitted BREEZE synthetic samples without changing either source waveform after admission; awaiting a balanced admitted BREEZE pool.
 - [ ] Preserve source labels and exact composition in pool metadata; use the same total `n_syn=20/class` and downstream settings as comparators.
 - [ ] Run the internal comparison and include BREEZE-U in the same fold/metric decision table.
 

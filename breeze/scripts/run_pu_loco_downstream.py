@@ -37,6 +37,7 @@ def command_for(
     train_template: str,
     test_template: str,
     split_prefix: str,
+    normalize: str,
 ) -> list[str]:
     spec = METHODS[method]
     split = f"{split_prefix}_{cond}" if split_prefix else f"loco_{cond}"
@@ -59,6 +60,8 @@ def command_for(
         *[str(x) for x in n_real],
         "--epochs",
         str(epochs),
+        "--normalize",
+        normalize,
         "--out",
         str(out_dir / f"{split}_{method}_nsyn{n_syn}.csv"),
     ]
@@ -84,6 +87,7 @@ def run_condition(
     train_template: str,
     test_template: str,
     split_prefix: str,
+    normalize: str,
 ) -> None:
     pending = [
         (
@@ -101,6 +105,7 @@ def run_condition(
                 train_template,
                 test_template,
                 split_prefix,
+                normalize,
             ),
         )
         for method in methods
@@ -140,6 +145,7 @@ def main() -> None:
     parser.add_argument("--train-template", default="proc/pu_loco_{cond}_train.npz")
     parser.add_argument("--test-template", default="proc/pu_loco_{cond}_test.npz")
     parser.add_argument("--split-prefix", default="loco")
+    parser.add_argument("--normalize", choices=["none", "per-window-rms"], default="none")
     args = parser.parse_args()
 
     out_dir = Path(args.out_dir)
@@ -165,6 +171,7 @@ def main() -> None:
             train_template=args.train_template,
             test_template=args.test_template,
             split_prefix=args.split_prefix,
+            normalize=args.normalize,
         )
 
 

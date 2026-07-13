@@ -1,0 +1,24 @@
+{
+  "heldout": "N09_M07_F10",
+  "boundary": "only config.SPLIT train healthy windows are sampled; pseudo-held-out and formal held-out windows are not read",
+  "rows": [
+    {
+      "source_condition": "N15_M01_F10",
+      "n": 100,
+      "raw_healthy_pass": 1,
+      "noise_aug_scale_jitter_pass": 1
+    },
+    {
+      "source_condition": "N15_M07_F04",
+      "n": 100,
+      "raw_healthy_pass": 0,
+      "noise_aug_scale_jitter_pass": 0
+    },
+    {
+      "source_condition": "N15_M07_F10",
+      "n": 100,
+      "raw_healthy_pass": 1,
+      "noise_aug_scale_jitter_pass": 1
+    }
+  ]
+}

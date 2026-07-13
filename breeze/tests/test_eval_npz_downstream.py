@@ -65,3 +65,10 @@ def test_downstream_checkpoint_keys_are_separated_by_normalization_mode(tmp_path
 
     assert ("PU", "internal_loco_example", "noise_aug", "none", 5, 0) in completed
     assert ("PU", "internal_loco_example", "noise_aug", "per-window-rms", 5, 0) not in completed
+
+
+def test_empty_checkpoint_file_has_no_completed_rows(tmp_path: Path) -> None:
+    path = tmp_path / "empty.csv"
+    path.touch()
+
+    assert done_keys(path) == set()

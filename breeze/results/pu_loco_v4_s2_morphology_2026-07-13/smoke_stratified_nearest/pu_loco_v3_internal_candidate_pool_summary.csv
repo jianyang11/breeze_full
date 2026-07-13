@@ -1,0 +1,2 @@
+candidate,heldout,nearest_condition,slots,accepted_slots,accepted_paths_before_diversity,kept_after_diversity,idw_weights_json,kept_healthy,kept_OR,kept_IR
+morphology_nearest,N09_M07_F10,N15_M07_F10,15,7,19,19,"{""N15_M01_F10"":0.29289323420007923,""N15_M07_F04"":0.29289323420007923,""N15_M07_F10"":0.4142135315998415}",3,10,6
