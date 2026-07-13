@@ -1365,3 +1365,57 @@ repair enters Layer 3; a certificate cleanly distinguishes `pass`, `fail`, and
 - [ ] Execute the formal registered held-out experiment exactly once only after that preregistration; freeze all outputs and write an outcome report regardless of result.
 - [ ] If no candidate meets the internal gate, do not run formal held-out evaluation; write a failure analysis with empirical failure modes and manuscript-safe language that scopes cross-condition PU LOCO to a stress test.
 - [ ] Update the API ledger, result manifests, checksums, `todos.md` statuses, and reproducibility commands; do not commit raw data, environments, checkpoints, or unreviewed training runs.
+
+## 12. PU LOCO v5 S4 extrapolation-regime verifier (started 2026-07-13; internal-development only)
+
+### 12.0 Protocol, boundary, and frozen design
+
+- [x] Synchronize local `main` with `origin/main` before inspecting the v5 workstream; baseline is `ccc96f5b61af9726faf4742b79a575b8c9c89b52`.
+- [x] Read the v2 failure analysis, v3 morphology-condition map, v4 S3 decision, and v4 S2/S1 acceptance-failure record in their prescribed order.
+- [x] Verify the LLM configuration without making a request: project client uses `DASHSCOPE_API_KEY`, project default endpoint, and `mimo-v2.5`; S4 through the first internal comparison are zero-API stages.
+- [x] Create and freeze `breeze/results/pu_loco_v5_s4_extrapolation_verifier_2026-07-13/s4_design.md` before calibrating or evaluating S4.
+- [x] Lock the S4 API increment at zero through sanity, S2/S1 pool construction, and internal downstream comparison; no credential is written to a file, result, or Git history.
+- [ ] Keep formal PU LOCO held-out windows unread until exactly one candidate satisfies the frozen internal decision rule and a v5 preregistration has been committed.
+- [ ] Keep every calibration statistic derived only from the three source-condition train-bearing windows plus operating-condition metadata; never use pseudo-held-out or formal windows to select a boundary, interval multiplier, or gate.
+- [ ] After every repository change, inspect the scoped diff, commit it, push `main` to `origin/main`, and verify that remote `main` contains the commit.
+
+### 12.1 S4 implementation and unit tests
+
+- [ ] Add `regime={in_domain,extrapolation}` to `BreezeVerifierV2`, retaining the in-domain default and historical calibration loading behavior unchanged.
+- [ ] Implement fixed condition-space IDW interpolation using only rpm/torque/radial-load metadata and source-condition profiles.
+- [ ] Implement the frozen predictable-feature interval rule: target predicted q05/q95 expanded by `k=2.0` times leave-one-source-out median-prediction MAE.
+- [ ] Treat weak and not-predictable spectral/background features as report-only in extrapolation certificates, with source empirical-union evidence recorded rather than converted into an uncalibrated hard boundary.
+- [ ] Keep shape/finite/nonconstant sanity, fault-envelope position, and separable vector-current sideband position/evidence constraints hard; record their strict source in each certificate.
+- [ ] Record `regime`, morphology target condition, kinematics condition, boundary source, predictions, intervals, LOO errors, and report-only observations in every extrapolation certificate.
+- [ ] Add tests for in-domain compatibility, source-only calibration guardrails, deterministic interpolation/LOO intervals, report-only non-rejection, strict kinematic rejection, negative controls, and save/load round trip.
+
+### 12.2 Step 1: real-window sanity and negative controls
+
+- [ ] Build one extrapolation verifier per internal target condition using only the other three source-condition train-bearing windows.
+- [ ] Re-run the healthy-carrier audit with the v4 deterministic 100-per-source sampling schedule; report raw and frozen-noise pass rates separately.
+- [ ] Run the cross-condition OR/IR audit with target morphology boundaries and the source waveform's observed kinematics; separately log literal target-kinematics mismatch as an expected strict rejection, never as a successful transfer.
+- [ ] Apply the predeclared healthy sanity criterion: pooled raw healthy admission at least 60/100 and no source-condition raw rate below 40/100 for every target verifier.
+- [ ] Run fixed negative controls for wrong-class fault labels, white-noise windows, and constant windows; require all to be rejected before reopening pool construction.
+- [ ] If a predeclared sanity or negative-control criterion fails, write the failure report and return to the frozen design/implementation audit; do not tune from pseudo-held-out or formal windows.
+
+### 12.3 Step 2: zero-API S2/S1 pool reopening
+
+- [ ] Thread `--regime extrapolation` and target/source condition labels through morphology-IDW and morphology-nearest construction without modifying source recipe templates or rejected waveforms.
+- [ ] Thread the same verifier mode through BREEZE-H while retaining healthy carriers strictly from source train windows and target-kinematic fault injection.
+- [ ] For every candidate and all four internal targets, run a checkpointed five-per-class smoke pool and retain per-item certificates/manifests.
+- [ ] Expand only candidates with every fold balanced at five admitted samples per class to `n_syn=20/class`; preserve single-pass admission and real-real diversity decisions.
+- [ ] Write per-fold pool counts, certificate failure reasons, and source composition to independent v5 result directories.
+
+### 12.4 Step 3: zero-API internal simulated LOCO comparison
+
+- [ ] Build BREEZE-U only from an eligible balanced BREEZE pool and `noise_aug`, with exactly equal per-class contributions and immutable admitted source waveforms.
+- [ ] Compare `real_only`, `noise_aug`, eligible morphology-IDW, morphology-nearest, BREEZE-H, and BREEZE-U over four internal targets, `n_real={5,10,25}`, 10 fixed seeds, `n_syn=20/class`, and `--normalize none`.
+- [ ] Use checkpointed evaluator rows and strict summarizer schema validation; do not mix S4 rows with historical v4 result identities.
+- [ ] Mechanically evaluate the frozen rule for both Acc and Macro-F1: each candidate must meet or exceed `noise_aug` in at least three of four folds for every shot-count cell.
+
+### 12.5 Decision and formal boundary
+
+- [ ] If exactly one candidate passes, commit `pu_loco_v5_preregistration.md` before formal access, naming the candidate, code hash, 40 seeds, metrics, paired Wilcoxon direction, and complete Holm family.
+- [ ] Run the registered formal held-out experiment exactly once only after preregistration; freeze and report its outcome without new selection or tuning.
+- [ ] If no candidate passes, commit an honest v5 failure analysis and manuscript-safe language that scopes cross-condition PU LOCO as a stress test while retaining S4 as a methodological result.
+- [ ] Update API ledger, command manifests, todos, and GitHub verification; exclude raw datasets, generated arrays, checkpoints, virtual environments, and intermediate training runs from commits.
