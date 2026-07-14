@@ -280,12 +280,33 @@ def _write_summary(out_dir: Path, targets: list[dict[str, Any]]) -> None:
                 "target_terminal_cscoh_failure": target["decision"]["terminal_cscoh_failure"],
             })
     with (out_dir / "source_separability_summary.csv").open("w", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=list(flat_rows[0]))
+        writer = csv.DictWriter(handle, fieldnames=list(flat_rows[0]), lineterminator="\n")
         writer.writeheader()
         writer.writerows(flat_rows)
+    compact_targets = []
+    for target in targets:
+        compact_classes = {}
+        for asserted, result in target["classes"].items():
+            compact_pool = {key: value for key, value in result["pool"].items() if key != "rows"}
+            compact_classes[asserted] = {
+                "asserted_class": result["asserted_class"],
+                "wrong_actual_class": result["wrong_actual_class"],
+                "single_window": result["single_window"],
+                "pool": compact_pool,
+                "source_evidence_pass": result["source_evidence_pass"],
+            }
+        compact_targets.append({
+            "target_condition": target["target_condition"],
+            "boundary": target["boundary"],
+            "source_conditions": target["source_conditions"],
+            "estimator": target["estimator"],
+            "seed": target["seed"],
+            "classes": compact_classes,
+            "decision": target["decision"],
+        })
     overall = {
         "boundary": "all v6 Step 1 diagnostics are train-bearing-only; pseudo-held-out and formal held-out PU windows are unread",
-        "targets": targets,
+        "targets": compact_targets,
         "overall_terminal_cscoh_failure": all(target["decision"]["terminal_cscoh_failure"] for target in targets),
         "step_2_allowed_for_any_target": any(target["decision"]["next_step_allowed"] for target in targets),
     }

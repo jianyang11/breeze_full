@@ -103,8 +103,9 @@ sanity semantics; CSCoh identity is only an OR/IR evidence component.
 Each internal target is calibrated only from its three source conditions. For
 each asserted fault class, the single-window criterion is fixed to the v5
 standard: the true-class margin `q10` must exceed both the wrong-class and
-unit-variance white-noise margin `q90`. The white-noise reference comprises
-exactly 300 deterministic `(3, 2048)` windows for each `(internal target,
+unit-variance white-noise margin `q90`. Because CSCoh uses vibration channel
+0 only, the white-noise reference comprises exactly 300 deterministic
+2048-sample unit-variance vibration sequences for each `(internal target,
 asserted class)` pair, generated with a seed key derived from `20260714` and
 that pair. They are split as 100 windows at each source condition's own
 kinematic alpha family, so the noise reference has the same three-source

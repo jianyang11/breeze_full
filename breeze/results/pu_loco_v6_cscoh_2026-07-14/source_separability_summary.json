@@ -1,0 +1,299 @@
+{
+  "boundary": "all v6 Step 1 diagnostics are train-bearing-only; pseudo-held-out and formal held-out PU windows are unread",
+  "targets": [
+    {
+      "target_condition": "N09_M07_F10",
+      "boundary": "only config.SPLIT train-bearing windows from the three non-target conditions are loaded; pseudo-held-out and formal held-out windows are unread",
+      "source_conditions": [
+        "N15_M01_F10",
+        "N15_M07_F04",
+        "N15_M07_F10"
+      ],
+      "estimator": {
+        "nperseg": 512,
+        "noverlap": 384,
+        "nfft": 2048,
+        "carrier_low_hz": 500.0,
+        "carrier_high_hz": 3800.0,
+        "alpha_tolerance_hz": 3.90625
+      },
+      "seed": 20260714,
+      "classes": {
+        "OR": {
+          "asserted_class": "OR",
+          "wrong_actual_class": "IR",
+          "single_window": {
+            "true_n": 2703,
+            "wrong_n": 3616,
+            "white_noise_n": 300,
+            "true_q10": -0.411375555043506,
+            "wrong_q90": -0.34576582092937236,
+            "white_noise_q90": -0.3345019501100041,
+            "passed": false
+          },
+          "pool": {
+            "pool_size": 20,
+            "pools_per_source_category": 20,
+            "alpha": 0.01,
+            "true_pool_count": 60,
+            "negative_pool_count": 120,
+            "true_passed": 0,
+            "negative_admitted": 0,
+            "passed": false
+          },
+          "source_evidence_pass": false
+        },
+        "IR": {
+          "asserted_class": "IR",
+          "wrong_actual_class": "OR",
+          "single_window": {
+            "true_n": 3616,
+            "wrong_n": 2703,
+            "white_noise_n": 300,
+            "true_q10": 0.16844834909111966,
+            "wrong_q90": 0.25782324414864977,
+            "white_noise_q90": 0.20627489448666864,
+            "passed": false
+          },
+          "pool": {
+            "pool_size": 20,
+            "pools_per_source_category": 20,
+            "alpha": 0.01,
+            "true_pool_count": 60,
+            "negative_pool_count": 120,
+            "true_passed": 60,
+            "negative_admitted": 120,
+            "passed": false
+          },
+          "source_evidence_pass": false
+        }
+      },
+      "decision": {
+        "terminal_cscoh_failure": true,
+        "next_step_allowed": false,
+        "rule": "terminal only when both asserted fault classes fail both frozen single-window and frozen pool criteria"
+      }
+    },
+    {
+      "target_condition": "N15_M01_F10",
+      "boundary": "only config.SPLIT train-bearing windows from the three non-target conditions are loaded; pseudo-held-out and formal held-out windows are unread",
+      "source_conditions": [
+        "N09_M07_F10",
+        "N15_M07_F04",
+        "N15_M07_F10"
+      ],
+      "estimator": {
+        "nperseg": 512,
+        "noverlap": 384,
+        "nfft": 2048,
+        "carrier_low_hz": 500.0,
+        "carrier_high_hz": 3800.0,
+        "alpha_tolerance_hz": 3.90625
+      },
+      "seed": 20260714,
+      "classes": {
+        "OR": {
+          "asserted_class": "OR",
+          "wrong_actual_class": "IR",
+          "single_window": {
+            "true_n": 2701,
+            "wrong_n": 3612,
+            "white_noise_n": 300,
+            "true_q10": -0.4064978069053698,
+            "wrong_q90": 0.06071949124048546,
+            "white_noise_q90": 0.0642263780970529,
+            "passed": false
+          },
+          "pool": {
+            "pool_size": 20,
+            "pools_per_source_category": 20,
+            "alpha": 0.01,
+            "true_pool_count": 60,
+            "negative_pool_count": 120,
+            "true_passed": 20,
+            "negative_admitted": 40,
+            "passed": false
+          },
+          "source_evidence_pass": false
+        },
+        "IR": {
+          "asserted_class": "IR",
+          "wrong_actual_class": "OR",
+          "single_window": {
+            "true_n": 3612,
+            "wrong_n": 2701,
+            "white_noise_n": 300,
+            "true_q10": -0.015990705773789433,
+            "wrong_q90": 0.2527365944328066,
+            "white_noise_q90": 0.19703124315155254,
+            "passed": false
+          },
+          "pool": {
+            "pool_size": 20,
+            "pools_per_source_category": 20,
+            "alpha": 0.01,
+            "true_pool_count": 60,
+            "negative_pool_count": 120,
+            "true_passed": 40,
+            "negative_admitted": 80,
+            "passed": false
+          },
+          "source_evidence_pass": false
+        }
+      },
+      "decision": {
+        "terminal_cscoh_failure": true,
+        "next_step_allowed": false,
+        "rule": "terminal only when both asserted fault classes fail both frozen single-window and frozen pool criteria"
+      }
+    },
+    {
+      "target_condition": "N15_M07_F04",
+      "boundary": "only config.SPLIT train-bearing windows from the three non-target conditions are loaded; pseudo-held-out and formal held-out windows are unread",
+      "source_conditions": [
+        "N09_M07_F10",
+        "N15_M01_F10",
+        "N15_M07_F10"
+      ],
+      "estimator": {
+        "nperseg": 512,
+        "noverlap": 384,
+        "nfft": 2048,
+        "carrier_low_hz": 500.0,
+        "carrier_high_hz": 3800.0,
+        "alpha_tolerance_hz": 3.90625
+      },
+      "seed": 20260714,
+      "classes": {
+        "OR": {
+          "asserted_class": "OR",
+          "wrong_actual_class": "IR",
+          "single_window": {
+            "true_n": 2702,
+            "wrong_n": 3613,
+            "white_noise_n": 300,
+            "true_q10": -0.4041879106464082,
+            "wrong_q90": 0.06071303901866742,
+            "white_noise_q90": 0.061168850095304594,
+            "passed": false
+          },
+          "pool": {
+            "pool_size": 20,
+            "pools_per_source_category": 20,
+            "alpha": 0.01,
+            "true_pool_count": 60,
+            "negative_pool_count": 120,
+            "true_passed": 20,
+            "negative_admitted": 40,
+            "passed": false
+          },
+          "source_evidence_pass": false
+        },
+        "IR": {
+          "asserted_class": "IR",
+          "wrong_actual_class": "OR",
+          "single_window": {
+            "true_n": 3613,
+            "wrong_n": 2702,
+            "white_noise_n": 300,
+            "true_q10": -0.015988332254820936,
+            "wrong_q90": 0.2482674126182031,
+            "white_noise_q90": 0.1999936821854173,
+            "passed": false
+          },
+          "pool": {
+            "pool_size": 20,
+            "pools_per_source_category": 20,
+            "alpha": 0.01,
+            "true_pool_count": 60,
+            "negative_pool_count": 120,
+            "true_passed": 40,
+            "negative_admitted": 80,
+            "passed": false
+          },
+          "source_evidence_pass": false
+        }
+      },
+      "decision": {
+        "terminal_cscoh_failure": true,
+        "next_step_allowed": false,
+        "rule": "terminal only when both asserted fault classes fail both frozen single-window and frozen pool criteria"
+      }
+    },
+    {
+      "target_condition": "N15_M07_F10",
+      "boundary": "only config.SPLIT train-bearing windows from the three non-target conditions are loaded; pseudo-held-out and formal held-out windows are unread",
+      "source_conditions": [
+        "N09_M07_F10",
+        "N15_M01_F10",
+        "N15_M07_F04"
+      ],
+      "estimator": {
+        "nperseg": 512,
+        "noverlap": 384,
+        "nfft": 2048,
+        "carrier_low_hz": 500.0,
+        "carrier_high_hz": 3800.0,
+        "alpha_tolerance_hz": 3.90625
+      },
+      "seed": 20260714,
+      "classes": {
+        "OR": {
+          "asserted_class": "OR",
+          "wrong_actual_class": "IR",
+          "single_window": {
+            "true_n": 2703,
+            "wrong_n": 3616,
+            "white_noise_n": 300,
+            "true_q10": -0.4008728356897198,
+            "wrong_q90": 0.06069368235321325,
+            "white_noise_q90": 0.062014810504225346,
+            "passed": false
+          },
+          "pool": {
+            "pool_size": 20,
+            "pools_per_source_category": 20,
+            "alpha": 0.01,
+            "true_pool_count": 60,
+            "negative_pool_count": 120,
+            "true_passed": 20,
+            "negative_admitted": 40,
+            "passed": false
+          },
+          "source_evidence_pass": false
+        },
+        "IR": {
+          "asserted_class": "IR",
+          "wrong_actual_class": "OR",
+          "single_window": {
+            "true_n": 3616,
+            "wrong_n": 2703,
+            "white_noise_n": 300,
+            "true_q10": -0.015981211697915443,
+            "wrong_q90": 0.24442630642084862,
+            "white_noise_q90": 0.19747379913323976,
+            "passed": false
+          },
+          "pool": {
+            "pool_size": 20,
+            "pools_per_source_category": 20,
+            "alpha": 0.01,
+            "true_pool_count": 60,
+            "negative_pool_count": 120,
+            "true_passed": 40,
+            "negative_admitted": 80,
+            "passed": false
+          },
+          "source_evidence_pass": false
+        }
+      },
+      "decision": {
+        "terminal_cscoh_failure": true,
+        "next_step_allowed": false,
+        "rule": "terminal only when both asserted fault classes fail both frozen single-window and frozen pool criteria"
+      }
+    }
+  ],
+  "overall_terminal_cscoh_failure": true,
+  "step_2_allowed_for_any_target": false
+}
