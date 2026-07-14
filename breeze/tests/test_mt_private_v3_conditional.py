@@ -139,6 +139,12 @@ class PrivateMachineToolV3ConditionalTests(unittest.TestCase):
         self.assertNotIn("inner_validation", payload)
         self.assertNotIn("formal_file_ids", payload)
 
+    def test_s_c_transport_parser_accepts_a_json_object_without_relaxing_schema(self) -> None:
+        recipe = v3.parse_s_c_recipe_content("Here is the recipe:\n```json\n{\"class_name\": \"normal_machining\"}\n```")
+        self.assertEqual(recipe, {"class_name": "normal_machining"})
+        with self.assertRaises(ValueError):
+            v3.parse_s_c_recipe_content("no JSON object")
+
 
 if __name__ == "__main__":
     unittest.main()

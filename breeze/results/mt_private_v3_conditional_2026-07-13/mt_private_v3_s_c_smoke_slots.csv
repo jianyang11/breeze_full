@@ -1,0 +1,4 @@
+accepted,accepted_path,candidate_sha256,class_identity_prediction,class_name,failure_reasons,rounds_attempted,slot,status
+False,,,,normal_machining,,1,0,pending
+False,,,,lead_screw_anomaly,,1,0,pending
+False,,,,base_imbalance,,1,0,pending

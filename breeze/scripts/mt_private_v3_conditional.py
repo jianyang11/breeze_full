@@ -11,14 +11,18 @@ from __future__ import annotations
 import argparse
 from collections import Counter
 import csv
+import hashlib
 import json
+import os
 import sys
+import time
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
 import numpy as np
 import pandas as pd
+import requests
 from scipy.stats import wilcoxon
 from sklearn.metrics import accuracy_score, confusion_matrix, f1_score
 
@@ -34,7 +38,6 @@ from mt_private_v2_llm_smoke import (  # noqa: E402
     apply_soft_band_gain,
     admit_candidate,
     build_admission,
-    call_recipe_api,
     candidate_feedback,
     class_exemplar_statistics,
     iaaft_surrogate,
@@ -53,6 +56,7 @@ from mt_private_v2_llm_smoke import (  # noqa: E402
     train_cnn,
 )
 from mt_verifier import MachineToolVerifier, soft_spectrum_vector, structure_vector  # noqa: E402
+from config import LLM_BASE_URL, LLM_MIN_INTERVAL, LLM_MODEL  # noqa: E402
 
 
 STAGE_DATE = "2026-07-13"
@@ -74,6 +78,7 @@ POOL_N_SYN = 20
 DOWNSTREAM_N_SYN_BY_N_REAL = {10: 10, 25: 20, 50: 20}
 S_C_API_BUDGET = 100
 S_C_SMOKE_REQUESTS = 3
+S_C_AMENDMENT_1_SMOKE_REQUESTS = 6
 S_C_MAX_FEEDBACK_ROUNDS = 3
 S_C_EXPANSIONS_PER_RECIPE = 3
 
@@ -526,6 +531,64 @@ def append_s_c_api_log(row: dict[str, Any]) -> None:
         writer.writerow({field: json_ready(row.get(field, "")) for field in S_C_API_LOG_FIELDS})
 
 
+def parse_s_c_recipe_content(content: str) -> dict[str, Any]:
+    """Decode the first JSON object without loosening the recipe schema."""
+    decoder = json.JSONDecoder()
+    for start, character in enumerate(content):
+        if character != "{":
+            continue
+        try:
+            value, _ = decoder.raw_decode(content[start:])
+        except json.JSONDecodeError:
+            continue
+        if isinstance(value, dict):
+            return value
+    raise ValueError("response contains no JSON object")
+
+
+def s_c_call_recipe_api(
+    messages: list[dict[str, str]], request_index: int, slot: int, cls: str, round_id: int, last_call: list[float],
+) -> tuple[dict[str, Any] | None, dict[str, Any]]:
+    key = os.environ.get("DASHSCOPE_API_KEY") or os.environ.get("MIMO_API_KEY")
+    if not key:
+        raise RuntimeError("Set DASHSCOPE_API_KEY or MIMO_API_KEY in the process environment")
+    elapsed = time.monotonic() - last_call[0]
+    if elapsed < LLM_MIN_INTERVAL:
+        time.sleep(LLM_MIN_INTERVAL - elapsed)
+    prompt_bytes = json.dumps(messages, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    prompt_hash = hashlib.sha256(prompt_bytes).hexdigest()
+    status, text, parsed, parse_status = 0, "", None, "not_attempted"
+    try:
+        response = requests.post(
+            f"{LLM_BASE_URL}/chat/completions",
+            headers={"Authorization": f"Bearer {key}"},
+            json={
+                "model": LLM_MODEL, "messages": messages, "temperature": 0.65, "max_tokens": 1200,
+                "enable_thinking": False, "chat_template_kwargs": {"enable_thinking": False},
+            },
+            timeout=300,
+        )
+        last_call[0] = time.monotonic()
+        status, text = int(response.status_code), response.text
+        if status == 200:
+            content = response.json()["choices"][0]["message"]["content"]
+            parsed = parse_s_c_recipe_content(content)
+            parse_status = "json_object_ok"
+        else:
+            parse_status = "http_error"
+    except (requests.RequestException, KeyError, IndexError, TypeError, ValueError, json.JSONDecodeError) as exc:
+        last_call[0] = time.monotonic()
+        parse_status = f"error:{type(exc).__name__}"
+    return parsed, {
+        "request_index": request_index, "slot": slot, "target_class": cls, "round_id": round_id,
+        "model": LLM_MODEL, "prompt_hash": prompt_hash,
+        "response_hash": hashlib.sha256(text.encode("utf-8")).hexdigest() if text else "",
+        "http_status": status, "parse_status": parse_status,
+        "timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "accepted": False, "rejection_reasons": "",
+    }
+
+
 def s_c_materials(context: Context) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
     exemplar, differences = class_exemplar_statistics(context.dev, context.verifier)
     schema = recipe_schema(max(len(context.templates[cls]) for cls in MT_CLASSES))
@@ -598,7 +661,7 @@ def s_c_write_outputs(smoke: bool) -> dict[str, Any]:
         "balanced": bool(all(count == target for count in counts.values())),
         "api_requests": s_c_api_attempt_count(), "api_budget": S_C_API_BUDGET,
         "formal_test_files_read": 0,
-        "next_allowed_stage": "s_c_pool_extension" if smoke else "s_c_downstream" if all(count == target for count in counts.values()) else "failure_analysis_only",
+        "next_allowed_stage": "s_c_pool_extension" if smoke and all(count == target for count in counts.values()) else "s_c_downstream" if all(count == target for count in counts.values()) else "failure_analysis_only",
     }
     stem = "mt_private_v3_s_c_smoke" if smoke else "mt_private_v3_s_c_llm_n20_pool"
     write_csv(OUT_DIR / f"{stem}_slots.csv", slot_rows)
@@ -629,8 +692,8 @@ def s_c_prepare(context: Context) -> dict[str, Any]:
 def generate_s_c_pool(context: Context, max_api_requests: int, smoke: bool) -> dict[str, Any]:
     if max_api_requests < 0 or max_api_requests > S_C_API_BUDGET:
         raise ValueError(f"S-C API request ceiling must be in [0,{S_C_API_BUDGET}]")
-    if smoke and max_api_requests != S_C_SMOKE_REQUESTS:
-        raise ValueError(f"S-C smoke request ceiling is frozen at {S_C_SMOKE_REQUESTS}")
+    if smoke and max_api_requests not in {S_C_SMOKE_REQUESTS, S_C_AMENDMENT_1_SMOKE_REQUESTS}:
+        raise ValueError(f"S-C smoke request ceiling must be {S_C_SMOKE_REQUESTS} or {S_C_AMENDMENT_1_SMOKE_REQUESTS}")
     exemplar, differences, schema = s_c_materials(context)
     class_std = {cls: context.templates[cls].std(axis=(0, 2)) for cls in MT_CLASSES}
     accepted_hashes = {
@@ -655,7 +718,7 @@ def generate_s_c_pool(context: Context, max_api_requests: int, smoke: bool) -> d
         round_id = len(state["history"])
         feedback = state["history"][-1].get("feedback") if state["history"] else None
         messages = s_c_prompt_messages(cls, context, exemplar, differences, schema, round_id, feedback)
-        raw_recipe, api_row = call_recipe_api(messages, s_c_api_attempt_count() + 1, slot, cls, round_id, last_call)
+        raw_recipe, api_row = s_c_call_recipe_api(messages, s_c_api_attempt_count() + 1, slot, cls, round_id, last_call)
         record: dict[str, Any] = {"round_id": round_id, "api_request_index": api_row["request_index"], "attempts": []}
         recipe = None
         if raw_recipe is None:
@@ -896,7 +959,7 @@ def audit_passed() -> bool:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--stage", choices=["prepare", "audit", "smoke", "pool", "s_c_prepare", "s_c_smoke", "s_c_generate", "downstream", "summarize"], required=True)
+    parser.add_argument("--stage", choices=["prepare", "audit", "smoke", "pool", "s_c_prepare", "s_c_smoke", "s_c_smoke_amendment_1", "s_c_generate", "downstream", "summarize"], required=True)
     parser.add_argument("--method", choices=["s_a_directional", "s_b_carrier_mix", "s_c_llm"], default="s_a_directional")
     parser.add_argument("--target-per-class", type=int, default=None)
     parser.add_argument("--max-api-requests", type=int, default=S_C_API_BUDGET)
@@ -917,6 +980,9 @@ def main() -> None:
         raise RuntimeError("v3 admission audit is not PASS; pool/downstream stages are prohibited")
     if args.stage == "s_c_smoke":
         print(json.dumps(generate_s_c_pool(context, S_C_SMOKE_REQUESTS, smoke=True), sort_keys=True))
+        return
+    if args.stage == "s_c_smoke_amendment_1":
+        print(json.dumps(generate_s_c_pool(context, S_C_AMENDMENT_1_SMOKE_REQUESTS, smoke=True), sort_keys=True))
         return
     if args.stage == "s_c_generate":
         smoke_path = OUT_DIR / "mt_private_v3_s_c_smoke_decision.json"

@@ -1,0 +1,4 @@
+request_index,slot,target_class,round_id,model,prompt_hash,response_hash,http_status,parse_status,timestamp,accepted,rejection_reasons
+1,0,base_imbalance,0,mimo-v2.5,58c18cd30889ba3648c09f2f91691cfd50da9e3eea52f005b059ee7aa494f040,c72131202505293626ccf42f87375cf028a28e3dc2bf165d7f69a2c47cc40502,200,error:JSONDecodeError,2026-07-14T01:38:28+00:00,False,api_or_json
+2,0,lead_screw_anomaly,0,mimo-v2.5,fd9c131f573be5fd3b8c8c6ee902d71f78b943cf2361f9ab5085d7732fffa46c,5f4d788c9dd9e1aa6a3694f1dbf5ba1663e403e2408896e2076edbfabb9e44e4,200,error:JSONDecodeError,2026-07-14T01:38:38+00:00,False,api_or_json
+3,0,normal_machining,0,mimo-v2.5,7593ddd6c8f7b5be2299f1dd19a09f8501949a6b58d66cac28a4b1081a0d122f,e130406b5984c5a30965ce86be834b019965b38bbd1195d2dfd35f7c22746609,200,error:JSONDecodeError,2026-07-14T01:38:47+00:00,False,api_or_json
