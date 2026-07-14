@@ -1452,9 +1452,9 @@ repair enters Layer 3; a certificate cleanly distinguishes `pass`, `fail`, and
 
 ### 14.1 Step 0 — CSCoh implementation and unit evidence
 
-- [ ] Implement the frozen Hann multi-segment averaged cyclic-periodogram estimator in a new `verifier` module, including the fixed alpha-family construction, OR/IR paired score, and serializable settings.
-- [ ] Add deterministic unit tests: a synthetic BPFO impulse train must dominate the BPFO cyclic score over BPFI; seeded white noise must show no corresponding BPFO margin; invalid signal/parameter contracts must raise.
-- [ ] Run the focused test set with `breeze/.venv-breeze/bin/python` and record the exact command/result before source data are read by v6 code.
+- [x] Implement the frozen Hann multi-segment averaged cyclic-periodogram estimator in a new `verifier` module, including the fixed alpha-family construction, OR/IR paired score, and serializable settings.
+- [x] Add deterministic unit tests: a synthetic BPFO impulse train must dominate the BPFO cyclic score over BPFI; seeded white noise must show no corresponding BPFO margin; invalid signal/parameter contracts must raise.
+- [x] Run the focused test set with `breeze/.venv-breeze/bin/python` before source data are read by v6 code: `breeze/.venv-breeze/bin/python -m pytest breeze/tests/test_csc.py -q` passed 3/3.
 
 ### 14.2 Step 1 — train-only source separability go/no-go
 
