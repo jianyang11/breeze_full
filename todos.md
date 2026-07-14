@@ -1439,6 +1439,48 @@ repair enters Layer 3; a certificate cleanly distinguishes `pass`, `fail`, and
 - [x] Do not add TPF, spindle/shaft order, lead-screw order, rotational imbalance, bearing frequency, guessed sensor semantics, learned generators, post-rejection repairs, or a new learned admission certificate.
 - [ ] For every code/document/result change: review only scoped paths, commit without raw data or generated arrays/checkpoints, push `main`, and verify the remote SHA.
 
+## 14. PU LOCO v6 CSCoh + multi-window evidence (started 2026-07-14; final cross-condition attempt)
+
+### 14.0 Protocol, design, and hard boundary
+
+- [x] Synchronize `main` with `origin/main` before v6 inspection; baseline is `375ed31`. Preserve the unrelated untracked v4 S3 artifacts and `breeze/OK.md`.
+- [x] Read the v2, v3, v4 S2/S1, v5 failure/sanity, and v4 S3 freeze reports in the prescribed order.
+- [x] Create and freeze `breeze/results/pu_loco_v6_cscoh_2026-07-14/v6_design.md` before CSCoh calibration or a real-window v6 diagnostic. It lists the complete candidate family, estimator, alpha grid, all thresholds, sampling schedule, aggregation test, and stop rules.
+- [ ] Keep API increment at zero through CSCoh diagnostics, v6 admission audit, candidate pool construction, and internal comparison. Do not make an LLM request without owner approval for a separately recorded maximum of 50 calls.
+- [ ] Keep registered PU LOCO held-out windows unread until one unique internal candidate passes the frozen v6 rule and a v6 preregistration is committed.
+- [ ] After each scoped repository change, inspect the diff, commit it, push `main`, and verify the remote contains that SHA; do not add raw/processed data, virtual environments, generated pools, runs, or checkpoints.
+
+### 14.1 Step 0 — CSCoh implementation and unit evidence
+
+- [ ] Implement the frozen Hann multi-segment averaged cyclic-periodogram estimator in a new `verifier` module, including the fixed alpha-family construction, OR/IR paired score, and serializable settings.
+- [ ] Add deterministic unit tests: a synthetic BPFO impulse train must dominate the BPFO cyclic score over BPFI; seeded white noise must show no corresponding BPFO margin; invalid signal/parameter contracts must raise.
+- [ ] Run the focused test set with `breeze/.venv-breeze/bin/python` and record the exact command/result before source data are read by v6 code.
+
+### 14.2 Step 1 — train-only source separability go/no-go
+
+- [ ] Add a checkpointed diagnostic that loads only `config.SPLIT['train']` bearings from the three source conditions of each internal target, caches derived CSCoh scores under ignored `breeze/runs/`, and writes aggregate JSON/CSV/Markdown under the dedicated v6 result root.
+- [ ] Compute the frozen single-window q10-versus-q90 separation criterion for true OR/IR, wrong-label real windows, and deterministic unit-variance white noise; never choose a quantile or tolerance from these results.
+- [ ] Run the frozen 20-window, 20-replicate-per-source paired one-sided Wilcoxon audit for each target, true/wrong/white category, and asserted OR/IR label; require every true pool pass and every negative pool fail.
+- [ ] If both asserted classes fail both the single-window and pool criteria, write and freeze v6 CSCoh failure analysis, mark the cross-condition PU line terminal, and prohibit Steps 2--4. If the predeclared pool decision passes while the soft single-window criterion fails, retain that explicitly documented multi-window route without changing a rule.
+
+### 14.3 Step 2 — v6 verifier and mandatory admission audit (only after Step 1 permits)
+
+- [ ] Integrate CSCoh soft window scores and the frozen pool-level hard identity decision into an S4 v1.1 extrapolation verifier without changing S4 morphology/sanity semantics.
+- [ ] Run the four-part admission audit before building any pool: real healthy carrier admission, wrong OR/IR labels, white noise/constants, and the frozen CSCoh source-separability record.
+- [ ] Require all negative controls to admit zero windows and retain the S4 healthy threshold. Any failure creates a frozen v6 failure analysis; never retune a boundary or repair a rejected waveform.
+
+### 14.4 Step 3 — only audit-eligible zero-API pool and internal comparison
+
+- [ ] Run the existing BREEZE-H, `morphology_idw`, and `morphology_nearest` exactly once with v6 admission: five/class smoke in every fold, then 20/class only for families balanced in every fold. Preserve unmodified candidate manifests/certificates.
+- [ ] Build BREEZE-U only from the unique frozen internal winner plus exactly equal per-class `noise_aug` contribution; do not create alternate union families.
+- [ ] Run `--normalize none`, `n_real={5,10,25}`, ten-seed internal pseudo-LOCO comparisons and mechanically apply the predeclared Acc/Macro-F1 >= `noise_aug` rule in at least three of four folds per shot cell.
+
+### 14.5 Step 4 — preregistration or terminal closeout
+
+- [ ] If exactly one candidate passes, commit `pu_loco_v6_preregistration.md` with code and pool hashes, all frozen settings, 40 seeds, paired Wilcoxon direction, and Holm family before reading formal held-out windows.
+- [ ] Execute the registered formal held-out experiment once only after that commit, then freeze all results.
+- [ ] Otherwise write failure analysis and retain the v5 manuscript-safe stress-test scope. No new PU cross-condition candidate, verifier amendment, or formal comparison is allowed after v6.
+
 ### 13.1 Pre-registered zero-API design and implementation
 
 - [x] Create `breeze/results/mt_private_v3_design_2026-07-13/mt_private_v3_design.md` before running v3 candidate/audit outputs; specify every fixed candidate recipe rule, audit rule, downstream grid, threshold source, file-access boundary, and formal-selection gate.
