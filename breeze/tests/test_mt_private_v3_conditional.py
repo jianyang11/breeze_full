@@ -133,6 +133,7 @@ class PrivateMachineToolV3ConditionalTests(unittest.TestCase):
         direction = payload["v3_discriminative_direction"]
         self.assertEqual(v3.S_C_API_BUDGET, 100)
         self.assertEqual(v3.S_C_SMOKE_REQUESTS, 3)
+        self.assertEqual(v3.S_C_AMENDMENT_2_SMOKE_REQUESTS, 8)
         self.assertEqual(np.asarray(direction["soft_band_signed_effect"]).shape, (4, v3.N_BANDS))
         self.assertEqual(np.asarray(direction["channel_std_signed_effect"]).shape, (4,))
         self.assertIn("not physical frequencies", payload["s_c_generation_rule"])

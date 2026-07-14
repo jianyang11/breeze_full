@@ -79,6 +79,7 @@ DOWNSTREAM_N_SYN_BY_N_REAL = {10: 10, 25: 20, 50: 20}
 S_C_API_BUDGET = 100
 S_C_SMOKE_REQUESTS = 3
 S_C_AMENDMENT_1_SMOKE_REQUESTS = 6
+S_C_AMENDMENT_2_SMOKE_REQUESTS = 8
 S_C_MAX_FEEDBACK_ROUNDS = 3
 S_C_EXPANSIONS_PER_RECIPE = 3
 
@@ -692,8 +693,8 @@ def s_c_prepare(context: Context) -> dict[str, Any]:
 def generate_s_c_pool(context: Context, max_api_requests: int, smoke: bool) -> dict[str, Any]:
     if max_api_requests < 0 or max_api_requests > S_C_API_BUDGET:
         raise ValueError(f"S-C API request ceiling must be in [0,{S_C_API_BUDGET}]")
-    if smoke and max_api_requests not in {S_C_SMOKE_REQUESTS, S_C_AMENDMENT_1_SMOKE_REQUESTS}:
-        raise ValueError(f"S-C smoke request ceiling must be {S_C_SMOKE_REQUESTS} or {S_C_AMENDMENT_1_SMOKE_REQUESTS}")
+    if smoke and max_api_requests not in {S_C_SMOKE_REQUESTS, S_C_AMENDMENT_1_SMOKE_REQUESTS, S_C_AMENDMENT_2_SMOKE_REQUESTS}:
+        raise ValueError(f"S-C smoke request ceiling must be {S_C_SMOKE_REQUESTS}, {S_C_AMENDMENT_1_SMOKE_REQUESTS}, or {S_C_AMENDMENT_2_SMOKE_REQUESTS}")
     exemplar, differences, schema = s_c_materials(context)
     class_std = {cls: context.templates[cls].std(axis=(0, 2)) for cls in MT_CLASSES}
     accepted_hashes = {
@@ -959,7 +960,7 @@ def audit_passed() -> bool:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--stage", choices=["prepare", "audit", "smoke", "pool", "s_c_prepare", "s_c_smoke", "s_c_smoke_amendment_1", "s_c_generate", "downstream", "summarize"], required=True)
+    parser.add_argument("--stage", choices=["prepare", "audit", "smoke", "pool", "s_c_prepare", "s_c_smoke", "s_c_smoke_amendment_1", "s_c_smoke_amendment_2", "s_c_generate", "downstream", "summarize"], required=True)
     parser.add_argument("--method", choices=["s_a_directional", "s_b_carrier_mix", "s_c_llm"], default="s_a_directional")
     parser.add_argument("--target-per-class", type=int, default=None)
     parser.add_argument("--max-api-requests", type=int, default=S_C_API_BUDGET)
@@ -983,6 +984,9 @@ def main() -> None:
         return
     if args.stage == "s_c_smoke_amendment_1":
         print(json.dumps(generate_s_c_pool(context, S_C_AMENDMENT_1_SMOKE_REQUESTS, smoke=True), sort_keys=True))
+        return
+    if args.stage == "s_c_smoke_amendment_2":
+        print(json.dumps(generate_s_c_pool(context, S_C_AMENDMENT_2_SMOKE_REQUESTS, smoke=True), sort_keys=True))
         return
     if args.stage == "s_c_generate":
         smoke_path = OUT_DIR / "mt_private_v3_s_c_smoke_decision.json"
