@@ -103,7 +103,11 @@ sanity semantics; CSCoh identity is only an OR/IR evidence component.
 Each internal target is calibrated only from its three source conditions. For
 each asserted fault class, the single-window criterion is fixed to the v5
 standard: the true-class margin `q10` must exceed both the wrong-class and
-unit-variance white-noise margin `q90`. No quantile may be relaxed.
+unit-variance white-noise margin `q90`. The white-noise reference comprises
+exactly 300 deterministic `(3, 2048)` windows for each `(internal target,
+asserted class)` pair, generated with a seed key derived from `20260714` and
+that pair; it is independent of the source-window count. No quantile, count,
+or tolerance may be relaxed.
 
 The multi-window check forms 20 independent, source-condition-stratified
 20-window pools per actual class and per white-noise control for every source
