@@ -163,6 +163,9 @@ def validate_preregistration() -> dict[str, Any]:
     for key, expected in required.items():
         if lock.get(key) != expected:
             raise RuntimeError(f"formal lock mismatch for {key}")
+    for relative_path, expected_hash in lock.get("source_sha256", {}).items():
+        if sha256_file(BREEZE_DIR.parent / relative_path) != expected_hash:
+            raise RuntimeError(f"source file differs from preregistration lock: {relative_path}")
     if lock.get("pool_manifest_sha256") != sha256_file(POOL_MANIFEST):
         raise RuntimeError("S-C pool manifest differs from preregistration lock")
     if lock.get("inner_decision_sha256") != sha256_file(INNER_DECISION):
