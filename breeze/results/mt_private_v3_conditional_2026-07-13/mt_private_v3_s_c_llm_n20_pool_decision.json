@@ -1,0 +1,14 @@
+{
+  "accepted_counts": {
+    "base_imbalance": 18,
+    "lead_screw_anomaly": 20,
+    "normal_machining": 20
+  },
+  "api_budget": 100,
+  "api_requests": 98,
+  "balanced": false,
+  "formal_test_files_read": 0,
+  "method": "s_c_llm",
+  "next_allowed_stage": "failure_analysis_only",
+  "target_per_class": 20
+}
