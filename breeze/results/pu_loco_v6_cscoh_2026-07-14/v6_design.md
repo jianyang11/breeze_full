@@ -106,8 +106,10 @@ standard: the true-class margin `q10` must exceed both the wrong-class and
 unit-variance white-noise margin `q90`. The white-noise reference comprises
 exactly 300 deterministic `(3, 2048)` windows for each `(internal target,
 asserted class)` pair, generated with a seed key derived from `20260714` and
-that pair; it is independent of the source-window count. No quantile, count,
-or tolerance may be relaxed.
+that pair. They are split as 100 windows at each source condition's own
+kinematic alpha family, so the noise reference has the same three-source
+composition as the real distribution; it is independent of the source-window
+count. No quantile, count, or tolerance may be relaxed.
 
 The multi-window check forms 20 independent, source-condition-stratified
 20-window pools per actual class and per white-noise control for every source
