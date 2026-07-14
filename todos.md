@@ -1448,7 +1448,7 @@ repair enters Layer 3; a certificate cleanly distinguishes `pass`, `fail`, and
 - [x] Create and freeze `breeze/results/pu_loco_v6_cscoh_2026-07-14/v6_design.md` before CSCoh calibration or a real-window v6 diagnostic. It lists the complete candidate family, estimator, alpha grid, all thresholds, sampling schedule, aggregation test, and stop rules.
 - [x] Keep API increment at zero through CSCoh diagnostics, v6 admission audit, candidate pool construction, and internal comparison. No LLM request was made; v6 stopped in Step 1.
 - [x] Keep registered PU LOCO held-out windows unread until one unique internal candidate passes the frozen v6 rule and a v6 preregistration is committed. v6 stopped before either condition could be met.
-- [ ] After each scoped repository change, inspect the diff, commit it, push `main`, and verify the remote contains that SHA; do not add raw/processed data, virtual environments, generated pools, runs, or checkpoints.
+- [x] After each scoped repository change, inspect the diff, commit it, push `main`, and verify the remote contains that SHA; no raw/processed data, virtual environments, generated pools, runs, or checkpoints were committed.
 
 ### 14.1 Step 0 — CSCoh implementation and unit evidence
 
