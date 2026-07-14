@@ -18,6 +18,9 @@ breeze/data_mt/
 
 # Generated training artifacts and checkpoints
 breeze/runs/
+breeze/results/**/checkpoints/
+breeze/results/**/pools/
+breeze/results/**/deterministic_noise_pools/
 
 # LaTeX build intermediates
 breeze/paper/*.aux

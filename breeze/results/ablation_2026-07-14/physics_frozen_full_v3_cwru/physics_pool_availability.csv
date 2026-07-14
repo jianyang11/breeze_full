@@ -1,0 +1,5 @@
+dataset,pool,status,reason
+cwru,llm,available,deterministic_metric_subsample_of_frozen_pool
+cwru,rule,available,deterministic_metric_subsample_of_frozen_pool
+cwru,random_open_loop,unavailable,no matching frozen pool exists for this protocol
+cwru,noise_aug,available,deterministic_noise_aug_outer_train

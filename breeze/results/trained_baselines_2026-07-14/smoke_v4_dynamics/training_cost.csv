@@ -1,0 +1,13 @@
+method,train_mode,n_real,seed,class_id,train_examples,wall_seconds,checkpoint,smoke
+timegan,full_train,5,0,0,8,0.131469,breeze/results/trained_baselines_2026-07-14/smoke_v4_dynamics/checkpoints/timegan/full_train/nreal_5/seed_0/class_0.pt,True
+timegan,full_train,5,0,1,8,0.076812,breeze/results/trained_baselines_2026-07-14/smoke_v4_dynamics/checkpoints/timegan/full_train/nreal_5/seed_0/class_1.pt,True
+timegan,full_train,5,0,2,8,0.075233,breeze/results/trained_baselines_2026-07-14/smoke_v4_dynamics/checkpoints/timegan/full_train/nreal_5/seed_0/class_2.pt,True
+timegan,few_shot,5,0,0,5,0.076605,breeze/results/trained_baselines_2026-07-14/smoke_v4_dynamics/checkpoints/timegan/few_shot/nreal_5/seed_0/class_0.pt,True
+timegan,few_shot,5,0,1,5,0.071079,breeze/results/trained_baselines_2026-07-14/smoke_v4_dynamics/checkpoints/timegan/few_shot/nreal_5/seed_0/class_1.pt,True
+timegan,few_shot,5,0,2,5,0.070520,breeze/results/trained_baselines_2026-07-14/smoke_v4_dynamics/checkpoints/timegan/few_shot/nreal_5/seed_0/class_2.pt,True
+ddpm,full_train,5,0,0,8,0.062820,breeze/results/trained_baselines_2026-07-14/smoke_v4_dynamics/checkpoints/ddpm/full_train/nreal_5/seed_0/class_0.pt,True
+ddpm,full_train,5,0,1,8,0.056909,breeze/results/trained_baselines_2026-07-14/smoke_v4_dynamics/checkpoints/ddpm/full_train/nreal_5/seed_0/class_1.pt,True
+ddpm,full_train,5,0,2,8,0.061642,breeze/results/trained_baselines_2026-07-14/smoke_v4_dynamics/checkpoints/ddpm/full_train/nreal_5/seed_0/class_2.pt,True
+ddpm,few_shot,5,0,0,5,0.042412,breeze/results/trained_baselines_2026-07-14/smoke_v4_dynamics/checkpoints/ddpm/few_shot/nreal_5/seed_0/class_0.pt,True
+ddpm,few_shot,5,0,1,5,0.040932,breeze/results/trained_baselines_2026-07-14/smoke_v4_dynamics/checkpoints/ddpm/few_shot/nreal_5/seed_0/class_1.pt,True
+ddpm,few_shot,5,0,2,5,0.051119,breeze/results/trained_baselines_2026-07-14/smoke_v4_dynamics/checkpoints/ddpm/few_shot/nreal_5/seed_0/class_2.pt,True

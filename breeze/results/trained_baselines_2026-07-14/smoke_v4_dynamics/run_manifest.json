@@ -1,0 +1,53 @@
+{
+  "condition": "N09_M07_F10",
+  "dataset": "PU",
+  "ddpm_config": {
+    "batch_size": 16,
+    "diffusion_steps": 8,
+    "epochs": 1,
+    "hidden_channels": 32,
+    "learning_rate": 0.0002
+  },
+  "downstream_epochs": 1,
+  "generator_data_boundary": "outer_train_only",
+  "max_train_per_class": 8,
+  "methods": [
+    "timegan",
+    "ddpm"
+  ],
+  "n_real": [
+    5
+  ],
+  "n_syn_per_class": 20,
+  "seeds": 1,
+  "smoke": true,
+  "source_scripts": {
+    "models_sha256": "8fbaf8cb518e04d7c57dfdc47ad1de9db504e4dd3780207fa6a9b6a6143f4d10",
+    "runner_sha256": "363f042fa7466e4c3357fe4e96951a0c6a8ef5476311474b7c14fbd565c4b4b7"
+  },
+  "split": "file_chronological_80_20",
+  "test_access": "downstream_evaluation_only",
+  "timegan_config": {
+    "batch_size": 16,
+    "embedding_epochs": 1,
+    "joint_epochs": 1,
+    "latent_channels": 32,
+    "learning_rate": 0.001,
+    "supervisor_epochs": 1
+  },
+  "train_modes": [
+    "full_train",
+    "few_shot"
+  ],
+  "training_dynamics": "raw per-epoch optimization losses, checkpointed and exported without stability thresholds",
+  "x_test_shape": [
+    962,
+    3,
+    2048
+  ],
+  "x_train_shape": [
+    3846,
+    3,
+    2048
+  ]
+}
