@@ -28,6 +28,10 @@ PALETTE = {
 
 METHOD_COLORS = {
     "real_only": PALETTE["neutral_dark"],
+    "real": PALETTE["neutral_dark"],
+    "llm": PALETTE["blue"],
+    "rule": PALETTE["orange"],
+    "random_open_loop": PALETTE["neutral_mid"],
     "noise_aug": PALETTE["blue_soft"],
     "vae": "#C8C8D8",
     "gan": "#B8B8C8",
@@ -65,8 +69,10 @@ def save_figure(fig, path: Path, dpi: int = 600) -> None:
     """Save editable vector files plus high-resolution review rasters."""
     path.parent.mkdir(parents=True, exist_ok=True)
     stem = path.with_suffix("")
+    svg_path = stem.with_suffix(".svg")
     fig.savefig(stem.with_suffix(".pdf"))
-    fig.savefig(stem.with_suffix(".svg"))
+    fig.savefig(svg_path)
+    svg_path.write_text("\n".join(line.rstrip() for line in svg_path.read_text().splitlines()) + "\n")
     fig.savefig(stem.with_suffix(".png"), dpi=300)
     fig.savefig(stem.with_suffix(".tiff"), dpi=dpi, pil_kwargs={"compression": "tiff_lzw"})
 

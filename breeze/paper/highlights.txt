@@ -1,5 +1,5 @@
-LLM recipes are rendered and admitted by train-calibrated physical gates.
-PU file-split tests favour LLM recipes over rule and random baselines.
-CWRU within and LOLO protocols pass 90/90 registered Holm comparisons.
-Berkeley is partial: 15/18 pass, with a low-shot-only LLM--rule advantage.
-PU transfer failures and confounded milling data define current limits.
+BREEZE admits LLM-rendered signals with train-calibrated physical gates.
+PU LLM recipes beat rule and random recipes in all registered tests.
+CWRU passes 72/72 clean within/load-transfer tests after Holm correction.
+Berkeley passes 15/18 tests; the LLM-rule gain is limited to low shots.
+Six failed PU transfer stages expose the current cross-condition boundary.

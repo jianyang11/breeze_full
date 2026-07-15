@@ -1,0 +1,35 @@
+# BREEZE Claim-to-Evidence Map
+
+Status: frozen manuscript map, 2026-07-15 (Asia/Shanghai).
+
+This map operationalizes `analysis/evidence_ledger.md`. A result may enter the
+manuscript only when its protocol, frozen source, generated table, and wording
+boundary are all present below. Smoke runs, untracked result directories, and
+later private-machine-tool artifacts are excluded.
+
+| Manuscript claim | Frozen evidence | Table/figure source | Permitted wording | Prohibited extension |
+|---|---|---|---|---|
+| PU recipe-source contribution | `breeze/results/phaseA_v2_frozen_2026-07-06/breeze/results/phaseA_v2_gate_report.md`; `phaseA_v2_downstream_summary.csv`; `phaseA_v2_wilcoxon.csv` | `scripts/build_paper_tables.py` -> `paper/generated/pu_phasea.tex` | On the PU N09_M07_F10 file split, cached LLM K=3 recipes exceed matched rule and random open-loop recipes for Accuracy and Macro-F1 at 5, 10, and 25 shots after the registered within-family Holm correction (20 seeds, 150 synthetic windows/class). | Zero-shot operation; a new v2 LLM run; superiority over every augmentation or trained generator; cross-condition PU transfer. |
+| CWRU load transfer | `breeze/results/cwru_patch_v2_2026-07-07_frozen/cwru_patch_v2_report.md`; `cwru_patch_v2_summary.csv`; `cwru_patch_v2_wilcoxon.csv`; `analysis/cwru_lolo_provenance_audit_2026-07-15.md` | `scripts/build_paper_tables.py` -> `paper/generated/cwru.tex`; downstream/cross-load figure must exclude `lolo_load0` and read only frozen CSVs | In within-load0 and the provenance-valid held-out-load1/2/3 folds, all 72 registered LLM comparisons against rule, noise augmentation, and real-only have positive deltas and pass Holm correction (40 seeds, 20 synthetic windows/class). | Calling the reused load0-pool result a strict four-fold LOLO study; cross-dataset transfer; a universal bearing verifier; direct comparison with papers using window-random splits. |
+| Berkeley binary milling | `breeze/results/milling_berkeley_v2_binary_formal_2026-07-08/berkeley_v2_binary_final_report.md`; `berkeley_v2_binary_formal_wilcoxon_holm.csv`; formal summary CSV | `scripts/build_paper_tables.py` -> `paper/generated/berkeley.tex` | Qualified partial result: 15/18 registered comparisons pass. All 12 LLM comparisons with noise and random open-loop pass; versus rule, n=2 Accuracy and both n=5 metrics pass, while n=2 Macro-F1 and both n=10 metrics do not. | “Milling SOTA”; “Berkeley passed”; LLM beats rule at n=2 without naming Accuracy; rule superiority over unstructured baselines. |
+| Reference-relative physical diagnostics | `analysis/section_C_physics_freeze_report.md`; `breeze/results/ablation_2026-07-14/physics_frozen_full_v3_{pu,cwru,berkeley}/physics_metrics.csv` and availability/manifests | `scripts/build_paper_tables.py` -> `paper/generated/physics.tex`; physics-distribution figures must use the same v3 CSVs | Report class-conditional, reference-relative physical and diversity diagnostics with their availability records. Treat metrics as complementary evidence, not a global method ranking. | Formal physical correctness; replacing a missing pool with another pool; adding TimeGAN/DDPM smoke pools; interpreting diversity as lower-is-better. |
+| PU LOCO boundary chain | v1 frozen report; v2 frequency-mismatch report; v3 morphology map; v4 admission failure; v5 extrapolation audit; v6 CSCoh failure report, as enumerated in the ledger | A boundary figure/table must show the full v1--v6 sequence and distinguish formal downstream failures from development/admission stops | Six predeclared attempts did not support PU cross-condition transfer: v1/v2 formal comparisons failed broadly, v3--v5 could not produce an admissible balanced pool, and v6 source-only CSCoh evidence was non-discriminative. | Selecting successful cells; calling v3--v6 formal held-out tests; claiming a transferable class-identity certificate. |
+| UMich stop | `breeze/results/milling_umich_v4_task_repair_2026-07-09/umich_v4_task_repair_report.md`; `learnability_audit/umich_v4_learnability_audit.md` | Boundary text/table only | The available condition/process metadata are confounded with wear labels under the frozen split, so a defensible signal-only worn/unworn formal test was not run. | “UMich is unlearnable”; any LLM-generation or positive UMich result. |
+| MU-TCM stop | `breeze/results/mutcm_v3_llm_inner_2026-07-09/mutcm_v3_inner_gate_report.md` | Boundary text/table only | Inner validation passes 2/6 core comparisons; preregistration and held-out testing were stopped. | Formal MU-TCM result; external test claim; replacing the stop with a private-data result. |
+| Training-free generator cost | Code path and experiment manifests show no generator optimization for the recipe--renderer--verifier route; frozen API records document inference calls | Method/reproducibility text; no comparative cost table until trained-baseline freeze | BREEZE does not optimize a target-data neural generator; cost consists of LLM inference, deterministic rendering, verification, and downstream training. | Lower total cost than TimeGAN/DDPM before their matched formal timing run is frozen and added to the ledger. |
+| LLM configuration | CWRU JSON records and gate report store `mimo-v2.5`, temperature 0.8, top-p 0.9, max tokens 900; PU Phase-A is a cached pool and its original model metadata are not established by the current ledger | Dataset-specific generation-provenance paragraph and supplement | Report CWRU configuration exactly; report PU as a cached K=3 recipe pool generated by the archived pipeline, with missing original provider-version metadata disclosed if it cannot be recovered. | Applying the current `config.py` model name retroactively to PU; claiming deterministic LLM replay from a seed when the provider did not expose one. |
+| Auditable admission | Per-slot JSON/NPY records, verifier reports, pool manifests, hashes, and frozen CSVs | Framework, Algorithm 1, failure-reason/failure-case figures | Every admitted candidate can be traced to a recipe, renderer seed, active gate report, and pool record within the archived runs used by the protocol. | Calling gate compliance a certificate or proof of physical truth, distributional coverage, or deployment safety. |
+
+## Current blockers
+
+1. The formal matched TimeGAN/DDPM study is not in the evidence ledger. Its
+   smoke and untracked outputs must not be used in the manuscript.
+2. PU Phase-A original LLM provider/version, top-p, and provider-side seed are
+   not frozen in the current evidence ledger. This is a reproducibility gap,
+   not a field to fill from the present configuration.
+3. HAWAN-PIR 2025 has no verified DOI or publisher record in the workspace and
+   must remain uncited until a stable source is supplied.
+4. The evidence ledger's repository snapshot line names the earlier commit
+   `345cbbd`; the manuscript rewrite began from synchronized commit `5aa92cd`.
+   The ledger audit line must be refreshed at final freeze without altering
+   any experiment conclusion.

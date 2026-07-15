@@ -60,7 +60,7 @@ def draw_framework():
     ax.axis("off")
 
     panel_label(ax, "a", x=0.01, y=0.97)
-    ax.text(0.32, 5.76, "Closed-loop physical-gate admission", ha="left",
+    ax.text(0.32, 5.76, "Closed-loop physics-verified admission", ha="left",
             va="top", fontsize=9.0, fontweight="bold")
 
     phases = [
@@ -71,19 +71,16 @@ def draw_framework():
          ["fixed equations", "vibration + currents", "seeded waveform"],
          2.75, 3.55, 2.05, 1.55, "#F7F0DF", "#A56B25"),
         ("3  Verifier",
-         ["format and legality", "statistics + PSD shape", "envelope and MCSA gates"],
+         ["format and legality", "statistics + PSD shape", "envelope; supported MCSA"],
          5.25, 3.55, 2.35, 1.55, "#EAF2FB", PALETTE["blue"]),
         ("4  Admitted pool",
-         ["recipe + seed", "pass/fail report", "diversity check"],
+         ["recipe + seed", "gate report", "diversity-admitted window"],
          8.05, 3.55, 1.7, 1.55, "#EAF6EA", PALETTE["green"]),
     ]
     for title, lines, x, y, w, h, fc, ec in phases:
         _box(ax, x, y, w, h, title, lines, fc=fc, ec=ec, title_color=ec)
     for x1, x2 in [(2.3, 2.75), (4.8, 5.25), (7.6, 8.05)]:
         _arrow(ax, x1, 4.32, x2, 4.32)
-
-    _mini_signal(ax, 3.08, 3.78, 1.35, 0.42, PALETTE["orange"])
-    _mini_signal(ax, 8.24, 3.78, 1.12, 0.42, PALETTE["green"])
 
     _box(ax, 0.25, 1.55, 2.25, 1.15, "Real train split",
          ["file-level split", "quantiles from train only", "no test leakage"],
@@ -102,13 +99,13 @@ def draw_framework():
     ax.text(3.12, 2.62, "feedback <= K rounds", fontsize=6.2,
             color=PALETTE["rose"], rotation=18, ha="center")
 
-    _box(ax, 8.05, 1.35, 1.7, 1.05, "Few-shot diagnosis",
-         ["real + admitted windows", "compact 1-D CNN", "paired tests"],
+    _box(ax, 8.05, 1.35, 1.7, 1.05, "Diagnosis",
+         ["real + admitted", "compact 1-D CNN", "paired tests"],
          fc="#F1ECF7", ec=PALETTE["violet"], title_color=PALETTE["violet"])
     _arrow(ax, 8.9, 3.55, 8.9, 2.4)
 
     ax.text(0.3, 0.42,
-            "BREEZE does not train the generator; it admits candidates that pass train-calibrated gates and records why rejected candidates fail.",
+            "No target-data generator optimization and no waveform repair: rejected candidates remain rejected.",
             fontsize=6.6, color=PALETTE["neutral_dark"], ha="left")
     save_figure(fig, FIGS / "framework.pdf")
     plt.close(fig)
@@ -126,32 +123,35 @@ def draw_boundary():
             fontsize=9.0, fontweight="bold", ha="left", va="top")
 
     cols = [
-        ("LLM", "Candidate recipe", ["impact rate", "amplitude envelope", "jitter", "band weights"],
-         "#FBEAD8", PALETTE["orange"], 0.35),
-        ("Renderer", "Waveform construction", ["impulse train", "colored noise", "current sidebands", "fixed equations"],
-         "#F7F0DF", "#A56B25", 3.55),
-        ("Verifier", "Admission report", ["format", "statistics + PSD", "envelope evidence", "diversity"],
-         "#EAF2FB", PALETTE["blue"], 6.75),
+        ("LLM", "Output: recipe", ["class + metadata", "structured feedback", "not a waveform proof"],
+         "#FBEAD8", PALETTE["orange"], 0.20),
+        ("Renderer", "Output: waveform", ["recipe + seed", "fixed signal equations", "no admission decision"],
+         "#F7F0DF", "#A56B25", 2.65),
+        ("Verifier", "Output: gate report", ["waveform + train bounds", "mixed physical predicates", "not physical truth"],
+         "#EAF2FB", PALETTE["blue"], 5.10),
+        ("Classifier", "Output: Acc./Macro-F1", ["real + admitted pool", "paired fixed seeds", "no deployment guarantee"],
+         "#EAF6EA", PALETTE["green"], 7.55),
     ]
     for title, subtitle, items, fc, ec, x in cols:
-        _box(ax, x, 1.35, 2.55, 1.75, title, [subtitle] + items,
+        _box(ax, x, 1.30, 2.15, 1.85, title, [subtitle] + items,
              fc=fc, ec=ec, title_color=ec)
-    _arrow(ax, 2.9, 2.22, 3.55, 2.22)
-    _arrow(ax, 6.1, 2.22, 6.75, 2.22)
+    _arrow(ax, 2.35, 2.22, 2.65, 2.22)
+    _arrow(ax, 4.80, 2.22, 5.10, 2.22)
+    _arrow(ax, 7.25, 2.22, 7.55, 2.22)
 
-    ax.text(1.62, 0.85, "stochastic proposal", ha="center", fontsize=6.3,
+    ax.text(1.27, 0.85, "stochastic proposal", ha="center", fontsize=6.0,
             color=PALETTE["neutral_dark"])
-    ax.text(4.82, 0.85, "deterministic signal physics", ha="center", fontsize=6.3,
+    ax.text(3.72, 0.85, "deterministic construction", ha="center", fontsize=6.0,
             color=PALETTE["neutral_dark"])
-    ax.text(8.02, 0.85, "train-calibrated decision", ha="center", fontsize=6.3,
+    ax.text(6.17, 0.85, "train-calibrated decision", ha="center", fontsize=6.0,
+            color=PALETTE["neutral_dark"])
+    ax.text(8.62, 0.85, "downstream measurement", ha="center", fontsize=6.0,
             color=PALETTE["neutral_dark"])
 
-    ax.plot([3.18, 3.18], [0.55, 3.45], color=PALETTE["neutral_mid"], lw=0.8, ls="--")
-    ax.plot([6.38, 6.38], [0.55, 3.45], color=PALETTE["neutral_mid"], lw=0.8, ls="--")
-    ax.text(3.18, 0.34, "boundary 1", ha="center", fontsize=6.2, color=PALETTE["neutral_mid"])
-    ax.text(6.38, 0.34, "boundary 2", ha="center", fontsize=6.2, color=PALETTE["neutral_mid"])
+    for x in (2.50, 4.95, 7.40):
+        ax.plot([x, x], [0.58, 3.42], color=PALETTE["neutral_mid"], lw=0.65, ls="--")
     ax.text(0.35, 0.12,
-            "A verifier pass is an admissibility decision under training-set gates, not a formal proof of physical correctness.",
+            "Only the highlighted component owns each output; evidence is not transferred across responsibility boundaries.",
             ha="left", fontsize=6.4, color=PALETTE["rose"])
     save_figure(fig, FIGS / "responsibility_boundary.pdf")
     plt.close(fig)

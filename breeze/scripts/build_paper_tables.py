@@ -9,9 +9,11 @@ hand-transcribed from reports.
 from __future__ import annotations
 
 import csv
+import json
 import os
 import tempfile
 from collections import defaultdict
+from itertools import product
 from pathlib import Path
 
 
@@ -21,6 +23,9 @@ PHASE_A = ROOT / "breeze" / "results" / "phaseA_v2_frozen_2026-07-06" / "breeze"
 CWRU = ROOT / "breeze" / "results" / "cwru_patch_v2_2026-07-07_frozen"
 BERKELEY = ROOT / "breeze" / "results" / "milling_berkeley_v2_binary_formal_2026-07-08"
 PHYSICS = ROOT / "breeze" / "results" / "ablation_2026-07-14"
+PU_LOCO_V1 = ROOT / "breeze" / "results" / "pu_loco_2026-07-07_v1_frozen"
+PU_LOCO_V2 = ROOT / "breeze" / "results" / "pu_loco_v2_2026-07-08"
+MUTCM = ROOT / "breeze" / "results" / "mutcm_v3_llm_inner_2026-07-09"
 
 
 def read_csv(path: Path) -> list[dict[str, str]]:
@@ -28,6 +33,26 @@ def read_csv(path: Path) -> list[dict[str, str]]:
         raise FileNotFoundError(f"required frozen input is missing: {path}")
     with path.open(newline="") as handle:
         return list(csv.DictReader(handle))
+
+
+def require_count(rows: list[dict[str, str]], expected: int, source: str) -> None:
+    if len(rows) != expected:
+        raise ValueError(f"{source}: expected {expected} rows, found {len(rows)}")
+
+
+def require_unique_grid(
+    rows: list[dict[str, str]],
+    columns: tuple[str, ...],
+    expected: set[tuple[str, ...]],
+    source: str,
+) -> None:
+    observed = [tuple(row[column] for column in columns) for row in rows]
+    if len(observed) != len(set(observed)):
+        raise ValueError(f"{source}: duplicate keys for {columns}")
+    if set(observed) != expected:
+        missing = sorted(expected - set(observed))
+        extra = sorted(set(observed) - expected)
+        raise ValueError(f"{source}: grid mismatch; missing={missing}, extra={extra}")
 
 
 def atomic_text(path: Path, content: str) -> None:
@@ -59,6 +84,18 @@ def q(value: str) -> str:
 def build_pu() -> None:
     summary = read_csv(PHASE_A / "phaseA_v2_downstream_summary.csv")
     tests = read_csv(PHASE_A / "phaseA_v2_wilcoxon.csv")
+    require_count(summary, 80, "PU downstream summary")
+    require_count(tests, 20, "PU statistical tests")
+    require_unique_grid(
+        summary,
+        ("baseline", "n_real", "metric"),
+        set(product(
+            ("phaseA_v2_llm_k3", "phaseA_v2_rule", "phaseA_v2_random_open_loop", "real_only"),
+            ("5", "10", "25", "50"),
+            ("acc", "macro_f1", "f1_healthy", "f1_IR", "f1_OR"),
+        )),
+        "PU downstream summary",
+    )
     lookup = {(row["baseline"], int(row["n_real"]), row["metric"]): row for row in summary}
     test_lookup = {(int(row["n_real"]), row["metric"], row["comparison"]): row for row in tests}
     names = {
@@ -83,6 +120,11 @@ def build_pu() -> None:
             values = [pm(lookup[(method, n_real, metric)]["mean"], lookup[(method, n_real, metric)]["std"]) for method in names]
             rule_test = test_lookup[(n_real, metric, "phaseA_v2_llm_k3>phaseA_v2_rule")]
             random_test = test_lookup[(n_real, metric, "phaseA_v2_llm_k3>phaseA_v2_random_open_loop")]
+            for test in (rule_test, random_test):
+                if test["n_pairs"] != "20" or float(test["mean_delta"]) <= 0:
+                    raise ValueError("PU registered comparison has invalid pairing or direction")
+                if not test["holm_q_in_family"] or float(test["holm_q_in_family"]) >= 0.05:
+                    raise ValueError("PU registered comparison does not pass its frozen Holm test")
             lines.append(f"{n_real} & {label} & {values[0]} & {values[1]} & {values[2]} & {q(rule_test['holm_q_in_family'])} & {q(random_test['holm_q_in_family'])} \\\\")
     lines.extend([r"\bottomrule", r"\end{tabular}", r"\end{table}", ""])
     atomic_text(OUT / "pu_phasea.tex", "\n".join(lines))
@@ -91,14 +133,33 @@ def build_pu() -> None:
 def build_cwru() -> None:
     summary = read_csv(CWRU / "cwru_patch_v2_summary.csv")
     tests = read_csv(CWRU / "cwru_patch_v2_wilcoxon.csv")
+    splits = ("within_load0", "lolo_load0", "lolo_load1", "lolo_load2", "lolo_load3")
+    require_unique_grid(
+        summary,
+        ("split", "method", "n_real", "metric"),
+        set(product(splits, ("llm", "rule", "noise_aug", "real_only"), ("5", "10", "25"), ("acc", "macro_f1"))),
+        "CWRU downstream summary",
+    )
+    require_unique_grid(
+        tests,
+        ("split", "comparison", "n_real", "metric"),
+        set(product(splits, ("llm>rule", "llm>noise_aug", "llm>real_only"), ("5", "10", "25"), ("acc", "macro_f1"))),
+        "CWRU statistical tests",
+    )
+    clean_splits = ("within_load0", "lolo_load1", "lolo_load2", "lolo_load3")
+    clean_tests = [row for row in tests if row["split"] in clean_splits]
+    if len(clean_tests) != 72:
+        raise ValueError(f"CWRU provenance-valid comparison set must have 72 rows, got {len(clean_tests)}")
+    if any(row["n_pairs"] != "40" or row["passed_holm"] != "True" or float(row["mean_delta"]) <= 0 for row in clean_tests):
+        raise ValueError("CWRU provenance-valid comparison set is incomplete or contradicts the registered direction")
     lookup = {(row["split"], row["method"], int(row["n_real"]), row["metric"]): row for row in summary}
-    registered = len(tests)
-    passed = sum(row["passed_holm"] == "True" for row in tests)
+    registered = len(clean_tests)
+    passed = sum(row["passed_holm"] == "True" for row in clean_tests)
     lines = [
         "% Generated by breeze/scripts/build_paper_tables.py; do not edit.",
         r"\begin{table}[t]",
         r"\centering",
-        rf"\caption{{CWRU within-load0 results (40 seeds). All {passed}/{registered} registered LLM-comparator tests across within and four LOLO folds pass Holm correction; the table gives the within-load0 means.}}",
+        rf"\caption{{CWRU within-load0 results (40 seeds). All {passed}/{registered} provenance-valid LLM-comparator tests across within-load0 and held-out loads 1--3 pass Holm correction. The archived held-out-load0 fold is excluded because it reuses a load0-derived synthetic pool.}}",
         r"\label{tab:cwru}",
         r"\small",
         r"\begin{tabular}{rrccc}",
@@ -117,6 +178,34 @@ def build_cwru() -> None:
 def build_berkeley() -> None:
     summary = read_csv(BERKELEY / "berkeley_v2_binary_formal_summary.csv")
     tests = read_csv(BERKELEY / "berkeley_v2_binary_formal_wilcoxon_holm.csv")
+    require_unique_grid(
+        summary,
+        ("method", "n_real"),
+        set(product(("llm", "rule", "noise_aug", "random_open_loop", "real_only"), ("2", "5", "10"))),
+        "Berkeley downstream summary",
+    )
+    require_unique_grid(
+        tests,
+        ("comparison", "n_real", "metric"),
+        set(product(("llm>rule", "llm>noise_aug", "llm>random_open_loop"), ("2", "5", "10"), ("Acc", "Macro-F1"))),
+        "Berkeley statistical tests",
+    )
+    if any(row["n_pairs"] != "40" or float(row["mean_delta"]) <= 0 for row in tests):
+        raise ValueError("Berkeley comparison has invalid pairing or direction")
+    expected_pass = {
+        (comparison, n_real, metric): comparison != "llm>rule" or (n_real, metric) in {
+            ("2", "Acc"), ("5", "Acc"), ("5", "Macro-F1")
+        }
+        for comparison, n_real, metric in product(
+            ("llm>rule", "llm>noise_aug", "llm>random_open_loop"),
+            ("2", "5", "10"),
+            ("Acc", "Macro-F1"),
+        )
+    }
+    for row in tests:
+        key = (row["comparison"], row["n_real"], row["metric"])
+        if (row["pass"] == "True") != expected_pass[key]:
+            raise ValueError(f"Berkeley frozen pass pattern changed at {key}")
     lookup = {(row["method"], int(row["n_real"])): row for row in summary}
     gate = defaultdict(int)
     for row in tests:
@@ -143,11 +232,15 @@ def build_berkeley() -> None:
 
 def build_physics() -> None:
     rows = read_csv(PHYSICS / "physics_frozen_full_v3_pu" / "physics_metrics.csv")
+    require_count(rows, 80, "PU physics metrics")
     wanted = ("rms_w1", "psd_w1_mean", "band_energy_relative_error_mean", "nn_diversity")
     by = defaultdict(list)
     for row in rows:
         if row["metric"] in wanted:
             by[(row["pool"], row["metric"])].append(float(row["value"]))
+    for key in product(("llm", "rule", "random_open_loop", "noise_aug"), wanted):
+        if len(by[key]) != 3:
+            raise ValueError(f"PU physics metric {key} must contain exactly three class values")
     lines = [
         "% Generated by breeze/scripts/build_paper_tables.py; do not edit.",
         r"\begin{table}[t]",
@@ -167,11 +260,140 @@ def build_physics() -> None:
     atomic_text(OUT / "physics.tex", "\n".join(lines))
 
 
+def build_numbers() -> None:
+    """Generate prose-facing macros from the same frozen structured records."""
+    pu_tests = read_csv(PHASE_A / "phaseA_v2_wilcoxon.csv")
+    pu_core = [
+        row for row in pu_tests
+        if row["n_real"] in {"5", "10", "25"}
+        and row["metric"] in {"acc", "macro_f1"}
+        and row["comparison"] in {
+            "phaseA_v2_llm_k3>phaseA_v2_rule",
+            "phaseA_v2_llm_k3>phaseA_v2_random_open_loop",
+        }
+    ]
+    if len(pu_core) != 12 or any(
+        row["n_pairs"] != "20"
+        or float(row["mean_delta"]) <= 0
+        or float(row["holm_q_in_family"]) >= 0.001
+        for row in pu_core
+    ):
+        raise ValueError("PU prose macro family no longer matches the frozen 12-test result")
+
+    cwru_summary = read_csv(CWRU / "cwru_patch_v2_summary.csv")
+    cwru_tests = read_csv(CWRU / "cwru_patch_v2_wilcoxon.csv")
+    clean_splits = {"within_load0", "lolo_load1", "lolo_load2", "lolo_load3"}
+    cwru_core = [row for row in cwru_tests if row["split"] in clean_splits]
+    if len(cwru_core) != 72 or any(
+        row["n_pairs"] != "40"
+        or row["passed_holm"] != "True"
+        or float(row["mean_delta"]) <= 0
+        for row in cwru_core
+    ):
+        raise ValueError("CWRU prose macro family no longer matches the provenance-valid result")
+    cwru_lookup = {
+        (row["split"], row["method"], row["n_real"], row["metric"]): float(row["mean"])
+        for row in cwru_summary
+    }
+    cwru_deltas: dict[str, list[float]] = {"acc": [], "macro_f1": []}
+    for split, n_real, metric in product(
+        ("lolo_load1", "lolo_load2", "lolo_load3"),
+        ("5", "10", "25"),
+        ("acc", "macro_f1"),
+    ):
+        cwru_deltas[metric].append(100 * (
+            cwru_lookup[(split, "llm", n_real, metric)]
+            - cwru_lookup[(split, "rule", n_real, metric)]
+        ))
+
+    berkeley_tests = read_csv(BERKELEY / "berkeley_v2_binary_formal_wilcoxon_holm.csv")
+    if len(berkeley_tests) != 18:
+        raise ValueError("Berkeley prose macro family must contain 18 registered tests")
+    berkeley_passed = sum(
+        row["pass"] == "True" and float(row["mean_delta"]) > 0
+        for row in berkeley_tests
+    )
+    unstructured = [
+        row for row in berkeley_tests
+        if row["comparison"] in {"llm>noise_aug", "llm>random_open_loop"}
+    ]
+    unstructured_passed = sum(
+        row["pass"] == "True" and float(row["mean_delta"]) > 0
+        for row in unstructured
+    )
+    if berkeley_passed != 15 or len(unstructured) != 12 or unstructured_passed != 12:
+        raise ValueError("Berkeley prose macro pass pattern changed")
+
+    loco_failures = []
+    for directory in (PU_LOCO_V1, PU_LOCO_V2):
+        rows = read_csv(directory / "pu_loco_wilcoxon.csv")
+        require_count(rows, 96, f"{directory.name} tests")
+        loco_failures.append(sum(
+            not (row["passed_holm"] == "True" and float(row["mean_delta"]) > 0)
+            for row in rows
+        ))
+
+    run_root = PHASE_A.parent / "runs" / "rescreen_v2_full"
+    slot_rows = read_csv(run_root / "slot_summary.csv")
+    slot_summary_path = run_root / "summary.json"
+    if not slot_summary_path.exists():
+        raise FileNotFoundError(slot_summary_path)
+    slot_summary = json.loads(slot_summary_path.read_text())
+    if len(slot_rows) != 450 or slot_summary.get("accepted_slots_before_diversity") != 286:
+        raise ValueError("PU slot accounting changed")
+    admission_rates = {}
+    for class_name in ("healthy", "OR", "IR"):
+        class_rows = [row for row in slot_rows if row["class"] == class_name]
+        if len(class_rows) != 150:
+            raise ValueError(f"PU {class_name} must contain 150 proposal slots")
+        admission_rates[class_name] = round(
+            100 * sum(row["accepted_before_diversity"] == "True" for row in class_rows)
+            / len(class_rows)
+        )
+
+    mutcm_path = MUTCM / "mutcm_v3_nsyn_selection.json"
+    if not mutcm_path.exists():
+        raise FileNotFoundError(mutcm_path)
+    mutcm = json.loads(mutcm_path.read_text())
+    selected = next((row for row in mutcm["candidates"] if row["n_syn"] == 20), None)
+    if selected is None or selected["core_pass_count"] != 2:
+        raise ValueError("MU-TCM selected inner-validation result changed")
+
+    values: list[tuple[str, str | int]] = [
+        ("BreezePUPassedTests", len(pu_core)),
+        ("BreezePUHolmBound", "0.001"),
+        ("BreezeCWRUPassedTests", len(cwru_core)),
+        ("BreezeCWRURegisteredTests", len(cwru_core)),
+        ("BreezeCWRUAccDeltaMin", f"{min(cwru_deltas['acc']):.1f}"),
+        ("BreezeCWRUAccDeltaMax", f"{max(cwru_deltas['acc']):.1f}"),
+        ("BreezeCWRUFOneDeltaMin", f"{min(cwru_deltas['macro_f1']):.1f}"),
+        ("BreezeCWRUFOneDeltaMax", f"{max(cwru_deltas['macro_f1']):.1f}"),
+        ("BreezeBerkeleyPassedTests", berkeley_passed),
+        ("BreezeBerkeleyRegisteredTests", len(berkeley_tests)),
+        ("BreezeBerkeleyUnstructuredPassedTests", unstructured_passed),
+        ("BreezeBerkeleyUnstructuredRegisteredTests", len(unstructured)),
+        ("BreezeProposalSlotsPerClass", 150),
+        ("BreezeHealthyAdmissionRate", admission_rates["healthy"]),
+        ("BreezeORAdmissionRate", admission_rates["OR"]),
+        ("BreezeIRAdmissionRate", admission_rates["IR"]),
+        ("BreezePULOCOVOneFailures", loco_failures[0]),
+        ("BreezePULOCOVTwoFailures", loco_failures[1]),
+        ("BreezePULOCORegisteredTests", 96),
+        ("BreezeMUTCMPassedTests", selected["core_pass_count"]),
+        ("BreezeMUTCMRegisteredTests", 6),
+    ]
+    lines = ["% Generated by breeze/scripts/build_paper_tables.py; do not edit."]
+    lines.extend(rf"\newcommand{{\{name}}}{{{value}}}" for name, value in values)
+    lines.append("")
+    atomic_text(OUT / "numbers.tex", "\n".join(lines))
+
+
 def main() -> None:
     build_pu()
     build_cwru()
     build_berkeley()
     build_physics()
+    build_numbers()
     print(OUT)
 
 

@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-07-04T22:56:52.759666</dc:date>
+    <dc:date>2026-07-15T15:43:48.265482</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -21,82 +21,110 @@
  </defs>
  <g id="figure_1">
   <g id="patch_1">
-   <path d="M 0 187.366491 
-L 416.16 187.366491 
-L 416.16 0 
-L 0 0 
+   <path d="M 0 187.366491
+L 416.16 187.366491
+L 416.16 0
+L 0 0
 z
 " style="fill: #ffffff"/>
   </g>
   <g id="axes_1">
    <g id="patch_2">
-    <path d="M 22.06512 126.356691 
-L 122.90688 126.356691 
-Q 125.11656 126.356691 125.11656 124.106091 
-L 125.11656 54.132891 
-Q 125.11656 51.882291 122.90688 51.882291 
-L 22.06512 51.882291 
-Q 19.85544 51.882291 19.85544 54.132891 
-L 19.85544 124.106091 
-Q 19.85544 126.356691 22.06512 126.356691 
+    <path d="M 16.03872 128.402691
+L 100.81008 128.402691
+Q 103.01976 128.402691 103.01976 126.152091
+L 103.01976 52.086891
+Q 103.01976 49.836291 100.81008 49.836291
+L 16.03872 49.836291
+Q 13.82904 49.836291 13.82904 52.086891
+L 13.82904 126.152091
+Q 13.82904 128.402691 16.03872 128.402691
 z
-" clip-path="url(#pb6514e2f2c)" style="fill: #fbead8; stroke: #d67a2c; stroke-width: 0.9; stroke-linejoin: miter"/>
+" clip-path="url(#p21a7819887)" style="fill: #fbead8; stroke: #d67a2c; stroke-width: 0.9; stroke-linejoin: miter"/>
    </g>
    <g id="patch_3">
-    <path d="M 150.62832 126.356691 
-L 251.47008 126.356691 
-Q 253.67976 126.356691 253.67976 124.106091 
-L 253.67976 54.132891 
-Q 253.67976 51.882291 251.47008 51.882291 
-L 150.62832 51.882291 
-Q 148.41864 51.882291 148.41864 54.132891 
-L 148.41864 124.106091 
-Q 148.41864 126.356691 150.62832 126.356691 
+    <path d="M 114.46992 128.402691
+L 199.24128 128.402691
+Q 201.45096 128.402691 201.45096 126.152091
+L 201.45096 52.086891
+Q 201.45096 49.836291 199.24128 49.836291
+L 114.46992 49.836291
+Q 112.26024 49.836291 112.26024 52.086891
+L 112.26024 126.152091
+Q 112.26024 128.402691 114.46992 128.402691
 z
-" clip-path="url(#pb6514e2f2c)" style="fill: #f7f0df; stroke: #a56b25; stroke-width: 0.9; stroke-linejoin: miter"/>
+" clip-path="url(#p21a7819887)" style="fill: #f7f0df; stroke: #a56b25; stroke-width: 0.9; stroke-linejoin: miter"/>
    </g>
    <g id="patch_4">
-    <path d="M 279.19152 126.356691 
-L 380.03328 126.356691 
-Q 382.24296 126.356691 382.24296 124.106091 
-L 382.24296 54.132891 
-Q 382.24296 51.882291 380.03328 51.882291 
-L 279.19152 51.882291 
-Q 276.98184 51.882291 276.98184 54.132891 
-L 276.98184 124.106091 
-Q 276.98184 126.356691 279.19152 126.356691 
+    <path d="M 212.90112 128.402691
+L 297.67248 128.402691
+Q 299.88216 128.402691 299.88216 126.152091
+L 299.88216 52.086891
+Q 299.88216 49.836291 297.67248 49.836291
+L 212.90112 49.836291
+Q 210.69144 49.836291 210.69144 52.086891
+L 210.69144 126.152091
+Q 210.69144 128.402691 212.90112 128.402691
 z
-" clip-path="url(#pb6514e2f2c)" style="fill: #eaf2fb; stroke: #0f4d92; stroke-width: 0.9; stroke-linejoin: miter"/>
+" clip-path="url(#p21a7819887)" style="fill: #eaf2fb; stroke: #0f4d92; stroke-width: 0.9; stroke-linejoin: miter"/>
    </g>
    <g id="patch_5">
-    <path d="M 125.709146 89.324091 
-Q 136.767551 89.324091 146.707922 89.324091 
-" clip-path="url(#pb6514e2f2c)" style="fill: none; stroke: #333333; stroke-linecap: round"/>
-    <path d="M 142.707922 87.324091 
-L 146.707922 89.324091 
-L 142.707922 91.324091 
+    <path d="M 311.33232 128.402691
+L 396.10368 128.402691
+Q 398.31336 128.402691 398.31336 126.152091
+L 398.31336 52.086891
+Q 398.31336 49.836291 396.10368 49.836291
+L 311.33232 49.836291
+Q 309.12264 49.836291 309.12264 52.086891
+L 309.12264 126.152091
+Q 309.12264 128.402691 311.33232 128.402691
 z
-" clip-path="url(#pb6514e2f2c)" style="fill: #333333; stroke: #333333; stroke-linecap: round"/>
+" clip-path="url(#p21a7819887)" style="fill: #eaf6ea; stroke: #4e9a51; stroke-width: 0.9; stroke-linejoin: miter"/>
    </g>
    <g id="patch_6">
-    <path d="M 254.272346 89.324091 
-Q 265.330751 89.324091 275.271122 89.324091 
-" clip-path="url(#pb6514e2f2c)" style="fill: none; stroke: #333333; stroke-linecap: round"/>
-    <path d="M 271.271122 87.324091 
-L 275.271122 89.324091 
-L 271.271122 91.324091 
+    <path d="M 103.611611 89.324091
+Q 107.639909 89.324091 110.550173 89.324091
+" clip-path="url(#p21a7819887)" style="fill: none; stroke: #333333; stroke-linecap: round"/>
+    <path d="M 106.550173 87.324091
+L 110.550173 89.324091
+L 106.550173 91.324091
 z
-" clip-path="url(#pb6514e2f2c)" style="fill: #333333; stroke: #333333; stroke-linecap: round"/>
+" clip-path="url(#p21a7819887)" style="fill: #333333; stroke: #333333; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 202.042811 89.324091
+Q 206.071109 89.324091 208.981373 89.324091
+" clip-path="url(#p21a7819887)" style="fill: none; stroke: #333333; stroke-linecap: round"/>
+    <path d="M 204.981373 87.324091
+L 208.981373 89.324091
+L 204.981373 91.324091
+z
+" clip-path="url(#p21a7819887)" style="fill: #333333; stroke: #333333; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 300.474011 89.324091
+Q 304.502309 89.324091 307.412573 89.324091
+" clip-path="url(#p21a7819887)" style="fill: none; stroke: #333333; stroke-linecap: round"/>
+    <path d="M 303.412573 87.324091
+L 307.412573 89.324091
+L 303.412573 91.324091
+z
+" clip-path="url(#p21a7819887)" style="fill: #333333; stroke: #333333; stroke-linecap: round"/>
    </g>
    <g id="line2d_1">
-    <path d="M 134.95968 157.660491 
-L 134.95968 38.992491 
-" clip-path="url(#pb6514e2f2c)" style="fill: none; stroke-dasharray: 2.96,1.28; stroke-dashoffset: 0; stroke: #767676; stroke-width: 0.8"/>
+    <path d="M 107.64 156.432891
+L 107.64 40.220091
+" clip-path="url(#p21a7819887)" style="fill: none; stroke-dasharray: 2.405,1.04; stroke-dashoffset: 0; stroke: #767676; stroke-width: 0.65"/>
    </g>
    <g id="line2d_2">
-    <path d="M 263.52288 157.660491 
-L 263.52288 38.992491 
-" clip-path="url(#pb6514e2f2c)" style="fill: none; stroke-dasharray: 2.96,1.28; stroke-dashoffset: 0; stroke: #767676; stroke-width: 0.8"/>
+    <path d="M 206.0712 156.432891
+L 206.0712 40.220091
+" clip-path="url(#p21a7819887)" style="fill: none; stroke-dasharray: 2.405,1.04; stroke-dashoffset: 0; stroke: #767676; stroke-width: 0.65"/>
+   </g>
+   <g id="line2d_3">
+    <path d="M 304.5024 156.432891
+L 304.5024 40.220091
+" clip-path="url(#p21a7819887)" style="fill: none; stroke-dasharray: 2.405,1.04; stroke-dashoffset: 0; stroke: #767676; stroke-width: 0.65"/>
    </g>
    <g id="text_1">
     <text style="font-weight: 700; font-size: 8.5px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start" x="11.2176" y="13.388232" transform="rotate(-0 11.2176 13.388232)">a</text>
@@ -105,81 +133,84 @@ L 263.52288 38.992491
     <text style="font-weight: 700; font-size: 9px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start" x="20.05632" y="22.220337" transform="rotate(-0 20.05632 22.220337)">Recipe-renderer-verifier responsibility boundary</text>
    </g>
    <g id="text_3">
-    <text style="font-weight: 700; font-size: 7.1px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #d67a2c" x="26.08272" y="67.485885" transform="rotate(-0 26.08272 67.485885)">LLM</text>
+    <text style="font-weight: 700; font-size: 7.1px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #d67a2c" x="20.05632" y="65.439885" transform="rotate(-0 20.05632 65.439885)">LLM</text>
    </g>
    <g id="text_4">
-    <text style="font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3a3a3a" x="26.08272" y="77.542663" transform="rotate(-0 26.08272 77.542663)">Candidate recipe</text>
+    <text style="font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3a3a3a" x="20.05632" y="75.500231" transform="rotate(-0 20.05632 75.500231)">Output: recipe</text>
    </g>
    <g id="text_5">
-    <text style="font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3a3a3a" x="26.08272" y="86.954263" transform="rotate(-0 26.08272 86.954263)">impact rate</text>
+    <text style="font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3a3a3a" x="20.05632" y="84.908263" transform="rotate(-0 20.05632 84.908263)">class + metadata</text>
    </g>
    <g id="text_6">
-    <text style="font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3a3a3a" x="26.08272" y="96.365863" transform="rotate(-0 26.08272 96.365863)">amplitude envelope</text>
+    <text style="font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3a3a3a" x="20.05632" y="94.319863" transform="rotate(-0 20.05632 94.319863)">structured feedback</text>
    </g>
    <g id="text_7">
-    <text style="font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3a3a3a" x="26.08272" y="105.777463" transform="rotate(-0 26.08272 105.777463)">jitter</text>
+    <text style="font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3a3a3a" x="20.05632" y="103.731463" transform="rotate(-0 20.05632 103.731463)">not a waveform proof</text>
    </g>
    <g id="text_8">
-    <text style="font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3a3a3a" x="26.08272" y="115.189063" transform="rotate(-0 26.08272 115.189063)">band weights</text>
+    <text style="font-weight: 700; font-size: 7.1px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #a56b25" x="118.48752" y="65.439885" transform="rotate(-0 118.48752 65.439885)">Renderer</text>
    </g>
    <g id="text_9">
-    <text style="font-weight: 700; font-size: 7.1px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #a56b25" x="154.64592" y="67.485885" transform="rotate(-0 154.64592 67.485885)">Renderer</text>
+    <text style="font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3a3a3a" x="118.48752" y="75.500231" transform="rotate(-0 118.48752 75.500231)">Output: waveform</text>
    </g>
    <g id="text_10">
-    <text style="font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3a3a3a" x="154.64592" y="77.542663" transform="rotate(-0 154.64592 77.542663)">Waveform construction</text>
+    <text style="font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3a3a3a" x="118.48752" y="84.908263" transform="rotate(-0 118.48752 84.908263)">recipe + seed</text>
    </g>
    <g id="text_11">
-    <text style="font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3a3a3a" x="154.64592" y="86.954263" transform="rotate(-0 154.64592 86.954263)">impulse train</text>
+    <text style="font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3a3a3a" x="118.48752" y="94.319863" transform="rotate(-0 118.48752 94.319863)">fixed signal equations</text>
    </g>
    <g id="text_12">
-    <text style="font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3a3a3a" x="154.64592" y="96.365863" transform="rotate(-0 154.64592 96.365863)">colored noise</text>
+    <text style="font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3a3a3a" x="118.48752" y="103.731463" transform="rotate(-0 118.48752 103.731463)">no admission decision</text>
    </g>
    <g id="text_13">
-    <text style="font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3a3a3a" x="154.64592" y="105.777463" transform="rotate(-0 154.64592 105.777463)">current sidebands</text>
+    <text style="font-weight: 700; font-size: 7.1px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0f4d92" x="216.91872" y="65.439885" transform="rotate(-0 216.91872 65.439885)">Verifier</text>
    </g>
    <g id="text_14">
-    <text style="font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3a3a3a" x="154.64592" y="115.189063" transform="rotate(-0 154.64592 115.189063)">fixed equations</text>
+    <text style="font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3a3a3a" x="216.91872" y="75.500231" transform="rotate(-0 216.91872 75.500231)">Output: gate report</text>
    </g>
    <g id="text_15">
-    <text style="font-weight: 700; font-size: 7.1px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0f4d92" x="283.20912" y="67.485885" transform="rotate(-0 283.20912 67.485885)">Verifier</text>
+    <text style="font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3a3a3a" x="216.91872" y="84.908263" transform="rotate(-0 216.91872 84.908263)">waveform + train bounds</text>
    </g>
    <g id="text_16">
-    <text style="font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3a3a3a" x="283.20912" y="77.542663" transform="rotate(-0 283.20912 77.542663)">Admission report</text>
+    <text style="font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3a3a3a" x="216.91872" y="94.319863" transform="rotate(-0 216.91872 94.319863)">mixed physical predicates</text>
    </g>
    <g id="text_17">
-    <text style="font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3a3a3a" x="283.20912" y="86.954263" transform="rotate(-0 283.20912 86.954263)">format</text>
+    <text style="font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3a3a3a" x="216.91872" y="103.731463" transform="rotate(-0 216.91872 103.731463)">not physical truth</text>
    </g>
    <g id="text_18">
-    <text style="font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3a3a3a" x="283.20912" y="96.365863" transform="rotate(-0 283.20912 96.365863)">statistics + PSD</text>
+    <text style="font-weight: 700; font-size: 7.1px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #4e9a51" x="315.34992" y="65.439885" transform="rotate(-0 315.34992 65.439885)">Classifier</text>
    </g>
    <g id="text_19">
-    <text style="font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3a3a3a" x="283.20912" y="105.777463" transform="rotate(-0 283.20912 105.777463)">envelope evidence</text>
+    <text style="font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3a3a3a" x="315.34992" y="75.500231" transform="rotate(-0 315.34992 75.500231)">Output: Acc./Macro-F1</text>
    </g>
    <g id="text_20">
-    <text style="font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3a3a3a" x="283.20912" y="115.189063" transform="rotate(-0 283.20912 115.189063)">diversity</text>
+    <text style="font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3a3a3a" x="315.34992" y="84.908263" transform="rotate(-0 315.34992 84.908263)">real + admitted pool</text>
    </g>
    <g id="text_21">
-    <text style="font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #3a3a3a" x="72.28512" y="145.384491" transform="rotate(-0 72.28512 145.384491)">stochastic proposal</text>
+    <text style="font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3a3a3a" x="315.34992" y="94.319863" transform="rotate(-0 315.34992 94.319863)">paired fixed seeds</text>
    </g>
    <g id="text_22">
-    <text style="font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #3a3a3a" x="200.84832" y="145.384491" transform="rotate(-0 200.84832 145.384491)">deterministic signal physics</text>
+    <text style="font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #3a3a3a" x="315.34992" y="103.731463" transform="rotate(-0 315.34992 103.731463)">no deployment guarantee</text>
    </g>
    <g id="text_23">
-    <text style="font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #3a3a3a" x="329.41152" y="145.384491" transform="rotate(-0 329.41152 145.384491)">train-calibrated decision</text>
+    <text style="font-size: 6px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #3a3a3a" x="58.22352" y="145.384491" transform="rotate(-0 58.22352 145.384491)">stochastic proposal</text>
    </g>
    <g id="text_24">
-    <text style="font-size: 6.2px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #767676" x="134.95968" y="166.253691" transform="rotate(-0 134.95968 166.253691)">boundary 1</text>
+    <text style="font-size: 6px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #3a3a3a" x="156.65472" y="145.384491" transform="rotate(-0 156.65472 145.384491)">deterministic construction</text>
    </g>
    <g id="text_25">
-    <text style="font-size: 6.2px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #767676" x="263.52288" y="166.253691" transform="rotate(-0 263.52288 166.253691)">boundary 2</text>
+    <text style="font-size: 6px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #3a3a3a" x="255.08592" y="145.384491" transform="rotate(-0 255.08592 145.384491)">train-calibrated decision</text>
    </g>
    <g id="text_26">
-    <text style="font-size: 6.4px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #b64342" x="21.2616" y="175.256091" transform="rotate(-0 21.2616 175.256091)">A verifier pass is an admissibility decision under training-set gates, not a formal proof of physical correctness.</text>
+    <text style="font-size: 6px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #3a3a3a" x="353.51712" y="145.384491" transform="rotate(-0 353.51712 145.384491)">downstream measurement</text>
+   </g>
+   <g id="text_27">
+    <text style="font-size: 6.4px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #b64342" x="21.2616" y="175.256091" transform="rotate(-0 21.2616 175.256091)">Only the highlighted component owns each output; evidence is not transferred across responsibility boundaries.</text>
    </g>
   </g>
  </g>
  <defs>
-  <clipPath id="pb6514e2f2c">
+  <clipPath id="p21a7819887">
    <rect x="7.2" y="8.302491" width="401.76" height="171.864"/>
   </clipPath>
  </defs>

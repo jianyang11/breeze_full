@@ -2,40 +2,41 @@
 
 ## Completed evidence and manuscript checks
 
-- The manuscript source is [main.tex](main.tex), and its current PDF is
-  [main.pdf](main.pdf).
-- Main result tables are generated from frozen CSV files by
-  `breeze/scripts/build_paper_tables.py`; the generated fragments are under
-  `breeze/paper/generated/`.
-- The manuscript uses the frozen evidence ledger and preserves its claim
-  boundaries: PU Phase-A v2 positive result; CWRU 90/90 registered comparisons;
-  Berkeley partial/no-go (15/18); PU LOCO, UMich, and MU-TCM negative results.
-- The CWRU physical-diagnostic replay agrees exactly with the frozen full LLM
-  quality rows. The new physical tables record source hashes and availability;
-  no CWRU random-open-loop substitute is used.
-- The current manuscript compiles with `pdflatex` without undefined references
-  or citations. The generated tables use only editable LaTeX.
-- Highlights and this cover-letter draft use the same qualified claims as the
-  evidence ledger.
+- Canonical source: `breeze/paper/main_cas.tex`; compatibility entry point:
+  `breeze/paper/main.tex`; compiled artifact: `breeze/paper/main_cas.pdf`.
+- The manuscript uses Elsevier CAS `cas-sc` and `cas-model2-names` from the
+  local `els-cas-templates` distribution.
+- PU, CWRU, Berkeley, and physical tables are generated from frozen CSV files
+  by `breeze/scripts/build_paper_tables.py`, with exact row-grid, pairing,
+  direction, and pass-pattern assertions.
+- CWRU claims include only the 72 provenance-valid within/load-transfer tests.
+  The archived held-out-load0 fold is excluded because it reuses a load0 pool;
+  see `analysis/cwru_lolo_provenance_audit_2026-07-15.md`.
+- Berkeley is reported as a partial 15/18 result with the complete failed-cell
+  pattern. PU LOCO v1--v6, UMich confounding, and the MU-TCM stop remain visible.
+- Ten manuscript figures are generated from frozen evidence and exported as
+  vector PDF plus 600-dpi TIFF; no missing pool is imputed.
+- The CAS manuscript compiles to 17 pages with 46 resolved references and no
+  undefined citation or cross-reference.
+- A 17-page Poppler render was checked as a contact sheet; no blank page,
+  clipping, incoherent overlap, or blank figure was observed.
+- Cover letter and five Elsevier-length highlights use the same bounded claims.
 
-## Pending before submission
+## Blocking metadata before upload
 
-- Complete the formal 40-seed TimeGAN/DDPM baseline runs, generate their cost
-  and instability report, and insert only the final non-smoke values.
-- Complete the predeclared PU K and gate ablations, or label them unavailable
-  rather than using the legacy v1/offline-rescreen products as substitutes.
-- Replace author, affiliation, funding, ORCID, and conflict-of-interest
+- Replace anonymous author, affiliation, funding, ORCID, and approval
   placeholders with author-supplied metadata.
-- Check the final manuscript against the current AEI author guide and prepare
-  any journal-specific files, including a graphical abstract if the authors
-  elect to submit one.
-- Rebuild `main_cas.tex` from the new evidence-aligned manuscript before
-  final upload; it is not yet synchronized with this rewrite.
+- Confirm journal-required declarations and the final corresponding author.
 - Run institutional similarity checking outside this workspace.
 
-## Non-negotiable claim boundary
+## Evidence limitations that must remain explicit
 
-- Do not claim zero-real-data fault diagnosis, cross-condition PU success,
-  UMich or MU-TCM positive augmentation, Berkeley state of the art, or a
-  trained-baseline cost advantage before the corresponding frozen evidence is
-  available.
+- Formal matched TimeGAN/DDPM and additional diagnostic-backbone experiments
+  are not complete; smoke/development outputs are excluded. The manuscript
+  therefore makes no SOTA or universal trained-generator superiority claim.
+- Original PU LLM provider-version/top-p/provider-seed metadata are incomplete.
+  Archived recipes and renderer seeds reproduce frozen pools, but the original
+  language responses are not claimed to replay identically.
+- Do not claim zero-real-data diagnosis, strict four-fold CWRU LOLO, successful
+  PU condition transfer, generic milling superiority, or a formal physical
+  guarantee.

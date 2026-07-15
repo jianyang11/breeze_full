@@ -1,12 +1,151 @@
 # BREEZE 执行 todos
 
-最后更新：2026-07-10 Asia/Shanghai
+最后更新：2026-07-15 Asia/Shanghai
 
 工作根目录：`/Users/jianyang/Desktop/学校相关课程/回所/论文/合成数据sci/breeze_full-2`
 
 Python 环境：`breeze/.venv-breeze/bin/python` (`3.12.13`)。所有 Python 命令必须使用该解释器。
 
 > 收口决定（2026-07-14）：L1.1--L1.9 与 L2.1--L2.9 全部 **deferred（投稿后工作）**。理由：投稿前不开启新的框架重构工程；这些计划不得被描述为本稿已实现的方法或结果。
+
+## R. CAS 终稿证据约束重构（2026-07-15）
+
+> 执行规范：以 961 行 `breeze/paper/main_cas.tex` 为结构骨架，以
+> `analysis/evidence_ledger.md`、冻结报告和脚本生成表格为唯一事实来源；
+> 写作阶段不调用生成 API，不重跑冻结实验，不把未进入台账的结果写入正文。
+
+### R0. 启动、同步与约束冻结
+
+- [x] R0.1 读取本轮 `breeze_paper_rewrite_prompt.md`，将其视为终稿硬约束。
+- [x] R0.2 读取并应用 `awesome-ai-research-writing`、`nature-figure`、
+  `huashu-nuwa` 和 `pdf` skills；图表后端冻结为 Python。
+- [x] R0.3 读取仓库 `AGENTS.md`，确认禁止 fallback/hack/后处理遮掩，
+  并确认完成后必须审查 diff、提交、推送。
+- [x] R0.4 `git fetch origin main` 后核对本地 `HEAD` 与 `origin/main` 均为
+  `5aa92cd`；保留所有未跟踪实验目录和原始副本，不读取为正式证据。
+- [x] R0.5 核对 `main_cas.tex` 为 961 行骨架、`main.tex` 为 347 行证据口径稿。
+- [x] R0.6 读取 `analysis/evidence_ledger.md`，冻结允许与禁止的 claim。
+- [x] R0.7 逐项建立“正文 claim -> 台账行 -> 冻结 CSV/报告 -> 生成表格”映射，
+  出现数值冲突时停止对应段落并记录 blocker。
+
+### R1. 对标论文与领域叙事蒸馏
+
+- [x] R1.1 盘点已有本地对标 PDF、DOI 页面和文献审计文件，区分已核验、
+  仅元数据核验和未核验来源。
+- [x] R1.2 用 PDF 视觉检查 BearGen/AEI 的 workflow、责任边界、
+  waveform/spectrum、few-shot bar 和辅助嵌入图式。
+- [x] R1.3 核验 1--2 篇 physics-informed GAN/diffusion 轴承论文的正式元数据、
+  数据集、协议、baseline、指标和图式。
+- [x] R1.4 核验近两年 AEI/MSSP synthetic augmentation 论文及
+  Randall--Antoni 教程来源，不使用搜索摘要代替正文证据。
+- [x] R1.5 按女娲主题蒸馏法提取领域共识、论文间分歧、叙事顺序、图式逻辑、
+  反模式和诚实边界；不模仿原句。
+- [x] R1.6 生成/更新 `analysis/venue_alignment_table.md`，字段至少包括论文、
+  方法、数据集、工况、baseline、指标、图表风格、可借鉴点和核验级别。
+- [x] R1.7 从对标中冻结 BREEZE 的叙事模板：训练成本痛点 -> recipe-as-data ->
+  renderer/verifier 责任边界 -> 正结果 -> 预注册边界。
+
+### R2. 数字、表格与引用唯一来源
+
+- [x] R2.1 审计 `scripts/build_paper_tables.py` 输入路径、列名、排序、统计字段和
+  输出文件，确认不读取未冻结/未入台账结果。
+- [x] R2.2 在 `breeze/.venv-breeze/bin/python` 下重新生成
+  `breeze/paper/generated/*.tex`，检查运行日志和返回码。
+- [x] R2.3 将四个 generated 表与其冻结 CSV/报告逐格复核；禁止手抄数值。
+- [x] R2.4 检查正文中所有裸写 Accuracy、Macro-F1、delta、p/q、seed、shot、
+  synthetic budget 数字，能表驱动的改为脚本输入。
+- [x] R2.5 审计 `references.bib` 的 DOI、题名、作者、期刊、年份和重复项。
+- [x] R2.6 将已真实核验的相关文献扩充到 40--55 条；未核验条目不写入 bib。
+- [x] R2.7 记录训练型 baseline 状态：只有通过冻结协议、统计审计并加入台账后
+  才可进入贡献和结果；否则保留明确 blocker，不填数字。
+- [x] R2.8 审计 CWRU 各 split 的合成池来源；确认 `lolo_load0` 复用 load0 池，
+  将正式迁移结论收紧为 within-load0 与 held-out load1--3 的 72/72 比较。
+
+### R3. 以 main_cas 为骨架的结构合并
+
+- [x] R3.1 备份当前可编译 CAS 源的哈希和 PDF 页数，仅作审计，不复制旧 claim。
+- [x] R3.2 重写摘要至不超过 250 词，顺序为痛点、方法、PU/CWRU/Berkeley
+  三条正证据、成本定位、边界；不写未完成训练 baseline 结果。
+- [x] R3.3 重写 Introduction 为四段问题链和四条贡献，贡献③若训练 baseline
+  未冻结则降为可复现实验设计/当前 blocker，不伪装为已完成贡献。
+- [x] R3.4 重写 Related Work 为训练型生成、physics-informed 生成、LLM
+  recipe/code generation 与 inference-time verification 三条主线。
+- [x] R3.5 保留并校正 Problem Formulation，准确表达混合双边区间、类特异 gate、
+  多样性下界和 rejection/resampling，不再用错误单边证书公式概括全部规则。
+- [x] R3.6 重写 Framework，完整定义 LLM recipe、deterministic renderer、
+  train-calibrated verifier、K 轮反馈及责任边界。
+- [x] R3.7 逐式核对 renderer 方程、符号、采样率、特征频率和参数来源，确保正文
+  与实际代码一致。
+- [x] R3.8 重写 Experimental Setup，覆盖 PU、CWRU、Berkeley 正式协议以及
+  UMich/MU-TCM 边界协议；写明 split unit、shots、n_syn、seeds 和检验族。
+- [x] R3.9 按 PU Phase-A v2 -> CWRU within/LOLO -> Berkeley partial ->
+  physical metrics -> ablation 的顺序重写正结果。
+- [x] R3.10 新建集中式 Negative Results and Boundaries，完整呈现 PU LOCO
+  v1--v6、UMich metadata confound 和 MU-TCM inner-validation stop。
+- [x] R3.11 重写 Discussion/Conclusion，先重申有效域，再说明适用边界和开放问题；
+  禁用 `certified`、`universal superiority`、`zero-shot` 等越界措辞。
+- [x] R3.12 同步 Reproducibility、Data Availability、AI declaration、prompt 与
+  certificate/failure report 可审计说明。
+
+### R4. 十张图的证据合同、重绘与挂载
+
+- [x] R4.1 为每张图写一条 core conclusion、panel evidence chain、archetype、
+  review risk、source CSV 和导出尺寸，形成图表合同。
+- [x] R4.2 核对 Python 3.12.13 与 matplotlib/scipy/pandas 等绘图依赖；缺失时
+  明确 blocker，不切换 R 或其他后端。
+- [x] R4.3 重绘 `framework`：突出 recipe--renderer--verifier--feedback 主链，
+  训练数据只用于校准边界。
+- [x] R4.4 重绘 `responsibility_boundary`：区分 LLM、renderer、verifier、
+  downstream classifier 的输入、输出和不可归因内容。
+- [x] R4.5 将 Algorithm 1/闭环流程作为正文可读的算法框，避免与框架图重复。
+- [x] R4.6 重绘四列 waveform + envelope spectrum 对比；只使用可追溯的
+  real/LLM/rule/random 冻结样本，禁止挑图隐藏失败。
+- [x] R4.7 重绘 boxplots 与 metric_distances，按数据集/类别单独呈现物理和
+  分布指标，caption 写清 n 与统计定义。
+- [x] R4.8 重绘 downstream_bars，用配对种子分布/置信信息支撑结果，避免仅画
+  均值柱状图造成过度确定感。
+- [x] R4.9 重绘 acceptance_k，区分 proposal slot、admitted slot 和 rendered
+  window，解释一对多映射。
+- [x] R4.10 重绘 cross_condition_heatmap，完整显示失败单元格，禁止选择性聚合。
+- [x] R4.11 重绘 failure_reasons + failure_case，使用真实拒绝记录并给出 gate
+  阈值与失败证据。
+- [x] R4.12 全部图统一字体、字号、线宽、方法色、面板标号与 caption；导出
+  editable PDF/SVG 与 600 dpi TIFF。
+- [x] R4.13 将十张图全部挂入 `main_cas.tex`，检查正文首次引用、顺序、浮动和
+  caption 自包含性。
+
+### R5. 全文科研写作与 claim 一致性
+
+- [x] R5.1 按 awesome-ai-research-writing 先做段落逻辑检查，再做英文润色，
+  最后去除通用 AI 腔；不改变数字、公式、label 和 cite 语义。
+- [x] R5.2 逐句扫描 `significant|transfer|training-free|milling|physical|certif`，
+  回链 evidence ledger 并修复越界表述。
+- [x] R5.3 交叉核对摘要、贡献、方法、结果、结论五处 claim，确保对象、协议、
+  指标和统计边界一致。
+- [x] R5.4 核对 Berkeley 统一为 qualified partial：15/18，总结时同时披露
+  三个未通过 LLM-vs-rule 的比较。
+- [x] R5.5 核对 UMich 只写 condition/process metadata confounding，不写
+  “unlearnable”。
+- [x] R5.6 核对 PU LOCO v1--v6 为完整预声明失败链，不把内部诊断包装成正式测试。
+- [x] R5.7 同步 `cover_letter.md`、`highlights.txt`、`submission_checklist.md`，
+  删除与终稿证据不一致的旧定位。
+
+### R6. 构建、PDF 视觉 QA 与最终冻结
+
+- [x] R6.1 使用 CAS 模板编译 `main_cas.tex`，解决 undefined cite/ref、
+  overfull/underfull、重复 anchor 和缺图错误。
+- [x] R6.2 用 Poppler 将最终 PDF 全页渲染到 `tmp/pdfs/`，逐页检查字体、表格、
+  图片清晰度、caption、浮动位置、页眉页脚和章节过渡。
+- [x] R6.3 对 10 张图的 PDF/TIFF 做尺寸、DPI、字体嵌入、文本裁切、重叠和
+  色盲可区分性检查。
+- [x] R6.4 运行 bibliography、claim、placeholder、禁词、生成表一致性和
+  PDF warning 自动审计。
+- [ ] R6.5 更新 `analysis/evidence_ledger.md` 的仓库提交审计信息，但只有通过
+  独立证据审查的新增结果才可进入正结果区。
+- [ ] R6.6 输出终稿重构快照，列出完成项、blocker、未使用结果和复现命令。
+- [ ] R6.7 审查 `git diff` 与拟提交文件，排除 raw data、checkpoint、训练 runs、
+  虚拟环境和用户未跟踪原始副本。
+- [ ] R6.8 创建描述性 commit，推送 `origin/main`，再次核对远端包含当前提交。
 
 ## Framework reset: Layer 1 -- real-data, group-aware calibration (planned 2026-07-10)
 
