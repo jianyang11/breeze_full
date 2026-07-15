@@ -2,38 +2,37 @@
 
 Dear Editor,
 
-We submit the manuscript "BREEZE: A Training-Free Closed-Loop
-Physical-Gate Admission Framework for LLM-Generated
-Bearing Fault Signals" for consideration in Advanced Engineering Informatics.
+We submit the manuscript ``Training-free, physics-verified LLM recipe
+generation for industrial machinery condition monitoring'' for consideration
+in Advanced Engineering Informatics.
 
-The paper addresses a practical gap in LLM-based signal synthesis for
-intelligent fault diagnosis. Existing LLM generators can produce useful
-augmentation data, but they are typically open-loop: generated windows can
-enter the training pool without deterministic checks for physically meaningful
-statistics, spectral structure, envelope-spectrum evidence, or current-sideband
-consistency. BREEZE wraps a black-box generator with a training-free verifier,
-turns failed checks into structured feedback, and admits only gate-verified samples
-without waveform repair or generator training.
+The paper studies a training-free alternative to fitting a new signal generator
+for each machine. An LLM proposes a structured signal recipe, a deterministic
+renderer produces the waveform, and train-calibrated physical gates admit or
+reject the candidate. The verifier creates auditable admission records; it does
+not repair waveforms or claim formal physical correctness.
 
-The manuscript reports reproducible experiments on the Paderborn University
-bearing benchmark. The original K=3 loop accepts 78.89% of generation slots
-with 2.05 LLM calls per slot. A stricter v2 gate audit admits 757 windows
-after diversity screening and improves real-only few-shot diagnosis by 14.33,
-7.12, and 5.70 percentage points for 10, 25, and 50 real windows per class,
-respectively. The paper also reports physical fidelity metrics, threshold
-sensitivity, paired Wilcoxon tests, and a private four-channel machine-tool
-portability study.
+The evidence is reported with its protocol boundaries. On the Paderborn
+University bearing benchmark, a frozen 20-seed file-split experiment shows
+LLM recipes outperforming rule and random open-loop recipes for Accuracy and
+Macro-F1 at 5, 10, and 25 real windows per class under registered Holm tests.
+On CWRU, 90/90 registered LLM-comparator tests across within-load and four
+leave-one-load-out folds pass Holm correction (40 seeds). The Berkeley milling
+binary experiment is explicitly partial: 15/18 comparisons pass; all
+non-structured-baseline comparisons pass, while the LLM advantage over the
+rule baseline is limited to lower-shot settings. We additionally report six
+failed PU cross-condition attempts and two stopped milling lines, including a
+metadata-confounding boundary in UMich.
 
-We believe the manuscript fits the journal because it combines industrial
-AI, condition monitoring, signal-processing verification, and trustworthy use
-of synthetic data. The work is not a new trainable generator; its contribution
-is a generator-agnostic physical-gate admission layer that can be audited and
-attached to existing LLM-based synthesis pipelines.
+We believe the manuscript fits the journal because it combines industrial AI,
+condition monitoring, deterministic signal rendering, and auditable synthetic
+data admission. Rather than presenting a universal generator claim, it makes
+the supported few-shot results and their limits equally visible.
 
 The manuscript is original and is not under consideration elsewhere. All
-authors have approved the submission. Author names, affiliations, and any
-required conflict-of-interest statements should be finalized by the authors
-before submission.
+authors have approved the submission. Author names, affiliations, funding, and
+conflict-of-interest statements must be finalized by the authors before
+submission.
 
 Sincerely,
 
