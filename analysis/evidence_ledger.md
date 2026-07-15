@@ -1,6 +1,6 @@
 # BREEZE Evidence Ledger
 
-Status: frozen for manuscript use on 2026-07-14 (Asia/Shanghai).
+Status: frozen for manuscript use on 2026-07-15 (Asia/Shanghai).
 
 This ledger is the sole claim boundary for the closing-stage manuscript. A
 manuscript statement is permitted only when it is no broader than the evidence
@@ -9,7 +9,11 @@ ledger records their results and does not replace them.
 
 ## Audit basis
 
-- Repository snapshot: `main` = `origin/main` = `345cbbd` (`docs: close v6 execution checklist`) after `git fetch origin main` on 2026-07-14.
+- Repository rewrite baseline: `main` = `origin/main` = `5aa92cd`
+  (`docs: rewrite evidence-aligned manuscript`) after `git fetch origin main`.
+  The audited CAS rewrite is content commit
+  `1f258f6b4c82fdca374713409f97d78385e9095d`; no frozen experiment was rerun
+  to create that commit.
 - Preserved user worktree items: `breeze/OK.md` and the untracked `complete/`,
   `smoke/`, and `verified_complete/` subdirectories beneath
   `breeze/results/pu_loco_v4_s3_scale_invariant_2026-07-13/`. None was read,

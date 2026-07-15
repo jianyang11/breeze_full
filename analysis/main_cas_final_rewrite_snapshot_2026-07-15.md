@@ -23,8 +23,8 @@ Date: 2026-07-15 (Asia/Shanghai)
 - `references.bib`: `a8cbec9c0328f0898dfaf3a8dba49363952311fbb3407dfc0865b33a6b33bd7d`
 - `generated/numbers.tex`: `f3842d75114b11ad7391f9ee0cec988b24da9299551335d0986987248e126bb8`
 
-These hashes describe the pre-commit final QA artifacts. The synchronized
-content commit is recorded in the closeout update after the commit exists.
+These hashes describe the final QA artifacts in content commit
+`1f258f6b4c82fdca374713409f97d78385e9095d`.
 
 ## Evidence statements frozen into the manuscript
 

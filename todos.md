@@ -140,10 +140,10 @@ Python 环境：`breeze/.venv-breeze/bin/python` (`3.12.13`)。所有 Python 命
   色盲可区分性检查。
 - [x] R6.4 运行 bibliography、claim、placeholder、禁词、生成表一致性和
   PDF warning 自动审计。
-- [ ] R6.5 更新 `analysis/evidence_ledger.md` 的仓库提交审计信息，但只有通过
+- [x] R6.5 更新 `analysis/evidence_ledger.md` 的仓库提交审计信息，但只有通过
   独立证据审查的新增结果才可进入正结果区。
-- [ ] R6.6 输出终稿重构快照，列出完成项、blocker、未使用结果和复现命令。
-- [ ] R6.7 审查 `git diff` 与拟提交文件，排除 raw data、checkpoint、训练 runs、
+- [x] R6.6 输出终稿重构快照，列出完成项、blocker、未使用结果和复现命令。
+- [x] R6.7 审查 `git diff` 与拟提交文件，排除 raw data、checkpoint、训练 runs、
   虚拟环境和用户未跟踪原始副本。
 - [ ] R6.8 创建描述性 commit，推送 `origin/main`，再次核对远端包含当前提交。
 
