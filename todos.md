@@ -2114,5 +2114,6 @@ repair enters Layer 3; a certificate cleanly distinguishes `pass`, `fail`, and
   that is not `verified`, `qualified`, or the single author-metadata blocker.
 - [x] Run a final evidence-ledger, terminology, generated-number, bibliography,
   API, frozen-directory, and Git-scope audit.
-- [ ] Commit and push each completed closeout part to `origin/main`, preserving
-  all unrelated untracked files; verify the remote head after every push.
+- [x] Commit the audited closeout as b72e763, push it to `origin/main`,
+  preserve all unrelated untracked files, and verify local HEAD equals the
+  fetched remote head.
