@@ -209,6 +209,15 @@ structured feedback, and per-sample records. Physical knowledge therefore
 resides in the recipe and renderer, while training data determine the supported
 admission region rather than generator weights.
 
+Few-shot transfer and meta-learning address a complementary question: how a
+diagnostic classifier acquires or adapts representation knowledge from related
+tasks and source domains. Bearing and machinery studies use episodic or
+meta-trained adaptation under limited target labels and varying conditions
+\citep{li2021mlfd,wu2020fewshot,su2022drhrml,feng2022metafd}. \breeze\ does not
+replace those classifier-side methods; it tests whether an auditable synthetic
+pool can improve the stated few-shot protocol without fitting a target-data
+generator.
+
 \begin{table*}[t]
 \centering
 \caption{Positioning by where generative and physical knowledge resides.
@@ -440,7 +449,11 @@ remains unavailable. Manuscript assembly required no new LLM call.
 \subsection{Public datasets and leakage-resistant splits}
 
 Leakage-resistant evaluation requires splitting acquisition units before
-sampling windows. The formal evidence uses the established PU and CWRU bearing
+sampling windows. Window-level random splits can mix recording-specific or
+overlapping signal structure across partitions and thereby answer a weaker
+generalization question; a recent bearing analysis documents materially
+split-dependent conclusions, while a broader review classifies the resulting
+evaluation risks~\citep{wheat2024vibrationleakage,kapoor2023leakage}. The formal evidence uses the established PU and CWRU bearing
 benchmarks~\citep{lessmeier2016pu,smith2015cwru} and Berkeley milling from the
 NASA prognostics repository~\citep{agogino2007milling}. Their file-, load-, or
 case/run-level protocols appear in Table~\ref{tab:datasets}, and only these
@@ -555,6 +568,15 @@ kernel and median pairwise-distance bandwidth~\citep{gretton2012mmd}, while the
 main figure reports directly interpretable distances. The core evidence uses
 these direct diagnostics; t-SNE, UMAP, and Mixup remain outside the frozen
 formal comparison.
+
+To isolate the verifier after recipe generation, a zero-API cached-candidate
+ablation re-screens the archived PU $K=3$ proposals with M2 (statistics), M3
+(spectral shape and PSD-W1), M4 (envelope evidence), or M5 (pool diversity)
+disabled one at a time. The full replay must reproduce the frozen raw and
+balanced pools before any variant is evaluated. Every evaluable variant retains
+the same $B=150$ synthetic windows/class, file split, downstream CNN, and 20
+paired seeds; a diversity threshold that cannot fill that fixed budget is
+reported as a capacity stop rather than resampled at a lower budget.
 
 \section{Results}
 \label{sec:results}
@@ -737,6 +759,26 @@ domain. A slot may fail several gates, so the percentages are non-additive.
 The same report supplies the next feedback round with each measured violation
 and its bound. Closed-loop admission therefore turns calibrated evidence into
 an auditable pool-construction decision rather than a post hoc quality score.
+
+\subsection{Verifier components support the frozen PU pool rather than only
+rejecting candidates}
+
+The cached replay directly separates the gates from the LLM proposal source.
+Disabling M2, M3, or M4 expands slot admission, while disabling M5 leaves the
+per-slot decision unchanged and alters only pool-level diversity selection.
+Each single-gate removal produces negative paired Accuracy and Macro-F1
+differences from the complete gate at every evaluated shot count
+(Table~\ref{tab:gate-ablation}). M3 removal worsens the PSD diagnostic, whereas
+M4 removal can lower that one distance while still reducing downstream utility;
+thus no individual physical metric is treated as a universal quality score.
+
+\input{generated/gate_ablation.tex}
+
+The $0.5\delta_y$ pool is byte-identical to the no-M5 pool under the fixed
+selection seed, so its downstream rows are an exact equivalence rather than a
+second independent training run. The reference threshold reproduces the frozen
+full pool. At $2.0\delta_y$, the cached healthy candidates cannot form the
+predeclared balanced budget, and no reduced-budget comparison is substituted.
 
 \begin{figure*}
   \centering

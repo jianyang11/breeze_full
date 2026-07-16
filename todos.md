@@ -1737,3 +1737,25 @@ repair enters Layer 3; a certificate cleanly distinguishes `pass`, `fail`, and
 - [x] Record final hashes, page count, bibliography audit, zero-API status, claim audit, and visual-QA outcome in `analysis/solid_story_revision_log.md`.
 - [x] Review the scoped diff; stage only the manuscript, verified bibliography, log, and this checklist; preserve all unrelated untracked artifacts.
 - [x] Commit with a writing-only solid-story message, push `main` to `origin/main`, and verify the pushed commit is the remote head before reporting completion.
+
+## 17. Reviewer-requested evidence additions (started 2026-07-16)
+
+- [x] E3 verifier-gate ablation: replay the archived PU `K=3` candidates without
+  API calls; require the full gate to reproduce the frozen balanced pool before
+  materializing variants; remove M2/M3/M4/M5 one at a time; preserve the
+  `B=150`/class budget, frozen file split, and 20 paired CNN seeds.
+- [x] E3 diversity sensitivity: evaluate `0.5delta_y`, `1.0delta_y`, and
+  `2.0delta_y` from the same cache. Record `0.5delta_y` as byte-identical to
+  no-M5, `1.0delta_y` as the frozen reference pool, and `2.0delta_y` as the
+  capacity stop `healthy=64<150`; do not substitute a lower-budget comparison.
+- [x] E3 manuscript integration: generate and validate the gate-ablation table
+  from CSV, add the zero-API protocol and bounded conclusion to the CAS paper,
+  and record the audit in `analysis/e3_e4_integration_log_2026-07-16.md`.
+- [in_progress] E1 TimeGAN/DDPM: formal PU v2 is running under the output-root
+  lock with the full-train and few-shot regimes, `n_real={5,10,25}`, 40 seeds,
+  and no non-default rescue tuning. Keep all manuscript trained-baseline results
+  explicitly unavailable until the complete grid and cost audit are available.
+- [x] E2 second backbone is optional insurance, not a current experimental
+  gate; do not add it unless a reviewer specifically requires it.
+- [x] E4: add verified few-shot/meta-learning and split-validity citations with
+  limited contextual claims; bibliography now has at least 50 entries.

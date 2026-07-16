@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import fcntl
 import hashlib
 import json
 import os
@@ -199,6 +200,18 @@ def main() -> None:
 
     out_root = Path(args.out_root).resolve()
     out_root.mkdir(parents=True, exist_ok=True)
+    lock_path = out_root / ".runner.lock"
+    lock_handle = lock_path.open("w")
+    try:
+        fcntl.flock(lock_handle.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except BlockingIOError as exc:
+        lock_handle.close()
+        raise RuntimeError(
+            f"another trained-baseline runner already owns {out_root}; "
+            "wait for it to finish instead of starting a competing resume"
+        ) from exc
+    lock_handle.write(f"pid={os.getpid()}\n")
+    lock_handle.flush()
     manifest_path = out_root / "run_manifest.json"
     downstream_path = out_root / "pu_file_trained_baselines.csv"
     cost_path = out_root / "training_cost.csv"
