@@ -1,0 +1,13 @@
+dataset,pool,status,reason
+pu,llm,available,frozen_balanced_pool
+pu,rule,available,frozen_balanced_pool
+pu,random_open_loop,available,frozen_balanced_pool
+pu,noise_aug,available,deterministic_noise_aug_outer_train
+cwru,llm,available,deterministic_metric_subsample_of_frozen_pool
+cwru,rule,available,deterministic_metric_subsample_of_frozen_pool
+cwru,random_open_loop,unavailable,no matching frozen pool exists for this protocol
+cwru,noise_aug,available,deterministic_noise_aug_outer_train
+berkeley,llm,available,deterministic_metric_subsample_of_frozen_pool
+berkeley,rule,available,deterministic_metric_subsample_of_frozen_pool
+berkeley,random_open_loop,available,deterministic_metric_subsample_of_frozen_pool
+berkeley,noise_aug,available,deterministic_noise_aug_outer_train

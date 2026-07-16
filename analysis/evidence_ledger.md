@@ -7,6 +7,30 @@ manuscript statement is permitted only when it is no broader than the evidence
 and protocol recorded below. Frozen source directories are read-only; this
 ledger records their results and does not replace them.
 
+## Final statistical and similarity audit (2026-07-16)
+
+- The statistical seeds combine a paired few-shot subset draw and CNN
+  initialization. Each method reuses one fixed synthetic pool within a frozen
+  dataset protocol. The supported inference is that the archived pool is
+  stably useful across repeated few-shot training; it is not an
+  independent-generation-pool inference.
+- A zero-training global Benjamini--Hochberg sensitivity family combines the
+  12 core PU, 72 provenance-valid CWRU, and 18 Berkeley hypotheses. Its
+  pass/fail decisions agree with the registered within-family Holm decisions
+  for all 102 hypotheses: PU 12/12, CWRU 72/72, and Berkeley 15/18. Source:
+  breeze/results/global_bh_sensitivity_2026-07-16/.
+- The synthetic-to-real audit finds zero byte-identical float32 windows among
+  all available audited pools, but several pools have high maximum
+  cross-correlation. Because no copying threshold was declared, this is a
+  descriptive similarity audit and cannot support an independence or
+  “without copying” claim. Berkeley must be described separately because its
+  renderer intentionally uses a real train-only exemplar background. Source:
+  breeze/results/ablation_2026-07-16/memorization_frozen_v1/.
+- Complete PU/CWRU kurtosis-W1 and fault-frequency-alignment cells must remain
+  visible. LLM is not best on every physical metric; its supported PU fidelity
+  advantage is concentrated in RMS, PSD, and band-energy summaries, while rule
+  or noise augmentation is better in multiple kurtosis/alignment cells.
+
 ## Audit basis
 
 - Repository rewrite baseline: `main` = `origin/main` = `5aa92cd`

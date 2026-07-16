@@ -23,11 +23,11 @@
 \def\floatpagepagefraction{1}
 \def\textpagefraction{.001}
 
-\shorttitle{BREEZE physics-verified LLM recipe admission}
+\shorttitle{Training-free LLM recipe augmentation}
 \shortauthors{Author One et~al.}
 
-\title[mode=title]{\breeze: Physics-Verified LLM Recipe Generation for
-Few-Shot Condition Monitoring}
+\title[mode=title]{\breeze: Training-Free and Auditable LLM Recipe
+Augmentation with Physics-Guided Admission}
 
 \author[1]{Author One}
 \author[1]{Author Two}
@@ -37,32 +37,33 @@ Few-Shot Condition Monitoring}
   country={Country}}
 
 \begin{abstract}
-Scarce labelled faults make target-specific generator training and selection
-compete with the same few examples needed for diagnosis. Trained generators
-store physical knowledge in weights learned from data that few-shot regimes
-cannot supply. We introduce \breeze, which externalizes class and machine
-knowledge as an LLM-authored JSON recipe and converts it to a waveform through
-a fixed seeded renderer without optimizing a target-data generator. A verifier
-calibrated exclusively on the real outer-training split moves physical control
-from a training objective to deterministic admission, bounded failure
-feedback, and per-sample audit records. On file-disjoint PU, LLM recipes
-outperform matched rule and random open-loop recipes for Accuracy and Macro-F1
-at 5, 10, and 25 real windows per class; all \BreezePUPassedTests{} registered
-comparisons pass Holm correction ($q<\BreezePUHolmBound$, 20 seeds), as do all
-\BreezeCWRUPassedTests{} provenance-valid CWRU comparisons across within-load0
-and held-out loads 1--3 (40 seeds). On case/run-disjoint Berkeley milling,
-\BreezeBerkeleyPassedTests/\BreezeBerkeleyRegisteredTests{} comparisons pass,
-including all \BreezeBerkeleyUnstructuredPassedTests{} against non-structured
-baselines and the qualified lower-shot LLM--rule advantage;
-class-conditional diagnostics and six failed PU cross-condition attempts locate
-the supported operating range. A pass states train-calibrated admissibility,
-and the combined evidence supports auditable LLM recipe generation with
-physics-verified admission for the stated few-shot protocols.
+Training a target-specific waveform generator is often impractical when only a
+few labelled faults are available. We present \breeze, a training-free
+augmentation framework in which an LLM selects structured recipes from supplied
+kinematics, training-fold statistics, and exemplar descriptions, and a fixed
+seeded renderer constructs the waveforms. A physical verifier calibrated only
+on the outer-training split admits candidates, returns bounded feedback, and
+archives recipes, seeds, hashes, and gate evidence without generator
+optimization or LLM fine-tuning. Across frozen, leakage-resistant few-shot
+protocols on three public datasets, the resulting fixed pools yield stable
+paired improvements over repeated subset draws and CNN initializations: PU LLM
+recipes exceed rule and random open-loop sources at 5, 10, and 25 shots, while
+CWRU improvements over rule, noise augmentation, and real-only hold within
+load0 and from source load0 to held-out loads 1--3 under family-wise Holm
+correction. On case/run-disjoint Berkeley milling, LLM recipes exceed both
+non-structured baselines at every shot; their significant advantage over the
+structured rule is confined to lower-shot cells, is only
+\BreezeBerkeleyLowShotRuleEffectRange{} percentage
+points, and converges at ten shots. A global Benjamini--Hochberg sensitivity
+analysis preserves every registered decision, whereas six predeclared PU
+cross-condition attempts delimit the current morphology-transfer boundary.
+These results identify auditable, training-free admission as a practical
+augmentation operating point for the stated few-shot protocols.
 \end{abstract}
 
 \begin{keywords}
 Condition monitoring \sep Large language model \sep Synthetic data \sep
-Physics-verified admission \sep Few-shot diagnosis \sep Time-series generation
+Physics-guided admission \sep Few-shot diagnosis \sep Time-series generation
 \end{keywords}
 
 \maketitle
@@ -90,23 +91,24 @@ xu2025faultdiffusion}. ACS-DM and MR-DDIM further modify trained denoisers and
 objectives to balance temporal diversity with spectral fidelity
 \citep{tong2026acsdm,xu2026mrddim}.
 
-We argue that these failures share one root cause. Trained generators store
-physical knowledge in weights learned from data that few-shot regimes cannot
-supply. Even when impact priors or spectral constraints enter the objective,
-they influence generated signals through target-data optimization and model
-selection~\citep{gao2025physicsgan,liu2026physicsdiffusion}. The same small
-corpus must therefore support distribution fitting, design choices, and
-checkpoint selection. The mismatch lies in how knowledge enters generation,
-not only in whether the network is adversarial or diffusion-based.
+These methods share an operational requirement: the same limited target corpus
+must support distribution fitting, design choices, and checkpoint selection.
+Even when impact priors or spectral constraints enter the objective, they
+influence generated signals through target-data optimization and model
+selection~\citep{gao2025physicsgan,liu2026physicsdiffusion}. We study a
+different operating point in which target-specific generator fitting is
+removed and the controllable signal description remains explicit.
 
-\breeze\ changes where generative knowledge resides. First, the LLM expresses
-kinematics, impacts, modulation, and spectral allocation in a structured JSON
-recipe, and a fixed seeded renderer executes those fields as explicit signal
-equations. This path bypasses target-generator optimization while keeping
-waveform construction inspectable. Second, a verifier moves physical control
-from a learned objective to gates calibrated on the corresponding outer
-training split, and measured failures condition bounded resampling. Third,
-recipe, seed, waveform hash, and gate report records make every admitted sample
+\breeze\ changes where controllable generation choices reside. First, the LLM
+selects kinematics, impacts, modulation, and spectral allocation in a
+structured JSON recipe using prompt-supplied machine information,
+training-fold statistics, and exemplar descriptions; a fixed seeded renderer
+executes those fields as explicit signal equations. The evidence therefore
+tests LLM-mediated recipe selection, rather than whether pretraining alone
+contains fault physics. Second, a verifier moves physical control from a
+learned objective to gates calibrated on the corresponding outer-training
+split, and measured failures condition bounded resampling. Third, recipe,
+seed, waveform hash, and gate report records make every admitted sample
 traceable. Figure~\ref{fig:framework} summarizes these components.
 
 \begin{figure*}
@@ -125,34 +127,35 @@ values or a fixed engineer-written rule replace the LLM's recipe knowledge when
 renderer and verifier are held constant? Second, how does train-calibrated
 closed-loop admission shape feasible pools and their physical evidence? Third,
 do the resulting pools improve file-, load-, or experiment-disjoint few-shot
-diagnosis, and where does explicit recipe knowledge stop transferring? Paired
+diagnosis, and where does LLM-mediated recipe selection stop transferring? Paired
 source ablations, admission records, class-conditional diagnostics,
 leakage-resistant splits, and corrected tests answer the questions together.
 
 The paper makes four contributions:
 \begin{enumerate}
-  \item \textbf{Externalize} fault-signal knowledge as an LLM recipe executed by
-  a fixed seeded renderer, separating semantic proposal from waveform
-  construction without optimizing a target-data generator.
+  \item \textbf{Externalize} prompt-supported generation choices through
+  LLM-mediated recipe selection and a fixed seeded renderer, separating
+  semantic proposal from waveform construction without optimizing a
+  target-data generator.
   \item \textbf{Convert} physical control from a generator-training objective to
   train-calibrated admission over robust statistics, Welch-PSD shape,
   envelope-spectrum evidence, reliability-gated current evidence, and
   diversity, with bounded feedback and per-sample audit records.
-  \item \textbf{Isolate} the LLM recipe contribution through matched random and
-  rule sources on three public datasets: PU, CWRU, and Berkeley milling. The
-  registered evidence comprises 20 PU seeds and 40 seeds for CWRU and Berkeley,
-  with family-wise Holm correction.
+  \item \textbf{Isolate} the LLM-mediated recipe contribution through a
+  verifier-matched rule source and a distinct random open-loop control on three
+  public datasets: PU, CWRU, and Berkeley milling. The registered evidence
+  comprises 20 PU seeds and 40 seeds for CWRU and Berkeley, with family-wise
+  Holm correction and a global BH sensitivity audit.
   \item \textbf{Delineate} the operating boundary through the complete six-stage
   PU leave-one-condition-out (LOCO) failure chain, process-metadata confounding
   in UMich milling, and a stopped MU-TCM inner-validation line.
 \end{enumerate}
 
 The evidence supports a deliberately bounded recipe-generation and admission
-claim: admitted candidates satisfy declared train-supported gates and improve
-the stated few-shot tasks under their frozen protocols. The manuscript excludes
-zero-real-data operation, universal cross-condition morphology transfer,
-formal physical correctness, and superiority to trained generators because a
-matched formal TimeGAN/DDPM study remains unavailable.
+claim: admitted candidates satisfy declared train-supported gates and the fixed
+pools improve the stated few-shot tasks under their frozen protocols. The
+scope is training-free augmentation, not training-free diagnosis; few-shot
+real calibration and a trained downstream classifier remain necessary.
 
 \section{Related work: where generative knowledge resides}
 \label{sec:related}
@@ -275,22 +278,32 @@ Equation~\eqref{eq:verifier} exposes the decision $a_{t,s}$ and the diagnostic
 report $q_{t,s}$ as separate outputs. Renderer inputs, gate calibration,
 feedback, and pool selection all remain confined to the outer training split.
 
-Admission must represent interval support, one-sided evidence, healthy
-suppression, and diversity in one decision. For deterministic feature $f_j$,
+Admission must represent interval support, direction-specific evidence, healthy
+suppression, and diversity in one decision. Partition the active feature gates
+into two-sided, upper-bound, and lower-bound index sets
+$\mathcal{J}_{\mathrm{int}}$, $\mathcal{J}_{\mathrm{up}}$, and
+$\mathcal{J}_{\mathrm{low}}$. For deterministic feature $f_j$,
 class-supported bounds $[l_{j,y,m},u_{j,y,m}]$, healthy fault-prominence score
 $p_f$, physical embedding $e(x)$, and current admitted set $\mathcal{S}_y$, the
-following system shows the four predicate types:
+implemented predicate types are
 \begin{align}
- l_{j,y,m}\leq f_j(x)\leq u_{j,y,m} &\quad\text{(interval)},\nonumber\\
- f_j(x)\leq u_{j,y,m}\ \text{or}\ f_j(x)\geq l_{j,y,m}
-   &\quad\text{(one-sided evidence)},\nonumber\\
+ l_{j,y,m}\leq f_j(x)\leq u_{j,y,m},\quad j\in\mathcal{J}_{\mathrm{int}}
+   &\quad\text{(interval)},\nonumber\\
+ f_j(x)\leq u_{j,y,m},\quad j\in\mathcal{J}_{\mathrm{up}}
+   &\quad\text{(upper-bound evidence)},\nonumber\\
+ f_j(x)\geq l_{j,y,m},\quad j\in\mathcal{J}_{\mathrm{low}}
+   &\quad\text{(lower-bound evidence)},\nonumber\\
  p_f(x)\leq u_{f,\mathrm{healthy}}
    &\quad\text{(healthy suppression)},\nonumber\\
+ \mathcal{S}_y=\varnothing\ \text{or}\
  \min_{z\in\mathcal{S}_y}\lVert e(x)-e(z)\rVert_2\geq\delta_y
    &\quad\text{(diversity)}.
  \label{eq:mixed-gates}
 \end{align}
-The intersection of the active predicates defines the admissible set.
+The empty-set clause admits the first candidate with respect to diversity only;
+all active per-candidate gates must still pass. Subsequent candidates must meet
+the distance lower bound. The intersection of the active predicates defines the
+admissible set.
 Membership therefore records compliance with the configured gates under their
 training calibration.
 
@@ -302,7 +315,7 @@ boundaries. Figure~\ref{fig:boundary}
 assigns one component to each responsibility. The LLM selects recipe fields,
 the renderer enforces the signal equations, the verifier measures compatibility
 with train-supported evidence, and the downstream classifier measures utility.
-Matched source comparisons can then isolate the recipe source while holding the
+Controlled source comparisons can then isolate the recipe source while holding the
 other components fixed.
 
 \begin{figure*}
@@ -496,7 +509,7 @@ healthy/degraded threshold and split before the one-time 40-seed formal run.
 
 \subsection{Recipe-source and augmentation controls}
 
-Testing whether explicit recipe knowledge replaces target-generator learning
+Testing whether LLM-mediated recipe selection adds value without target-generator learning
 requires changing the proposal source while holding every downstream factor
 fixed. The central ablation therefore retains the applicable renderer, data
 split, synthetic budget, CNN, and paired seeds:
@@ -507,7 +520,7 @@ split, synthetic budget, CNN, and paired seeds:
   train-supported parameter ranges, the same renderer, and the same verifier;
   no LLM call.
   \item \textbf{Random open-loop:} random legal recipe values rendered without
-  feedback. On PU this is the matched non-semantic downstream control; a
+  feedback. On PU this is an open-loop non-semantic downstream control; a
   separate random-recipe verifier audit is also reported.
   \item \textbf{Noise augmentation:} real few-shot windows with channel-scaled
   jitter and amplitude scaling, using the same synthetic count.
@@ -517,14 +530,6 @@ The completed formal families match these controls to each dataset. CWRU
 compares LLM with rule, noise, and real only over within-load0 and held-out
 loads 1--3. Berkeley adds random open-loop, while PU Phase-A focuses on LLM
 versus rule and random open-loop.
-
-The available baseline archive fixes the quantitative comparison boundary.
-Checkpointed TimeGAN and 1D DDPM implementations reached smoke/development
-output before a completed predeclared formal run, which excludes them from the
-quantitative claims. Superiority to trained GAN or diffusion methods therefore
-awaits a matched formal run. FID/KID-style learned distances also remain
-unreported because the protocol lacks a fixed, validated domain feature
-extractor; their general role is described by \citet{heusel2017fid}.
 
 \subsection{Few-shot classifier and statistical protocol}
 
@@ -546,14 +551,30 @@ windows per class, and 40 seeds. Accuracy and Macro-F1 are primary, while each
 paired seed selects the same real subset and classifier initialization for
 every method in its cell.
 
+The statistical unit is a paired downstream seed, combining a CNN
+initialization with a few-shot subset draw. Within each dataset protocol, every
+seed reuses the same fixed synthetic pool for a method; seeds are therefore not
+independent LLM generations or independently generated pools. The resulting
+inference is precisely that the pool produced by the archived generation
+process is stably useful across repeated few-shot selection and classifier
+training. It does not estimate variation across independently generated pools.
+
 Registered inference preserves the pairing used in training. One-sided
 Wilcoxon signed-rank tests compare paired seeds~\citep{wilcoxon1945paired}, and
 Holm correction controls family-wise error within each predeclared comparison
-family~\citep{holm1979multiple}. Benjamini--Hochberg values remain secondary
-audit output, while the registered decision follows Holm
-\citep{benjamini1995fdr}. We report direction, adjusted decision, seed count,
-and the complete pass pattern. An unadjusted $p$ value near 0.05 remains
-descriptive; significance requires the adjusted Holm decision.
+family~\citep{holm1979multiple}. The registered decision follows Holm. As a
+cross-dataset sensitivity analysis, we additionally apply one global
+Benjamini--Hochberg correction to the \BreezeGlobalCoreHypotheses{} core PU,
+provenance-valid CWRU, and
+Berkeley hypotheses~\citep{benjamini1995fdr}. Table~\ref{tab:global-bh} shows
+that this global FDR analysis preserves all
+\BreezeGlobalDecisionAgreement{} registered pass/fail decisions;
+it does not replace the preregistered family structure. We report direction,
+adjusted decision, seed count, and the complete pass pattern. An unadjusted
+$p$ value near 0.05 remains descriptive; significance requires the adjusted
+Holm decision.
+
+\input{generated/global_bh.tex}
 
 \subsection{Physical and distribution diagnostics}
 
@@ -586,7 +607,7 @@ isolates the recipe source, CWRU and Berkeley test complete generated pools,
 and the physical and admission audits examine how the verifier shapes those
 pools.
 
-\subsection{LLM recipe knowledge is not replaceable by rule or random sources
+\subsection{LLM-mediated recipes outperform rule and open-loop random sources
 on PU}
 
 The PU component ablation shows that LLM recipes outperform rule and random
@@ -601,8 +622,8 @@ Seed-level deltas confirm that the PU LLM advantage is positive across every
 registered source comparison for Accuracy and Macro-F1.
 Figure~\ref{fig:downstream} shows these paired deltas alongside their
 distributions. Because the renderer and verifier remain fixed, the comparison
-attributes the supported PU contribution to explicit LLM recipe selection
-within the complete \breeze\ pipeline.
+attributes the supported PU contribution to LLM-mediated recipe selection
+under the supplied prompt context within the complete \breeze\ pipeline.
 
 \begin{figure*}
   \centering
@@ -633,7 +654,8 @@ held-out loads 1--3.
 
 This result establishes source-load0 cross-load diagnostic utility for the
 tested held-out loads 1--3 and shows where explicit recipe knowledge remains
-useful beyond its source load. A strict four-fold LOLO and cross-bearing scope
+useful beyond its source load under the supplied LLM context. A strict
+four-fold LOLO and cross-bearing scope
 remain outside this result because the reused synthetic pool gives the archived
 held-out-load0 fold target-load provenance.
 
@@ -653,17 +675,22 @@ means reported in Table~\ref{tab:berkeley}.
 \input{generated/berkeley.tex}
 
 The Berkeley pattern localizes the additional LLM recipe contribution to
-lower-shot settings. The rule recipe supplies a demanding structured reference,
-and its convergence with the LLM at ten shots shows that the additional LLM
-advantage narrows as the real sample count increases. This result supports the
-qualified binary protocol and leaves a generic milling state-of-the-art claim
-outside the evidence.
+lower-shot settings, but the effect over rule is small: the passing mean
+deltas are \BreezeBerkeleyNTwoAccRuleDelta{} percentage points for two-shot
+Accuracy and \BreezeBerkeleyNFiveAccRuleDelta{}/%
+\BreezeBerkeleyNFiveFOneRuleDelta{} points for five-shot
+Accuracy/Macro-F1. At ten shots, the deltas contract to
+\BreezeBerkeleyNTenAccRuleDelta{}/\BreezeBerkeleyNTenFOneRuleDelta{} points
+and do not pass Holm correction. The structured rule is
+therefore a strong reference, and convergence shows that structured recipe
+design explains most of the gain as real samples increase. This result
+supports only the qualified binary protocol.
 
-\subsection{Admitted PU pools preserve complementary physical evidence without
-copying training windows}
+\subsection{Admitted PU pools preserve complementary evidence under pool-level
+diversity control}
 
 The verifier admits PU LLM pools that combine class-relevant waveform evidence
-with non-duplicate nearest-neighbour distances. Under the same fixed
+with within-pool nearest-neighbour selection. Under the same fixed
 demodulation procedure, Fig.~\ref{fig:waves} compares real, LLM, rule, and
 random windows. Admitted LLM and rule recipes preserve impulsive and envelope
 structure more consistently than the random control while retaining visible
@@ -685,9 +712,13 @@ distributions in Figs.~\ref{fig:boxplots}--\ref{fig:distances}.
   \centering
   \includegraphics[width=\textwidth]{figs/boxplots.pdf}
   \caption{Class-conditional RMS and kurtosis distributions for the real PU
-  training split and matched synthetic pools. Boxes show the frozen pool
-  distributions; admission narrows unsupported statistical excursions without
-  forcing equality to a single reference value.}
+  outer-training split and frozen synthetic pools. Real boxes use every
+  class-matched outer-training window (healthy/OR/IR:
+  \BreezePUHealthyReferenceN{}/\BreezePUORReferenceN{}/%
+  \BreezePUIRReferenceN{}), exactly the reference population used for the W1
+  diagnostics; synthetic boxes use the fixed 150-window/class pools.
+  Admission narrows unsupported statistical excursions without forcing
+  equality to a single reference value.}
   \label{fig:boxplots}
 \end{figure*}
 
@@ -703,20 +734,41 @@ distributions in Figs.~\ref{fig:boxplots}--\ref{fig:distances}.
   \label{fig:distances}
 \end{figure*}
 
-Class-averaged PU distances favour LLM recipes over the matched recipe sources
-on PSD, band energy, and RMS. Table~\ref{tab:physics} reports lower LLM PSD
-distance and band-energy error than rule and random open-loop, together with
-lower RMS distance than both recipe sources. Noise augmentation is closest in
-RMS and band energy because it directly perturbs real windows. The LLM
-nearest-neighbour distance also separates the pool from its closest real
-reference under the frozen feature metric. This diversity value requires joint
-interpretation with fidelity because arbitrarily large distances can indicate
-unrealistic samples.
+The physical diagnostics do not rank LLM best on every metric. Its PU advantage
+relative to the two recipe-source controls is concentrated in RMS, PSD, and
+band-energy fidelity: Table~\ref{tab:physics} reports lower LLM band-energy
+error than rule and random open-loop, lower RMS distance than both, and lower
+PSD distance than random open-loop. Rule is closer for some PSD and
+fault-frequency-alignment cells, while noise augmentation has the lowest
+kurtosis-W1 and often the lowest RMS distance because it directly perturbs real
+windows. Table~\ref{tab:physics-kurtosis-alignment} retains every bearing
+kurtosis/alignment cell, including those in which rule or noise is better. The LLM
+nearest-neighbour value measures spacing among synthetic samples after scaling
+by real-reference feature variability. It is not a synthetic-to-real distance
+and therefore does not establish absence of training-window copying. This
+diversity value requires joint interpretation with fidelity because arbitrarily
+large distances can indicate unrealistic samples.
 
 \input{generated/physics.tex}
 
+\input{generated/physics_kurtosis_alignment.tex}
+
+The separate synthetic-to-real audit in Table~\ref{tab:memorization-audit}
+uses the same physics-v3 pool selections and class-matched outer-training
+references. No available audited pool contains a byte-identical real training
+window, but several pools retain high maximum cross-correlation. Because no
+copying threshold was declared, the distances and correlations are reported as
+descriptive similarity diagnostics rather than proof of independence.
+
+\input{generated/memorization_per_class.tex}
+
+Berkeley uses a real train-only channel exemplar as the renderer background.
+Its rows therefore characterize how much carrier structure remains after the
+recipe-specific transient and band-energy additions; they do not support an
+independent-signal-generation claim.
+
 These diagnostics test the admission component rather than rank generators in
-isolation. External downstream tests, matched source controls, train/test
+isolation. External downstream tests, controlled source comparisons, train/test
 separation, and failed cross-condition experiments add evidence beyond shared
 physical features, while gate compliance remains insufficient for physical
 truth.
@@ -868,17 +920,19 @@ Both datasets remain boundary evidence.
 \subsection{Component tests answer the three evaluation questions}
 
 The source ablations answer the first question by establishing an LLM recipe
-contribution within the matched \breeze\ pipeline. On PU, the
-random-recipe-plus-verifier control produces 0 admitted slots and fails to form
-a balanced pool, while random open-loop augmentation is substantially weaker
+contribution within the controlled \breeze\ pipeline. On PU, random recipes
+subjected to the verifier produce 0 admitted slots and therefore constitute a
+capacity failure: no balanced downstream pool exists for an effectiveness
+comparison. The distinct random open-loop control is substantially weaker
 downstream. LLM recipes also exceed the fixed rule source in every registered
 PU cell and every provenance-valid CWRU family.
 
 The admission records answer the second question by showing how the verifier
 shapes feasible pools. Random recipes subjected to the verifier form no
 balanced pool, whereas accepted LLM pools exhibit waveform, envelope, PSD,
-band-energy, statistical-distance, and non-copy behaviour under the frozen
-metrics. Measured violations also drive the next bounded feedback round.
+band-energy, statistical-distance, and synthetic-to-real similarity records
+under the frozen diagnostics. Measured violations also drive the next bounded
+feedback round.
 
 The downstream protocols answer the third question by locating both stable
 utility and its transfer boundary. LLM recipes improve the registered PU and
@@ -904,8 +958,8 @@ A trained generator becomes a reasonable alternative when a representative
 target corpus and compute budget support distribution fitting, hyperparameter
 selection, and checkpoint selection, especially when important morphology
 cannot be expressed by the fixed renderer. The present evidence neither locates
-this crossover nor compares completed matched TimeGAN/DDPM runs; the guidance
-follows the two paradigms' requirements rather than a benchmark ranking.
+this crossover nor supports a benchmark ranking; the guidance follows the two
+paradigms' operational requirements.
 
 \subsection{Physical admission evidence versus physical truth}
 
@@ -918,12 +972,16 @@ and negative transfer results alongside gate pass rates. A pass means
 ``admissible under the declared training-calibrated gates,'' not proof of
 membership in the full real distribution.
 
-Matched source controls partially address the circularity created by shared
-renderer and verifier kinematics. Rule, random, and LLM sources all encounter
-the same renderer and physical checks, yet the LLM source consistently forms
-the useful admitted pools in the registered PU comparisons. Further reduction
-of circularity requires external expert scoring, independent physical
-observables absent from the prompt, and new condition-disjoint datasets.
+The rule comparison partially addresses the circularity created by shared
+renderer and verifier kinematics because rule and LLM recipes encounter the
+same renderer, physical checks, and downstream protocol. The
+random-plus-verifier audit also encounters those checks but stops at a
+zero-admission capacity failure; the separate random open-loop pool tests
+non-semantic recipe values without claiming verifier matching. These controls
+show that shared frequency definitions alone do not explain the useful LLM
+pool, but they cannot remove the circularity. External expert scoring,
+observables absent from the prompt, and new condition-disjoint datasets are
+required for a stronger physical-validity claim.
 
 \subsection{Reproducibility and remaining blockers}
 
@@ -940,17 +998,20 @@ the archived recipes instead of the original LLM response. Completed formal
 TimeGAN/DDPM and additional diagnostic-backbone comparisons are also
 unavailable, which keeps state-of-the-art and universal classifier claims
 outside the supported scope. Future work should complete those matched
-baselines, repeat the protocol with at least one non-CNN diagnostic backbone,
-and preregister a new PU cross-condition representation before accessing
-held-out outcomes.
+baselines, repeat generation to support independent-pool inference, test at
+least one non-CNN diagnostic backbone, evaluate cross-specimen and
+cross-machine splits, and preregister a new PU cross-condition representation
+before accessing held-out outcomes. The present seed-level tests quantify
+repeated few-shot/CNN variability around one shared fixed pool per method and
+do not estimate between-pool generation variability.
 
 \section{Conclusion}
 \label{sec:conclusion}
 
-\breeze\ changes where fault-signal knowledge and physical control reside. An
-LLM externalizes class and machine knowledge in an executable recipe, fixed
-equations render the waveform, and train-calibrated gates control admission
-through bounded feedback and traceable records.
+\breeze\ provides training-free, auditable augmentation by using an LLM to
+select an executable recipe from supplied machine context, a fixed renderer to
+construct the waveform, and train-calibrated physical gates to control
+admission through bounded feedback and traceable records.
 
 Across the frozen public protocols, this design isolates an LLM recipe
 contribution on PU, improves the registered CWRU comparisons, and provides a
@@ -958,23 +1019,27 @@ qualified lower-shot Berkeley benefit. The admitted pools also expose
 class-conditional physical diagnostics, proposal yield, and terminal failure
 mechanisms.
 
-The supported scope is LLM recipe generation with physics-verified admission
-for the stated few-shot tasks; zero-data diagnosis, formal guarantees, PU
-cross-condition generalization, and universal generator superiority remain
-outside it.
+The supported scope is LLM-mediated recipe generation with physics-guided
+admission for three public frozen few-shot protocols. It does not establish
+state-of-the-art performance, superiority to trained generators, zero-real-data
+diagnosis, formal physical correctness, or cross-specimen and cross-machine
+generalization.
 
 \section*{Data and code availability}
 
-The release package connects each reported result to public data and frozen
-evidence. PU and CWRU are public benchmarks, and Berkeley milling is available
-through the NASA prognostics repository subject to its terms. The script
-\texttt{scripts/build\_paper\_tables.py} generates the manuscript tables, while
-\texttt{analysis/evidence\_ledger.md} and
-\texttt{analysis/claim\_evidence\_map.md} enumerate numerical sources,
-availability, and permitted wording. Release artifacts include gate thresholds,
-per-sample pass/fail records, pool manifests, split audits, and seed-level
-downstream outputs. API credentials and raw third-party datasets remain outside
-the release.
+PU and CWRU are public benchmarks, and Berkeley milling is available through
+the NASA prognostics repository subject to its terms. The Git repository
+contains the prompt builder and schema, deterministic renderer, verifier,
+table/figure scripts, frozen seed-level statistical outputs, PU pool arrays and
+manifests, physics manifests with SHA-256 hashes, and the evidence ledger.
+Primary CWRU and Berkeley waveform pools, recipes, and detailed candidate
+records currently reside in ignored \texttt{breeze/runs/} paths and are not
+part of the versioned Git tree. They will be deposited as a checksum-indexed
+repository release or data-repository supplement for exact waveform replay;
+until that deposit, the Git repository supports numerical-result audit and PU
+pool replay, but not complete CWRU/Berkeley waveform replay. API credentials,
+provider-side sampling state, and raw third-party datasets remain outside the
+release.
 
 \section*{Declaration of competing interest}
 

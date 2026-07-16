@@ -1,21 +1,22 @@
-Scarce labelled faults make target-specific generator training and selection
-compete with the same few examples needed for diagnosis. Trained generators
-store physical knowledge in weights learned from data that few-shot regimes
-cannot supply. We introduce \breeze, which externalizes class and machine
-knowledge as an LLM-authored JSON recipe and converts it to a waveform through
-a fixed seeded renderer without optimizing a target-data generator. A verifier
-calibrated exclusively on the real outer-training split moves physical control
-from a training objective to deterministic admission, bounded failure
-feedback, and per-sample audit records. On file-disjoint PU, LLM recipes
-outperform matched rule and random open-loop recipes for Accuracy and Macro-F1
-at 5, 10, and 25 real windows per class; all \BreezePUPassedTests{} registered
-comparisons pass Holm correction ($q<\BreezePUHolmBound$, 20 seeds), as do all
-\BreezeCWRUPassedTests{} provenance-valid CWRU comparisons across within-load0
-and held-out loads 1--3 (40 seeds). On case/run-disjoint Berkeley milling,
-\BreezeBerkeleyPassedTests/\BreezeBerkeleyRegisteredTests{} comparisons pass,
-including all \BreezeBerkeleyUnstructuredPassedTests{} against non-structured
-baselines and the qualified lower-shot LLM--rule advantage;
-class-conditional diagnostics and six failed PU cross-condition attempts locate
-the supported operating range. A pass states train-calibrated admissibility,
-and the combined evidence supports auditable LLM recipe generation with
-physics-verified admission for the stated few-shot protocols.
+Training a target-specific waveform generator is often impractical when only a
+few labelled faults are available. We present \breeze, a training-free
+augmentation framework in which an LLM selects structured recipes from supplied
+kinematics, training-fold statistics, and exemplar descriptions, and a fixed
+seeded renderer constructs the waveforms. A physical verifier calibrated only
+on the outer-training split admits candidates, returns bounded feedback, and
+archives recipes, seeds, hashes, and gate evidence without generator
+optimization or LLM fine-tuning. Across frozen, leakage-resistant few-shot
+protocols on three public datasets, the resulting fixed pools yield stable
+paired improvements over repeated subset draws and CNN initializations: PU LLM
+recipes exceed rule and random open-loop sources at 5, 10, and 25 shots, while
+CWRU improvements over rule, noise augmentation, and real-only hold within
+load0 and from source load0 to held-out loads 1--3 under family-wise Holm
+correction. On case/run-disjoint Berkeley milling, LLM recipes exceed both
+non-structured baselines at every shot; their significant advantage over the
+structured rule is confined to lower-shot cells, is only
+\BreezeBerkeleyLowShotRuleEffectRange{} percentage
+points, and converges at ten shots. A global Benjamini--Hochberg sensitivity
+analysis preserves every registered decision, whereas six predeclared PU
+cross-condition attempts delimit the current morphology-transfer boundary.
+These results identify auditable, training-free admission as a practical
+augmentation operating point for the stated few-shot protocols.

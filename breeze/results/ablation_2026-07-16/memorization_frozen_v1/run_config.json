@@ -1,0 +1,19 @@
+{
+  "api_calls": 0,
+  "datasets": [
+    "pu",
+    "cwru",
+    "berkeley"
+  ],
+  "max_reference_per_class": null,
+  "max_synthetic_per_class": null,
+  "metric_selection": "physics_frozen_full_v3 manifests",
+  "pools": [
+    "llm",
+    "rule",
+    "random_open_loop",
+    "noise_aug"
+  ],
+  "smoke": false,
+  "workers": 2
+}

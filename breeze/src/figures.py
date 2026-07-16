@@ -158,7 +158,7 @@ def fig_waveforms() -> None:
 
 
 def fig_boxplots() -> None:
-    """PU RMS and kurtosis distributions with matched 150/class budgets."""
+    """PU RMS and kurtosis distributions against the full train reference."""
     apply_style(6.8)
     real_x, real_y, _ = load_file_split("train", MAIN_COND)
     sources: dict[str, tuple[np.ndarray, np.ndarray]] = {"real": (real_x, real_y)}
@@ -171,9 +171,12 @@ def fig_boxplots() -> None:
             values = []
             for source in order:
                 x, y = sources[source]
-                windows = x[y == col][:150, 0]
-                if windows.shape[0] != 150:
-                    raise ValueError(f"{source}/{class_name}: expected 150 windows")
+                windows = x[y == col, 0]
+                expected = {0: 1200, 1: 1202, 2: 1444}[col] if source == "real" else 150
+                if windows.shape[0] != expected:
+                    raise ValueError(
+                        f"{source}/{class_name}: expected {expected} windows, got {windows.shape[0]}"
+                    )
                 if metric == "RMS":
                     values.append(np.sqrt(np.mean(windows**2, axis=1)))
                 else:
@@ -201,7 +204,16 @@ def fig_boxplots() -> None:
             ax.tick_params(axis="x", rotation=24, labelsize=5.5)
     panel_label(axes[0, 0], "a", x=-0.29)
     panel_label(axes[1, 0], "b", x=-0.29)
-    fig.tight_layout(h_pad=0.65, w_pad=0.8)
+    fig.text(
+        0.5,
+        0.995,
+        "Real reference: all outer-training windows; synthetic pools: fixed 150/class",
+        ha="center",
+        va="top",
+        fontsize=6.0,
+        color=PALETTE["neutral_mid"],
+    )
+    fig.tight_layout(h_pad=0.65, w_pad=0.8, rect=(0, 0, 1, 0.97))
     save_figure(fig, FIGS / "boxplots.pdf")
     plt.close(fig)
 

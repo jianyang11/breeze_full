@@ -1,74 +1,83 @@
 # Supplementary Material Outline
 
-## S1. Data Splits
+This outline follows the final public-dataset manuscript. It excludes private
+machine-tool development artifacts and uses the frozen protocol names reported
+in analysis/evidence_ledger.md.
 
-- PU condition: `N09_M07_F10`
-- Retained channels: `vibration_1`, `phase_current_1`, `phase_current_2`
-- Train/test protocol: per-bearing file split, first 80% files for train and
-  last 20% for test.
-- Machine-tool private data: four synchronous NI acquisition channels at
-  4000 Hz, channels `X/Y/Z/Current`, BREEZE windows of 2048 samples with stride
-  1024, train files `1/2/4/5/10`, test files `7/8`.
-- Documented operating states are normal machining, lead-screw anomaly, and
-  base imbalance, but local file prefixes `1/2/3` are reported as anonymous
-  labels `MT-1/MT-2/MT-3` until the mapping is confirmed.
+## S1. Frozen public-data protocols
 
-## S2. Verifier Reports
+- PU Phase-A v2: condition N09_M07_F10, retained channels vibration_1,
+  phase_current_1, and phase_current_2, acquisition-file split before
+  windowing, and n_real={5,10,25}.
+- CWRU patch-v2: within-load0 plus source-load0 to held-out-load1/2/3.
+  The archived held-out-load0 fold is excluded because the fixed synthetic
+  pool has target-load provenance.
+- Berkeley binary formal: case/run grouping before windowing, healthy VB<0.2
+  versus degraded VB>=0.2, and n_real={2,5,10}.
 
-Include representative JSON certificates from:
+For every protocol, list split-manifest hashes, training/test acquisition
+units, window counts, channel definitions, and fixed synthetic budgets.
 
-- `breeze/runs/rescreen_v2_full/records/`
-- `breeze/runs/mt_verifier_real_details.csv`
+## S2. Recipe, renderer, and verifier records
 
-Each certificate should include gate pass/fail states, measured feature values,
-train-supported thresholds, and feedback messages.
+- Prompt builder and JSON schema: breeze/src/llm.py.
+- Seeded renderer: breeze/src/renderer.py.
+- Verifier implementation: breeze/src/verifier/v2.py and
+  breeze/src/verifier/features.py.
+- PU frozen pool/seed manifests:
+  breeze/results/phaseA_v2_frozen_2026-07-06/breeze/runs/phaseA_v2_balanced/.
+- Full gate predicate semantics audit:
+  analysis/gate_predicate_semantics_audit_2026-07-16.md.
 
-## S3. Full Downstream Tables
+Include representative archived recipes and complete per-candidate gate
+records in the versioned supplementary archive. The original PU provider
+version, top-p, and provider-side seed are unavailable; replay therefore starts
+from archived recipes rather than regenerating the original LLM response.
 
-Use:
+## S3. Complete downstream and statistical tables
 
-- `breeze/results/downstream_file.csv`
-- `breeze/results/custom_pool_eval.csv`
-- `breeze/results/mt_real_only_eval.csv`
+- PU seed rows, summaries, and Wilcoxon/Holm tables from the Phase-A v2 frozen
+  directory.
+- CWRU seed rows and the provenance-valid 72-row subset from
+  breeze/results/cwru_patch_v2_2026-07-07_frozen/.
+- Berkeley 40-seed rows and all 18 rule/noise/random comparisons from
+  breeze/results/milling_berkeley_v2_binary_formal_2026-07-08/.
+- Global BH sensitivity CSV and report from
+  breeze/results/global_bh_sensitivity_2026-07-16/.
 
-Report all seeds, not only means.
+State that seeds combine few-shot subset selection and CNN initialization while
+reusing one fixed synthetic pool per method; they are not independent
+generation-pool replicates.
 
-## S4. Physical Metrics and Sensitivity
+## S4. Complete physical and similarity diagnostics
 
-Use:
+- Physics-v3 PU, CWRU, and Berkeley CSVs under
+  breeze/results/ablation_2026-07-14/.
+- Every PU/CWRU kurtosis-W1 and bearing fault-frequency-alignment cell,
+  including cells in which rule or noise augmentation is better.
+- Synthetic-to-real NRMSE, maximum cross-correlation, and byte-identity audit
+  from breeze/results/ablation_2026-07-16/memorization_frozen_v1/.
+- Gate and diversity-threshold ablations from
+  breeze/results/ablation_2026-07-15/gate_ablation_v1/.
 
-- `breeze/results/pool_metrics.csv`
-- `breeze/results/pool_metrics_v2.csv`
-- `breeze/results/calibration_sensitivity.csv`
+Berkeley uses TPF amplitude-ratio diagnostics and a train-only exemplar
+background; it does not use the bearing fault-frequency metric.
 
-Include coverage c85/c90/c95 and per-gate fail counts.
+## S5. Reproducibility inventory and release boundary
 
-## S5. Reproducibility Manifest
+The tracked repository contains table/figure scripts, frozen statistical CSVs,
+PU pool arrays and manifests, physics manifests with SHA-256 hashes, and
+generation code. Primary CWRU/Berkeley arrays and detailed candidate records
+currently reside under ignored breeze/runs/ paths. They must be deposited as a
+versioned repository-release or data-repository archive for exact waveform
+replay; until then the Git repository supports numerical-result audit but not
+complete CWRU/Berkeley waveform replay.
 
-Key scripts:
+## S6. Boundaries and stopped protocols
 
-- `breeze/scripts/freeze_snapshot.py`
-- `breeze/src/verifier/v2.py`
-- `breeze/src/rescreen_v2.py`
-- `breeze/src/eval_custom_pool.py`
-- `breeze/src/mt_verifier.py`
-- `breeze/src/eval_mt_real.py`
-- `breeze/src/figures.py`
-
-Key reports:
-
-- `reports/experiment_snapshot_2026-07-04.md`
-- `reports/breeze_v2_rescreen_report_2026-07-04.md`
-- `reports/machine_tool_experiment_2026-07-04.md`
-- `analysis/main_tables.md`
-
-## S6. Known Boundaries
-
-- PU results use the retained 3-channel project schema, not the full raw PU
-  channel set.
-- Machine-tool labels are anonymous until the class mapping is supplied.
-- No machine-tool BREEZE augmentation result is claimed because no audited
-  synthetic pool exists for that dataset.
-- BREEZE v2 is not uniformly higher than all strong baselines; claims should
-  emphasize physical-gate admission, real-only gains, v1 improvement, and
-  interpretability.
+- Six PU LOCO stages define a failed cross-condition morphology-transfer line.
+- UMich is stopped because experiment-level condition/process metadata remain
+  confounded with wear under the frozen split.
+- MU-TCM stops at a 2/6 train-only inner gate and has no formal test.
+- Formal TimeGAN/DDPM comparisons, independent-pool inference, additional
+  backbones, and cross-specimen/cross-machine protocols are future work.

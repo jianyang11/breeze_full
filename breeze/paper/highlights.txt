@@ -1,5 +1,5 @@
-BREEZE admits LLM-rendered signals with train-calibrated physical gates.
-PU LLM recipes beat rule and random recipes in all registered tests.
-CWRU passes 72/72 clean within/load-transfer tests after Holm correction.
-Berkeley passes 15/18 tests; the LLM-rule gain is limited to low shots.
-Six failed PU transfer stages expose the current cross-condition boundary.
+Training-free BREEZE turns LLM-selected recipes into auditable waveforms.
+Frozen PU pools beat rule and open-loop random controls in registered cells.
+CWRU gains persist from source load0 to held-out loads 1--3 under paired tests.
+Berkeley beats unstructured controls; rule gains are small and low-shot only.
+Global BH preserves decisions; six PU transfer attempts define the boundary.

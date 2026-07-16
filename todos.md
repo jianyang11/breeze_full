@@ -1759,3 +1759,360 @@ repair enters Layer 3; a certificate cleanly distinguishes `pass`, `fail`, and
   gate; do not add it unless a reviewer specifically requires it.
 - [x] E4: add verified few-shot/meta-learning and split-validity citations with
   limited contextual claims; bibliography now has at least 50 entries.
+
+## 18. Major-revision round from review of `origin/main@b4e6981` (started 2026-07-16)
+
+### 18.0 Scope freeze, environment, and evidence controls
+
+- [x] Preserve all unrelated untracked result directories, user files,
+  old smoke runs, and frozen snapshots; record the review attachment path, current
+  `HEAD`, PDF hash/page count, source hash, and working-tree baseline in a new
+  major-revision audit log before changing manuscript claims.
+- [x] Resolve the execution-environment instruction before any new Python run:
+  inspect whether `breeze/.venv-breeze` is backed by Anaconda, inventory a Conda
+  after an initial Conda audit, the user explicitly selected
+  `breeze/.venv-breeze/bin/python`; record that executable, package lock, device,
+  and seed settings. Do not mix environments inside one formal experiment.
+- [x] Audit the currently running E1 process without modifying its output; determine
+  whether it complies with the resolved environment rule and whether it must be
+  allowed to finish, paused at a checkpoint, or replaced by a clean run.
+- [ ] Freeze a claim-to-review matrix mapping every reviewer criticism and question
+  to source lines, code, existing evidence, required experiment, expected artifact,
+  and final disposition (`fixed`, `measured`, `qualified`, or `blocked`).
+- [ ] Re-read the active evidence ledger, split manifests, frozen reports, API ledger,
+  and all current manuscript statements before editing. Stop and report any numeric
+  conflict instead of reconciling it silently.
+- [ ] Keep the audited API total at 1231/3000 unless the user explicitly authorizes
+  additional calls. Design all zero-API work first; record any independent-pool or
+  prompt ablation that cannot fit the existing budget as an authorization blocker.
+
+### 18.1 Correct the two mathematical and claim-evidence hard errors
+
+- [ ] Trace the implemented one-sided gate predicates from calibration through
+  `verifier/v2.py` and compare them line by line with Eq. (1); document whether code
+  uses an upper or lower bound for every gate family.
+- [ ] Replace the tautological manuscript predicate `f_j(x)<=u OR f_j(x)>=l` with an
+  explicit direction-indexed definition (upper-bound set, lower-bound set, and
+  two-sided set), preserving the actual code semantics and handling unavailable
+  evidence without inventing a gate.
+- [ ] Add a small deterministic formula/code consistency test covering upper-only,
+  lower-only, two-sided, failed, passed, and unavailable predicates; require every
+  case to match the manuscript definition.
+- [ ] Audit the definition of diversity for an empty admitted set and the first
+  admitted sample; state the exact convention in method text and code comments.
+- [ ] Trace `nn_diversity` in every metrics script and generated table; distinguish
+  synthetic-to-synthetic pool diversity from synthetic-to-real memorization distance.
+- [ ] Remove every unsupported interpretation of `nn_diversity` as distance to real
+  data and every unproven phrase such as “without copying training windows” until a
+  dedicated synthetic-to-real audit exists.
+- [ ] Compile after the hard-error patch and verify equations, labels, algorithm
+  references, and gate names remain internally consistent before proceeding.
+
+### 18.2 Build independent memorization and physical-validity diagnostics (zero API)
+
+- [ ] Specify synthetic-to-real diagnostics before computing them: exact byte/hash
+  equality, nearest real-window distance on train-calibrated normalized features,
+  maximum normalized cross-correlation with lag reporting, and raw/subsequence match
+  checks appropriate to PU/CWRU/Berkeley exemplar construction.
+- [ ] Define the unit, normalization, channel aggregation, lag range, and reference
+  population for each diagnostic using training data only; prohibit thresholds chosen
+  from downstream test performance.
+- [ ] Implement checkpointed metric extraction with small-pool smoke fixtures,
+  duplicate controls, carrier/exemplar controls, and deterministic resume keys.
+- [ ] Run a PU smoke on a few real/synthetic windows; verify known exact-copy controls
+  are detected and ordinary noncopies are not mislabeled before batch execution.
+- [ ] Run the frozen PU, CWRU, and Berkeley pools only after smoke acceptance; write
+  per-sample CSV, aggregate CSV, JSON provenance, checksums, and an MD audit report.
+- [ ] Treat Berkeley explicitly as exemplar-based simulation augmentation; report
+  carrier identity and similarity separately from the added wear component.
+- [ ] Add at least one hold-out physical diagnostic not directly enforced by the
+  renderer/verifier pair, selecting it from available raw measurements and declaring
+  it before reading method rankings. If no defensible independent diagnostic exists,
+  weaken “physical realism” to “gate consistency” and record the limitation.
+- [ ] Report real-vs-synthetic discriminator AUROC only with grouped cross-validation
+  by source file/carrier and confidence intervals; do not use a leaking window split.
+
+### 18.3 Make all physical-metric reporting complete and reference-consistent
+
+- [ ] Extend the generated physics table to include per-class kurtosis-W1, envelope
+  frequency-alignment error, peak prominence, harmonic consistency, PSD-W1, RMS-W1,
+  band-energy error, synthetic-to-synthetic diversity, and synthetic-to-real metrics.
+- [ ] Preserve unfavorable results, including PU kurtosis-W1 and OR/IR cases where
+  rule has lower frequency error than LLM; prohibit selective prose summaries.
+- [ ] Audit Figure 5 reference sampling. Use the same declared real reference
+  population for waveforms and distance tables, or label the distinct 150-window
+  visualization sample explicitly and explain why it is not the W1 reference set.
+- [ ] Generate all revised tables and figure annotations from structured CSV/JSON;
+  add grid, class, method, unit, and population assertions to the generator script.
+- [ ] Visually inspect every revised plot/table at publication size and verify that
+  unfavorable rows, units, confidence intervals, and reference populations are legible.
+
+### 18.4 Repair statistical scope and multiple-comparison claims
+
+- [ ] Enumerate the true stochastic hierarchy for every result: independent LLM pool,
+  fixed synthetic pool, few-shot draw, classifier initialization, dataset unit, and
+  test unit. Record exactly which levels vary under the current 20/40 seeds.
+- [ ] Rewrite the inference unit everywhere: current paired CNN/few-shot seeds support
+  repeatability of a fixed admitted pool, not population-level variability of LLM
+  generation. Remove any broader interpretation before adding new pools.
+- [ ] Recompute CWRU correction over the global 72-test family using Holm and BH while
+  retaining the original local-family outputs for transparency; report both scopes
+  without calling local-family `72/72` global FWER control.
+- [ ] Add paired effect sizes, bootstrap or paired-seed 95% confidence intervals,
+  worst-class F1, and predeclared practical-effect thresholds to PU/CWRU/Berkeley
+  tables. Keep inferential caveats tied to the fixed-pool design.
+- [ ] Add confidence intervals and multiplicity-aware tests to the M2--M5 gate
+  ablation; distinguish “directionally lower mean” from evidence that every gate is
+  individually necessary.
+- [ ] Verify Berkeley LLM-rule practical differences and explicitly state convergence
+  at 10 shots; do not equate small statistical differences with large practical gains.
+- [ ] Draft, but do not execute, a hierarchical independent-pool design with pool as
+  the outer unit and CNN/few-shot seed as the inner unit; calculate required LLM calls,
+  compute, storage, and API cost for 5 and 10 pools per method.
+- [ ] Ask for explicit authorization before spending API on independent pools; if not
+  authorized, keep the limitation and remove population-level generator claims.
+
+### 18.5 Repair control fairness and isolate where the gain comes from
+
+- [ ] Reframe random+verifier as a measured capacity failure rather than a matched
+  downstream control; ensure `random open-loop` is never described as verifier-matched.
+- [ ] Audit existing K=0/K=1/K=3 caches and reports. If complete and protocol-matched,
+  generate a closed-loop table; otherwise design the smallest zero-API cache replay
+  that does not manufacture missing candidates.
+- [ ] Specify a train-statistics parameter estimator in the same recipe space and
+  renderer, with no LLM and no access to validation/test labels; justify every
+  objective and bound from train-only calibration.
+- [ ] Specify a black-box optimizer baseline only if it can use the identical recipe
+  domain, verifier evaluations, candidate budget, and renderer. No extra evaluations,
+  privileged gradients, or test-selected objective are allowed.
+- [ ] Smoke-test estimator/optimizer candidates on one class and one seed; inspect
+  recipe validity, budget accounting, gate reports, and capacity before full pools.
+- [ ] Run only candidates that pass the predeclared smoke and capacity rules; report
+  failures without rescue tuning, then compare downstream results under the same pool
+  budget and paired seeds.
+- [ ] Design no-exemplar, no-class-statistics, and no-feedback LLM ablations with exact
+  prompt redactions and equal call budgets. Do not execute them until API authorization
+  and independent-pool statistical design are resolved.
+- [ ] Reframe the central claim as “LLM-mediated recipe selection” unless the new
+  controlled ablations isolate pretrained LLM knowledge from supplied kinematics,
+  examples, statistics, and feedback.
+
+### 18.6 Complete strong trained-generator baselines fairly
+
+- [x] Deferred by the final Q2-closeout scope: stop the formal TimeGAN/DDPM v2
+  queue, preserve all checkpoints/partial rows, and never summarize them as a
+  result. Formal trained-generator comparison remains future work.
+- [ ] After the first complete DDPM cell, estimate wall time from observed class-level
+  costs and update this checklist/report with a defensible ETA rather than extrapolating
+  from TimeGAN alone.
+- [ ] Validate the complete E1 grid: TimeGAN/DDPM, full-fold/few-shot generator
+  training, `n_real={5,10,25}`, 40 paired seeds, 20 synthetic windows/class, identical
+  file split and downstream CNN, no literature-default rescue tuning.
+- [ ] Add instability diagnostics from raw losses/checkpoints and count failed/nonfinite
+  runs without dropping them. Freeze a missing-cell audit before any aggregation.
+- [ ] Produce downstream, physical-quality, memorization, parameter-count, training
+  data, wall-time, and compute-cost tables from the complete grid only.
+- [ ] Assess TTS-GAN/CFG-DDPM/physics-informed generation/BearGen comparability from
+  primary implementations and licenses. Add a formal baseline only when its data
+  boundary and architecture can be matched without ad hoc degradation or hidden
+  tuning; otherwise document why it is not a valid direct baseline.
+- [ ] Keep all SOTA and trained-generator-superiority claims prohibited until the
+  matched formal grid is complete and statistically audited.
+
+### 18.7 Test classifier dependence (zero API; smoke before scale)
+
+- [ ] Freeze architectures and literature-supported defaults for ResNet1D-18, TCN,
+  a compact Transformer encoder, and a traditional feature classifier before reading
+  their method rankings; record parameter counts and compute budgets.
+- [ ] Implement each backbone behind the same train/evaluate interface with grouped
+  file split, identical few-shot selections, paired seeds, and no method-specific
+  tuning. Add deterministic unit and shape tests.
+- [ ] Run one-seed PU smoke for LLM/rule/random at `n_real=5`; require all backbones to
+  finish, emit finite metrics, and reproduce the exact split/seed manifest.
+- [ ] Run a five-seed calibration-free pilot solely to detect crashes or capacity
+  problems, not to select hyperparameters. Freeze the formal backbone plan afterward.
+- [ ] Execute the predeclared 20-seed PU source-ablation grid and report Accuracy,
+  Macro-F1, worst-class F1, paired effects, confidence intervals, and corrected tests.
+- [ ] State whether ordering is stable, mixed, or reversed across classifiers; do not
+  hide a backbone that weakens the preferred conclusion.
+
+### 18.8 Audit and, where feasible, strengthen grouping/generalization protocols
+
+- [ ] Inventory physical bearing/specimen identities in PU and CWRU from raw metadata
+  and dataset documentation. Do not equate files, windows, loads, fault sizes, and
+  specimens without source evidence.
+- [ ] Determine whether PU within-condition leave-one-bearing-out is feasible with
+  enough train bearings/classes and whether cached recipes can be recalibrated without
+  test leakage or new API calls.
+- [ ] Determine whether CWRU can support a genuine leave-one-specimen-out protocol;
+  if specimen identity is unavailable or confounded with class/severity, mark the
+  requested claim structurally unsupported rather than inventing a split.
+- [ ] Pre-register any feasible grouped protocol, including calibration, generation,
+  admission, downstream seeds, statistics, and stop conditions, before reading test
+  results. Smoke one fold before batch execution.
+- [ ] Evaluate whether a cross-machine or cross-dataset task has compatible channels,
+  labels, sampling, and physical meaning. Run it only if the task is scientifically
+  identifiable; otherwise retain the current explicit boundary.
+- [ ] Rewrite all generalization claims to the exact supported unit: measurement-file,
+  load, bearing, specimen, machine, or sensor. Do not use “cross-condition” as a
+  substitute for cross-specimen evidence.
+
+### 18.9 Reproducibility and public artifact plan
+
+- [ ] Recover and record the exact PU provider/model identifier, temperature, top-p,
+  provider seed support, prompt templates, response hashes, recipe schema, renderer
+  seeds, verifier config, and API-call accounting. Mark irrecoverable fields explicitly.
+- [ ] Inventory ignored PU/CWRU/Berkeley recipes, pool manifests, gate reports, and
+  generated arrays; separate redistributable derived artifacts from licensed raw data,
+  credentials, and oversized checkpoints.
+- [ ] Create a deterministic release-manifest builder that lists paths, sizes, hashes,
+  provenance, regeneration commands, and exclusions without copying secrets or raw data.
+- [ ] Package or document the minimum reproducibility bundle needed to regenerate each
+  paper table from lawful inputs; verify it in a fresh output directory.
+- [ ] Add a data/code availability subsection explaining why `breeze/runs/` is ignored,
+  what will be released, and how CWRU/Berkeley pools and recipe records are reproduced.
+
+### 18.10 Literature, manuscript, supplement, and submission synchronization
+
+- [ ] Verify primary sources for simulation-based inference, rejection/ABC,
+  constrained program generation, and LLM-as-optimizer; add only literature that
+  clarifies the method boundary and does not substitute for missing experiments.
+- [ ] Rewrite Abstract, Introduction, Method, Results, Discussion, and Conclusion only
+  after the corresponding evidence tasks complete; preserve Berkeley partial/no-go,
+  PU LOCO boundary, UMich confounding, MU-TCM stop, and trained-baseline status.
+- [ ] Add a reviewer-question response matrix answering all 12 questions with code,
+  table, report, or scoped limitation references.
+- [ ] Update `submission_checklist.md` to the actual final page count and unresolved
+  blockers; remove stale 17-page assertions.
+- [ ] Audit the supplementary outline and remove stale private-data/v2 language;
+  synchronize equations, metric definitions, pool/statistical units, and ablations.
+- [ ] Request author names, affiliations, corresponding-author email, ORCID, funding,
+  conflicts, and acknowledgments from the user; placeholders remain a submission
+  blocker and must not be guessed.
+- [ ] Generate every final numerical statement from CSV/JSON, run claim-to-evidence and
+  citation audits, and verify no manuscript claim depends on partial E1 output.
+- [ ] Compile the canonical CAS manuscript with zero fatal/undefined warnings, compare
+  layout diagnostics to baseline, render every PDF page, and visually inspect all
+  equations, tables, figures, references, and supplementary links.
+- [ ] Review the final scoped diff, preserve unrelated untracked files, commit only
+  audited source/report/generated artifacts, fetch `origin/main`, push with approval,
+  and verify the remote commit before declaring the major revision complete.
+
+## 19. Immediate Q2-ready closeout (final controlling scope; zero training/API)
+
+### 19.0 Scope and mandatory skills
+
+- [x] Freeze the final scope: zero new training, zero API, no independent pools,
+  no new backbone, no new cross-specimen split, and no trained-generator result.
+- [x] Use `awesome-ai-research-writing` for claim/evidence and prose revision;
+  use the current cached `pdf` skill for compilation, Poppler rendering, and
+  page-by-page visual verification.
+- [x] Stop the briefly resumed E1 service and preserve its partial v2 directory;
+  keep TimeGAN/DDPM absence in one limitation only.
+- [x] Convert every in-scope review item H1--H5, C1--C4, and M1--M5
+  into an evidence/status row in the major-revision log and final checklist.
+- [x] Mark the superseded large-experiment items in §18 as future work rather
+  than blockers for this Q2 submission.
+
+### 19.1 H1--H2 hard-error correction
+
+- [x] H1: verify code predicates, replace the tautological one-sided
+  equation with distinct lower/upper/two-sided relations, and state the empty-set
+  diversity convention.
+- [x] H1: add a deterministic semantics test/audit and compile the corrected
+  equation before changing any dependent prose.
+- [x] H2: remove the unsupported copying claim and correct
+  `nn_diversity` to synthetic-to-synthetic within-pool spacing.
+- [x] H2: implement a checkpointed zero-API synthetic-to-real audit over frozen
+  PU/CWRU/Berkeley pools: exact equality, nearest train-window distance, and
+  maximum normalized cross-correlation, with per-class provenance and smoke
+  controls before batch execution.
+- [x] H2: if any dataset lacks a reproducible frozen pool/reference mapping,
+  mark that row unavailable and retain the narrowed limitation; do not replace
+  the missing pool or infer non-copying.
+- [x] H2: state explicitly that Berkeley is exemplar-background simulation and
+  report its similarity audit separately from bearing pools.
+
+### 19.2 H3--H4 complete physical evidence
+
+- [x] H3: extend the generated table with every available per-class
+  kurtosis-W1 and fault-frequency alignment value, including rule-favouring
+  cells and explicit NA for healthy/nonapplicable cases.
+- [x] H3: rewrite the physical-results paragraph to state that LLM does not lead
+  every physical metric and that its aggregate advantages concentrate in
+  RMS/PSD/band-energy under the frozen protocol.
+- [x] H4: trace the real-window sampling manifest behind Figure 5 and the W1
+  calculations; either regenerate Figure 5 from the same full reference or
+  label its deterministic 150-window visualization subset unambiguously.
+- [x] H4: regenerate all affected artifacts from structured inputs and audit
+  reference population, class, unit, method, and pool hashes.
+
+### 19.3 H5 statistical recalculation and wording
+
+- [x] H5a: identify every core PU/CWRU/Berkeley hypothesis row and compute a
+  global BH sensitivity column from frozen p-values; preserve registered
+  within-family Holm results alongside it.
+- [x] H5a: generate the global-BH table from CSV and replace abstract `72/72`
+  shorthand with dataset/family-specific wording that cannot be read as global
+  FWER control.
+- [x] H5b: state the stochastic unit exactly: one fixed synthetic pool per
+  protocol, with paired repeats varying few-shot sampling and CNN initialization.
+- [x] H5b: scope inference to stable downstream utility of these frozen pools;
+  add absence of independent-pool inference to one limitations paragraph.
+- [x] H5c: rename random as `random open-loop` wherever appropriate; describe
+  random+verifier as a zero-capacity failure rather than a matched downstream
+  comparison.
+- [x] Verify all q values, pass counts, effect sizes, and correction-family
+  descriptions against frozen CSVs before accepting the statistical rewrite.
+
+### 19.4 C1--C4 claim convergence
+
+- [x] C1: align Abstract, Introduction contributions, Discussion, and Conclusion
+  to the bounded positioning: a training-free, auditable LLM-mediated recipe
+  generation and physics-gated augmentation framework evaluated under three
+  public frozen few-shot protocols.
+- [x] C1: prohibit SOTA, trained-generator superiority, zero-real-data, formal
+  physical correctness, and cross-specimen/cross-machine generalization claims.
+- [x] C2: generate Berkeley effect-size wording from frozen means; report
+  12/12 against non-structured controls, small lower-shot rule differences,
+  and convergence at 10 shots without inflating practical importance.
+- [x] C3: consolidate TimeGAN/DDPM absence into one limitations statement;
+  remove repeated defensive wording and exclude all smoke/partial numbers.
+- [x] C4: use `LLM-mediated recipe selection`; disclose kinematics, training
+  statistics, exemplar description, and feedback as prompt inputs; do not infer
+  pretrained physical knowledge.
+- [x] C4: retain the shared renderer/verifier frequency-definition circularity
+  risk and the bounded evidence from rule/random controls without calling gate
+  compliance physical truth.
+
+### 19.5 M1--M4 submission mechanics and reproducibility
+
+- [x] M1: update page count in `submission_checklist.md`, clean stale private-data
+  and v2 language from the supplement, and synchronize `\shorttitle` with the
+  final training-free recipe framework positioning.
+- [x] M2: inventory every author/affiliation/ORCID/email placeholder and list it
+  as the sole user-supplied submission blocker; never guess identity metadata.
+- [x] M3 optional: skipped because the current related-work coverage is
+  sufficient and the item is explicitly non-blocking; no unneeded citation
+  expansion was introduced.
+- [x] M4: inventory prompt templates, recipe examples, renderer seeds, pool
+  manifests, verifier configs, and ignored run artifacts; add precise data/code
+  availability wording that distinguishes repository paths from planned release.
+- [x] Update cover letter, highlights, supplementary material, and submission
+  checklist so every claim and limitation matches the canonical manuscript.
+
+### 19.6 M5 final build, visual audit, and delivery
+
+- [x] Generate every numeric LaTeX table through the table builder; reject hand
+  copied numerical edits and fail on missing/duplicate grids.
+- [x] Compile the canonical CAS PDF with no fatal, unresolved citation, or
+  unresolved reference errors; compare all layout diagnostics with baseline.
+- [x] Render all final pages under `tmp/pdfs/` with Poppler and visually inspect
+  equations, tables, figures, captions, page numbers, references, and glyphs.
+- [x] Create `analysis/final_checklist_q2_2026-07-16.md` with one evidence-linked
+  row for each H1--H5, C1--C4, and M1--M5 item; continue revisions for any row
+  that is not `verified`, `qualified`, or the single author-metadata blocker.
+- [x] Run a final evidence-ledger, terminology, generated-number, bibliography,
+  API, frozen-directory, and Git-scope audit.
+- [ ] Commit and push each completed closeout part to `origin/main`, preserving
+  all unrelated untracked files; verify the remote head after every push.
