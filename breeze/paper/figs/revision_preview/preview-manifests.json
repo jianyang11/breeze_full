@@ -1,0 +1,12 @@
+{
+  "manifests": [
+    "breeze/paper/figs/revision_preview/fig3_downstream_effects/source-manifest.json",
+    "breeze/paper/figs/revision_preview/fig4_waveform_envelope/source-manifest.json",
+    "breeze/paper/figs/revision_preview/figS1_pu_distributions/source-manifest.json",
+    "breeze/paper/figs/revision_preview/figS2_healthy_waveform_envelope/source-manifest.json",
+    "breeze/paper/figs/revision_preview/fig5_physical_error/source-manifest.json",
+    "breeze/paper/figs/revision_preview/fig6_admission_mechanism/source-manifest.json",
+    "breeze/paper/figs/revision_preview/fig7_cross_condition/source-manifest.json",
+    "breeze/paper/figs/revision_preview/figS3_pu_failure_chain/source-manifest.json"
+  ]
+}

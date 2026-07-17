@@ -620,19 +620,23 @@ protocol means and standard deviations.
 
 Seed-level deltas confirm that the PU LLM advantage is positive across every
 registered source comparison for Accuracy and Macro-F1.
-Figure~\ref{fig:downstream} shows these paired deltas alongside their
-distributions. Because the renderer and verifier remain fixed, the comparison
+Figure~\ref{fig:downstream} reports the paired mean effects with bootstrap
+intervals across the three protocols. Because the renderer and verifier remain fixed, the comparison
 attributes the supported PU contribution to LLM-mediated recipe selection
 under the supplied prompt context within the complete \breeze\ pipeline.
 
 \begin{figure*}
   \centering
   \includegraphics[width=\textwidth]{figs/downstream_bars.pdf}
-  \caption{Paired downstream deltas. Points are seed-level differences; thick
-  segments show interquartile ranges and diamonds show medians. (a) PU LLM
-  minus rule or random open-loop. (b) CWRU within-load0 LLM minus rule or noise
-  augmentation. (c) Berkeley LLM minus rule or noise augmentation. The dashed
-  line is zero.}
+  \caption{Paired downstream effects. Each marker is the paired mean
+  LLM--comparator effect in percentage points over the registered seeds; lines
+  are 95\% percentile bootstrap intervals over paired seeds. (a--c) LLM minus
+  rule on PU, CWRU within-load0, and Berkeley under one shared $\pm$12-point
+  scale. (d--f) LLM minus random open-loop on PU and LLM minus noise
+  augmentation on CWRU and Berkeley, with per-panel ranges printed. Circles
+  are Accuracy and squares Macro-F1; filled markers pass the registered Holm
+  correction and hollow markers do not. Seeds repeat few-shot subset selection
+  and CNN initialization around one fixed pool per source.}
   \label{fig:downstream}
 \end{figure*}
 
@@ -691,8 +695,9 @@ diversity control}
 
 The verifier admits PU LLM pools that combine class-relevant waveform evidence
 with within-pool nearest-neighbour selection. Under the same fixed
-demodulation procedure, Fig.~\ref{fig:waves} compares real, LLM, rule, and
-random windows. Admitted LLM and rule recipes preserve impulsive and envelope
+demodulation procedure, Fig.~\ref{fig:waves} compares medoid-selected real,
+LLM, rule, and random windows for the two fault classes together with
+population envelope spectra. Admitted LLM and rule recipes preserve impulsive and envelope
 structure more consistently than the random control while retaining visible
 stochastic variation. These traces illustrate the population-level
 distributions in Figs.~\ref{fig:boxplots}--\ref{fig:distances}.
@@ -700,37 +705,46 @@ distributions in Figs.~\ref{fig:boxplots}--\ref{fig:distances}.
 \begin{figure*}
   \centering
   \includegraphics[width=\textwidth]{figs/waveforms.pdf}
-  \caption{PU waveform and envelope-spectrum comparison. Rows are healthy,
-  outer-race, and inner-race classes; columns compare real training, LLM,
-  rule, and random open-loop windows. All envelope spectra use the same fixed
-  500--2000 Hz demodulation band. Vertical markers denote the class-relevant
-  kinematic frequency.}
+  \caption{PU waveform and envelope-spectrum comparison for (a) outer-race
+  and (b) inner-race classes; columns compare real training, LLM, rule, and
+  random open-loop windows. Each waveform is the window nearest its
+  source/class robust centre in a shared class-matched real-train-scaled
+  feature space, with raw amplitude and shared class-specific y limits.
+  Envelope spectra show the median and interquartile range over all windows of
+  each source/class under the same fixed 500--2000 Hz demodulation band.
+  Dashed markers denote the class-relevant kinematic frequency (BPFO 46.1 Hz;
+  BPFI 73.9 Hz).}
   \label{fig:waves}
 \end{figure*}
 
 \begin{figure*}
   \centering
   \includegraphics[width=\textwidth]{figs/boxplots.pdf}
-  \caption{Class-conditional RMS and kurtosis distributions for the real PU
-  outer-training split and frozen synthetic pools. Real boxes use every
-  class-matched outer-training window (healthy/OR/IR:
+  \caption{Class-conditional RMS (a--c) and kurtosis (d--f) empirical
+  cumulative distributions for the real PU outer-training split and frozen
+  synthetic pools. Real curves use every class-matched outer-training window
+  (healthy/OR/IR:
   \BreezePUHealthyReferenceN{}/\BreezePUORReferenceN{}/%
   \BreezePUIRReferenceN{}), exactly the reference population used for the W1
-  diagnostics; synthetic boxes use the fixed 150-window/class pools.
-  Admission narrows unsupported statistical excursions without forcing
-  equality to a single reference value.}
+  diagnostics; synthetic curves use the fixed 150-window/class pools and are
+  distinguished by both colour and line style. Admission narrows unsupported
+  statistical excursions without forcing equality to a single reference
+  value.}
   \label{fig:boxplots}
 \end{figure*}
 
 \begin{figure*}
   \centering
   \includegraphics[width=\textwidth]{figs/metric_distances.pdf}
-  \caption{Class-averaged physical diagnostics on PU, CWRU, and Berkeley.
-  Cells contain raw RMS Wasserstein-1, PSD-CDF Wasserstein-1, relative
-  band-energy error, and nearest-neighbour diversity values; colour is scaled
-  within each dataset and metric only. NA denotes a pool that does not exist in
-  the frozen archive, not an imputed value. Diversity has no universally
-  optimal direction.}
+  \caption{Class-specific physical diagnostics on (a) PU, (b) CWRU, and (c)
+  Berkeley. Each matrix cell is $\log_2$ of the method-to-rule distance ratio
+  for RMS-W1, kurtosis-W1, PSD-W1, relative band-energy error, and
+  fault-frequency alignment; negative values favour the method and positive
+  values favour rule, on one shared zero-centred scale. NA denotes a frozen
+  metric that is undefined or unavailable, not an imputed value. (d)
+  Within-pool nearest-neighbour diversity in raw units on a separate log axis;
+  diversity has no universally optimal direction and does not share the
+  fidelity colour scale.}
   \label{fig:distances}
 \end{figure*}
 
@@ -779,11 +793,19 @@ mechanisms}
 The closed-loop component separates proposal cost from the downstream
 augmentation budget while determining which recipes can form a feasible pool.
 PU requests \BreezeProposalSlotsPerClass{} proposal slots per class;
-Fig.~\ref{fig:acceptance}(a) reports archived round candidates, panel (b)
-separates proposal slots, admitted slots, and kept rendered windows, and panel
-(c) compares recipe sources. At $K=3$, the LLM process admits
+the round-level audit hashes all \BreezeTotalProposalSlots{} archived slot
+records and assigns each
+admitted slot to its first candidate with \texttt{feasible=true}. It reproduces
+the frozen slot summary exactly. Figure~\ref{fig:acceptance}(a) shows that
+\BreezeAdmissionKZeroCumulative{} slots pass without feedback; rounds 1--3 add
+\BreezeAdmissionKOneIncrement{}, \BreezeAdmissionKTwoIncrement{}, and
+\BreezeAdmissionKThreeIncrement{} slots, respectively, reaching
+\BreezeAdmissionKThreeCumulative{}/\BreezeTotalProposalSlots{} by $K=3$. At that point, the LLM process admits
 \BreezeHealthyAdmissionRate\%, \BreezeORAdmissionRate\%, and
-\BreezeIRAdmissionRate\% of healthy/OR/IR slots.
+\BreezeIRAdmissionRate\% of healthy/OR/IR slots, while
+\BreezeAdmissionKThreeUnadmitted{} slots remain unadmitted. These are complete
+slot counts for one frozen pool-generation run, not uncertainty estimates over
+independent LLM pools.
 
 Recipe source determines whether the verifier can construct a balanced pool.
 The random-recipe audit admits no slot, whereas rule admission varies by class.
@@ -793,12 +815,19 @@ LLM proposal under the PU verifier.
 \begin{figure*}
   \centering
   \includegraphics[width=\textwidth]{figs/acceptance_k.pdf}
-  \caption{PU proposal accounting. (a) Number of archived candidates per
-  proposal slot. (b) One-to-many mapping from
-  \BreezeProposalSlotsPerClass{} class slots to admitted slots
-  and diversity-kept windows. (c) Verifier slot-admission rates for LLM, rule,
-  and random recipes. Random open-loop remains a downstream control; random
-  recipes subjected to the verifier produce no balanced admitted pool.}
+  \caption{PU closed-loop admission across feedback rounds. (a) Cumulative
+  percentage of proposal slots admitted by or before each round, shown for
+  healthy, outer-race, and inner-race classes
+  ($n=\BreezeProposalSlotsPerClass{}$ slots each) and for all slots
+  ($n=\BreezeTotalProposalSlots{}$); labels give pooled cumulative counts. (b) Newly admitted
+  slots assigned to their first passing round and stacked by class. A passing
+  round is the earliest archived candidate with \texttt{feasible=true}; the
+  aggregate exactly reproduces the frozen
+  \BreezeAdmissionKThreeCumulative{} admitted slots, leaving
+  \BreezeAdmissionKThreeUnadmitted{} unadmitted at $K=3$. Counts describe one
+  frozen pool-generation run and have
+  no independent-pool sampling interval. Source data are provided with the
+  figure artifacts.}
   \label{fig:acceptance}
 \end{figure*}
 
@@ -866,11 +895,13 @@ morphology.
 \begin{figure*}
   \centering
   \includegraphics[width=\textwidth]{figs/cross_condition_heatmap.pdf}
-  \caption{Cross-condition evidence. (a,c) CWRU LLM--rule Accuracy and
-  Macro-F1 deltas when load0-derived pools are evaluated on held-out loads
-  1--3. The archived held-out-load0 fold is excluded for target-load
-  provenance. (b,d) Number of passed PU LOCO tests out of four registered
-  comparisons in each condition--shot--metric cell for v1 and v2.}
+  \caption{Cross-condition evidence. (a,c) Signed CWRU LLM--rule Accuracy and
+  Macro-F1 effects in percentage points when source-load0 pools are evaluated
+  on held-out loads 1--3, on one zero-centred scale; filled dots mark
+  registered Holm passes. The archived held-out-load0 fold is excluded for
+  target-load provenance. (b,d) Number of registered comparisons out of four
+  passing Holm with positive effect in each condition--shot--metric cell for
+  PU LOCO v1 and v2, on a separate five-state discrete scale.}
   \label{fig:cross}
 \end{figure*}
 

@@ -25,6 +25,9 @@
   inference is not claimed.
 - Random open-loop is labelled an open-loop control. Random plus verifier is
   reported as a zero-admission capacity failure.
+- The closed-loop admission figure is backed by a 450-record SHA-256 manifest;
+  first-pass aggregation exactly reproduces 286 frozen admitted slots and is
+  described as complete accounting for one pool-generation run.
 - Abstract, Introduction, Discussion, Conclusion, cover letter, highlights,
   and supplementary outline use the same training-free, auditable,
   LLM-mediated recipe-selection claim.

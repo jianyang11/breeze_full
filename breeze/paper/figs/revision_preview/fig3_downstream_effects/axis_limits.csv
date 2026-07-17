@@ -1,0 +1,7 @@
+row,dataset,comparison,x_min_pp,x_max_pp
+1,PU,rule,-12.0,12.0
+1,CWRU,rule,-12.0,12.0
+1,Berkeley,rule,-12.0,12.0
+2,PU,random_open_loop,-45.0,45.0
+2,CWRU,noise_aug,-17.0,17.0
+2,Berkeley,noise_aug,-16.0,16.0

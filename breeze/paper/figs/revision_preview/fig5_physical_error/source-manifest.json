@@ -1,0 +1,112 @@
+{
+  "figure_directory": "breeze/paper/figs/revision_preview/fig5_physical_error",
+  "status": "complete",
+  "generated_at_utc": "2026-07-17T02:58:40.108950+00:00",
+  "git_head": "c28a8512b9f37e4783adcc7ad76b2df6dd1466df",
+  "generator": "breeze/src/figure_revision_data.py",
+  "generator_sha256": "91bb3a946cdcd20635ec051bbcc08299beac5270d12b89b98de033ab050aa5c4",
+  "code": [
+    {
+      "path": "breeze/src/figure_revision_data.py",
+      "sha256": "91bb3a946cdcd20635ec051bbcc08299beac5270d12b89b98de033ab050aa5c4",
+      "size_bytes": 38300
+    },
+    {
+      "path": "breeze/src/figures_revision_preview.py",
+      "sha256": "0795c4f0c49fcc9495f80ded2898998a9c0fa242d2d1c970bc31eec96e2f4a5c",
+      "size_bytes": 34932
+    }
+  ],
+  "sources": [
+    {
+      "path": "breeze/results/ablation_2026-07-14/physics_frozen_full_v3_berkeley/physics_metrics.csv",
+      "sha256": "efc303411f42ea4dceac6e40f4dbe51cfc5ad77d0bddfe5b863e4b74e342159c",
+      "size_bytes": 4089
+    },
+    {
+      "path": "breeze/results/ablation_2026-07-14/physics_frozen_full_v3_berkeley/physics_pool_availability.csv",
+      "sha256": "0222e5bf09d5422de9c04e27eae7d2b4d59ca63793464f7f6f3a799d646aac29",
+      "size_bytes": 318
+    },
+    {
+      "path": "breeze/results/ablation_2026-07-14/physics_frozen_full_v3_berkeley/physics_pool_manifest.csv",
+      "sha256": "04a973ff4e384163d1318bd29bead507d5668c28aa63fe827ce1a8e0791f59f8",
+      "size_bytes": 38462
+    },
+    {
+      "path": "breeze/results/ablation_2026-07-14/physics_frozen_full_v3_cwru/physics_metrics.csv",
+      "sha256": "34055b4d12d1fe4b0d06acf01a7aef2ccaab2533370984adfb318c073c44976c",
+      "size_bytes": 5855
+    },
+    {
+      "path": "breeze/results/ablation_2026-07-14/physics_frozen_full_v3_cwru/physics_pool_availability.csv",
+      "sha256": "8db90e3d8b259045c3f517c2771927ae40ce60119d2332fe4ca9c3b30f25cf50",
+      "size_bytes": 307
+    },
+    {
+      "path": "breeze/results/ablation_2026-07-14/physics_frozen_full_v3_cwru/physics_pool_manifest.csv",
+      "sha256": "0a000324bbb7e997fd2bc1bb1cbdae89c291d012238aa64d291fedee35a38c4c",
+      "size_bytes": 50025
+    },
+    {
+      "path": "breeze/results/ablation_2026-07-14/physics_frozen_full_v3_pu/physics_metrics.csv",
+      "sha256": "dd85466e2486dfcc8bc15f3d73358e476facff42760131a535f71b66b2161e0f",
+      "size_bytes": 5745
+    },
+    {
+      "path": "breeze/results/ablation_2026-07-14/physics_frozen_full_v3_pu/physics_pool_availability.csv",
+      "sha256": "305f11e2bb3823b5a9c55cbc3038a1967806b3c706c3a80d6c80c63507839ee4",
+      "size_bytes": 219
+    },
+    {
+      "path": "breeze/results/ablation_2026-07-14/physics_frozen_full_v3_pu/physics_pool_manifest.csv",
+      "sha256": "5a1fdfaf55e4ff32405474957929cd938e3cc296a517f3d40819e238f01b284e",
+      "size_bytes": 389340
+    }
+  ],
+  "filters": {
+    "matrix": "class-conditional log2(method distance / rule distance); all finite cells retained",
+    "NA": "undefined or unavailable frozen metric only; no interpolation",
+    "diversity": "raw NN diversity on log x axis; displayed separately from fidelity errors"
+  },
+  "sample_counts": {
+    "ratio_rows": 115,
+    "available_ratio_cells": 98,
+    "diversity_points": 41
+  },
+  "outputs": [
+    {
+      "path": "breeze/paper/figs/revision_preview/fig5_physical_error/physical_error_ratios.csv",
+      "sha256": "2163afcfd409d5c8e70a1c52fd74be7db3ec84d85e9e62d2058004b1cd9c9027",
+      "size_bytes": 12037
+    },
+    {
+      "path": "breeze/paper/figs/revision_preview/fig5_physical_error/nn_diversity.csv",
+      "sha256": "5637e7b8a651b915b7286d1591a03d14592c7d259c8e83465b93fdf8c57cb892",
+      "size_bytes": 2373
+    },
+    {
+      "path": "breeze/paper/figs/revision_preview/fig5_physical_error/fig5_physical_error.pdf",
+      "sha256": "04ee559a709c6175416a6d4ca986fe6aeb84f090af0bad0d587d29bef0f12506",
+      "size_bytes": 55713
+    },
+    {
+      "path": "breeze/paper/figs/revision_preview/fig5_physical_error/fig5_physical_error.svg",
+      "sha256": "7fdf255dbda98e8fa3b898d8e0d0b205fd88002029f6c122bca4860526a1299c",
+      "size_bytes": 86890
+    },
+    {
+      "path": "breeze/paper/figs/revision_preview/fig5_physical_error/fig5_physical_error.png",
+      "sha256": "07c3863e29a447ac058936865c8f1a0a1c7da0fe739965205682187f740dd548",
+      "size_bytes": 285331
+    },
+    {
+      "path": "breeze/paper/figs/revision_preview/fig5_physical_error/fig5_physical_error.tiff",
+      "sha256": "efa1dc620f6cd2127fcbd8a33bf43545b9a53852df3efe356e8343274fdb96bb",
+      "size_bytes": 2944506
+    }
+  ],
+  "notes": [
+    "Berkeley TPF-amplitude W1 is not relabelled as bearing fault-frequency alignment."
+  ]
+}

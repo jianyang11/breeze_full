@@ -1,0 +1,31 @@
+{
+  "assertions": {
+    "feedback_rounds": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "final_admitted_by_class": {
+      "IR": 106,
+      "OR": 90,
+      "healthy": 90
+    },
+    "final_admitted_slots": 286,
+    "record_json_count": 450,
+    "selected_equals_first_feasible_candidate": true,
+    "slot_summary_rows_match_exactly": true,
+    "slots_per_class": {
+      "IR": 150,
+      "OR": 150,
+      "healthy": 150
+    },
+    "unique_slot_count": 450
+  },
+  "canonical_slot_summary": "breeze/results/phaseA_v2_frozen_2026-07-06/breeze/runs/rescreen_v2_full/slot_summary.csv",
+  "canonical_slot_summary_sha256": "4df45eb7ca29dbd052dce537c6f269fad8572e6c06c4537898bf9114e0ed0a6a",
+  "freeze_date": "2026-07-17",
+  "interpretation": "Counts describe all archived PU proposal slots. They are population accounting for one frozen pool-generation run, not uncertainty over independent LLM pool generations.",
+  "source_records_directory": "breeze/runs/rescreen_v2_full/records",
+  "status": "passed"
+}

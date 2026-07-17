@@ -1,6 +1,6 @@
 # BREEZE Evidence Ledger
 
-Status: frozen for manuscript use on 2026-07-15 (Asia/Shanghai).
+Status: frozen for manuscript use through 2026-07-17 (Asia/Shanghai).
 
 This ledger is the sole claim boundary for the closing-stage manuscript. A
 manuscript statement is permitted only when it is no broader than the evidence
@@ -30,6 +30,21 @@ ledger records their results and does not replace them.
   visible. LLM is not best on every physical metric; its supported PU fidelity
   advantage is concentrated in RMS, PSD, and band-energy summaries, while rule
   or noise augmentation is better in multiple kurtosis/alignment cells.
+
+## Closed-loop admission-record audit (2026-07-17)
+
+- SHA-256 was computed for all 450 local PU `rescreen_v2_full` round records.
+  Strict aggregation assigns a slot to the minimum candidate round with
+  `feasible=true` and verifies that candidate is exactly the record's selected
+  candidate. The aggregate contains 150 slots per class and matches every row
+  of the prior frozen slot summary.
+- Pooled cumulative admissions are 205 at K=0, 241 at K=1, 268 at K=2, and 286
+  at K=3. The corresponding marginal admissions are 205, 36, 27, and 18;
+  K=3 class totals are 90 healthy, 90 OR, and 106 IR slots.
+- These values are complete descriptive accounting for one frozen
+  pool-generation run. They do not estimate variability over independent LLM
+  recipe pools. Source:
+  `breeze/results/admission_round_freeze_2026-07-17/`.
 
 ## Audit basis
 

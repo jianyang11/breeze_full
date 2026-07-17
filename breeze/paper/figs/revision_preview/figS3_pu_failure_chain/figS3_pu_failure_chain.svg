@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="518.740157pt" height="170.07874pt" viewBox="0 0 518.740157 170.07874" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.0, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 170.07874
+L 518.740157 170.07874
+L 518.740157 0
+L 0 0
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="line2d_1">
+    <path d="M 51.394419 80.348508
+L 136.595428 80.348508
+L 221.796437 80.348508
+L 306.997446 80.348508
+L 392.198454 80.348508
+L 477.399463 80.348508
+" clip-path="url(#p07b390b3b7)" style="fill: none; stroke: #bebebe; stroke-linecap: square"/>
+   </g>
+   <g id="PathCollection_1">
+    <defs>
+     <path id="ma35ae2b33c" d="M 0 3.708099
+C 0.983399 3.708099 1.926654 3.317391 2.622022 2.622022
+C 3.317391 1.926654 3.708099 0.983399 3.708099 0
+C 3.708099 -0.983399 3.317391 -1.926654 2.622022 -2.622022
+C 1.926654 -3.317391 0.983399 -3.708099 0 -3.708099
+C -0.983399 -3.708099 -1.926654 -3.317391 -2.622022 -2.622022
+C -3.317391 -1.926654 -3.708099 -0.983399 -3.708099 0
+C -3.708099 0.983399 -3.317391 1.926654 -2.622022 2.622022
+C -1.926654 3.317391 -0.983399 3.708099 0 3.708099
+z
+" style="stroke: #0f4d92; stroke-width: 1.1"/>
+    </defs>
+    <g clip-path="url(#p07b390b3b7)">
+     <use xlink:href="#ma35ae2b33c" x="51.394419" y="80.348508" style="fill: #0f4d92; stroke: #0f4d92; stroke-width: 1.1"/>
+    </g>
+   </g>
+   <g id="PathCollection_2">
+    <g clip-path="url(#p07b390b3b7)">
+     <use xlink:href="#ma35ae2b33c" x="136.595428" y="80.348508" style="fill: #0f4d92; stroke: #0f4d92; stroke-width: 1.1"/>
+    </g>
+   </g>
+   <g id="PathCollection_3">
+    <defs>
+     <path id="mdb3a04380b" d="M 0 3.708099
+C 0.983399 3.708099 1.926654 3.317391 2.622022 2.622022
+C 3.317391 1.926654 3.708099 0.983399 3.708099 0
+C 3.708099 -0.983399 3.317391 -1.926654 2.622022 -2.622022
+C 1.926654 -3.317391 0.983399 -3.708099 0 -3.708099
+C -0.983399 -3.708099 -1.926654 -3.317391 -2.622022 -2.622022
+C -3.317391 -1.926654 -3.708099 -0.983399 -3.708099 0
+C -3.708099 0.983399 -3.317391 1.926654 -2.622022 2.622022
+C -1.926654 3.317391 -0.983399 3.708099 0 3.708099
+z
+" style="stroke: #a33a3a; stroke-width: 1.1"/>
+    </defs>
+    <g clip-path="url(#p07b390b3b7)">
+     <use xlink:href="#mdb3a04380b" x="221.796437" y="80.348508" style="fill: #ffffff; stroke: #a33a3a; stroke-width: 1.1"/>
+    </g>
+   </g>
+   <g id="PathCollection_4">
+    <g clip-path="url(#p07b390b3b7)">
+     <use xlink:href="#mdb3a04380b" x="306.997446" y="80.348508" style="fill: #ffffff; stroke: #a33a3a; stroke-width: 1.1"/>
+    </g>
+   </g>
+   <g id="PathCollection_5">
+    <g clip-path="url(#p07b390b3b7)">
+     <use xlink:href="#mdb3a04380b" x="392.198454" y="80.348508" style="fill: #ffffff; stroke: #a33a3a; stroke-width: 1.1"/>
+    </g>
+   </g>
+   <g id="PathCollection_6">
+    <g clip-path="url(#p07b390b3b7)">
+     <use xlink:href="#mdb3a04380b" x="477.399463" y="80.348508" style="fill: #ffffff; stroke: #a33a3a; stroke-width: 1.1"/>
+    </g>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 7px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #0f4d92" x="51.394419" y="47.5562" transform="rotate(-0 51.394419 47.5562)">v1</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 5.1px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #777777" x="51.394419" y="64.820219" transform="rotate(-0 51.394419 64.820219)">formal held-out</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 5.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #2f2f2f" x="51.394419" y="104.684968" transform="rotate(-0 51.394419 104.684968)">57/96 fail</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 4.9px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #0f4d92" x="51.394419" y="141.735837" transform="rotate(-0 51.394419 141.735837)">FORMAL</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 7px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #0f4d92" x="136.595428" y="47.5562" transform="rotate(-0 136.595428 47.5562)">v2</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 5.1px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #777777" x="136.595428" y="64.820219" transform="rotate(-0 136.595428 64.820219)">formal held-out</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 5.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #2f2f2f" x="136.595428" y="104.684968" transform="rotate(-0 136.595428 104.684968)">60/96 fail</text>
+   </g>
+   <g id="text_8">
+    <text style="font-weight: 700; font-size: 4.9px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #0f4d92" x="136.595428" y="141.735837" transform="rotate(-0 136.595428 141.735837)">FORMAL</text>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 700; font-size: 7px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #a33a3a" x="221.796437" y="47.5562" transform="rotate(-0 221.796437 47.5562)">v3</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 5.1px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #777777" x="221.796437" y="64.820119" transform="rotate(-0 221.796437 64.820119)">train-only development</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 5.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #2f2f2f" x="221.796437" y="104.684968" transform="rotate(-0 221.796437 104.684968)">morphology map; no balanced pool</text>
+   </g>
+   <g id="text_12">
+    <text style="font-weight: 700; font-size: 4.9px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #a33a3a" x="221.796437" y="141.735837" transform="rotate(-0 221.796437 141.735837)">STOP: NO HELD-OUT TEST</text>
+   </g>
+   <g id="text_13">
+    <text style="font-weight: 700; font-size: 7px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #a33a3a" x="306.997446" y="47.5562" transform="rotate(-0 306.997446 47.5562)">v4</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 5.1px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #777777" x="306.997446" y="64.820119" transform="rotate(-0 306.997446 64.820119)">train-only admission</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 5.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #2f2f2f" x="306.997446" y="104.684968" transform="rotate(-0 306.997446 104.684968)">S1/S2 candidate pools fail</text>
+   </g>
+   <g id="text_16">
+    <text style="font-weight: 700; font-size: 4.9px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #a33a3a" x="306.997446" y="141.735837" transform="rotate(-0 306.997446 141.735837)">STOP: NO HELD-OUT TEST</text>
+   </g>
+   <g id="text_17">
+    <text style="font-weight: 700; font-size: 7px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #a33a3a" x="392.198454" y="47.5562" transform="rotate(-0 392.198454 47.5562)">v5</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 5.1px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #777777" x="392.198454" y="64.820119" transform="rotate(-0 392.198454 64.820119)">train-only sanity</text>
+   </g>
+   <g id="text_19">
+    <text style="font-size: 5.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #2f2f2f" x="392.198454" y="104.684968" transform="rotate(-0 392.198454 104.684968)">wrong-label/noise controls admitted</text>
+   </g>
+   <g id="text_20">
+    <text style="font-weight: 700; font-size: 4.9px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #a33a3a" x="392.198454" y="141.735837" transform="rotate(-0 392.198454 141.735837)">STOP: NO HELD-OUT TEST</text>
+   </g>
+   <g id="text_21">
+    <text style="font-weight: 700; font-size: 7px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #a33a3a" x="477.399463" y="47.5562" transform="rotate(-0 477.399463 47.5562)">v6</text>
+   </g>
+   <g id="text_22">
+    <text style="font-size: 5.1px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #777777" x="477.399463" y="64.820119" transform="rotate(-0 477.399463 64.820119)">source-only evidence</text>
+   </g>
+   <g id="text_23">
+    <text style="font-size: 5.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #2f2f2f" x="477.399463" y="104.684968" transform="rotate(-0 477.399463 104.684968)">CSCoh stop in 4/4 targets</text>
+   </g>
+   <g id="text_24">
+    <text style="font-weight: 700; font-size: 4.9px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #a33a3a" x="477.399463" y="141.735837" transform="rotate(-0 477.399463 141.735837)">STOP: NO HELD-OUT TEST</text>
+   </g>
+   <g id="text_25">
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start" x="3.000246" y="23.016358" transform="rotate(-0 3.000246 23.016358)">a</text>
+   </g>
+   <g id="text_26">
+    <text style="font-weight: 700; font-size: 7px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start" x="13.053965" y="8.096431" transform="rotate(-0 13.053965 8.096431)">PU leave-one-condition-out: complete v1-v6 evidence-stop chain</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p07b390b3b7">
+   <rect x="13.053965" y="14.096431" width="502.685953" height="152.982069"/>
+  </clipPath>
+ </defs>
+</svg>

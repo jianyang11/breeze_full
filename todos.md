@@ -1,12 +1,32 @@
 # BREEZE 执行 todos
 
-最后更新：2026-07-15 Asia/Shanghai
+最后更新：2026-07-17 Asia/Shanghai
 
 工作根目录：`/Users/jianyang/Desktop/学校相关课程/回所/论文/合成数据sci/breeze_full-2`
 
 Python 环境：`breeze/.venv-breeze/bin/python` (`3.12.13`)。所有 Python 命令必须使用该解释器。
 
 > 收口决定（2026-07-14）：L1.1--L1.9 与 L2.1--L2.9 全部 **deferred（投稿后工作）**。理由：投稿前不开启新的框架重构工程；这些计划不得被描述为本稿已实现的方法或结果。
+
+## F6. Fig. 6 round-level 证据冻结、正式集成与 PR #2 合并（2026-07-17）
+
+> 范围锁定：仅对本地 `breeze/runs/rescreen_v2_full/records/`
+> 归档记录做 SHA-256、聚合和绘图；0 训练、0 API、不改写任何冻结实验输出。
+
+- [x] F6.1 核对工作树、`origin/main` 与 PR #2 头提交，确认 PR 基于当前 `main`。
+- [x] F6.2 审计 PR #2 的图件、图注、测试与 PDF，确认 Fig. 6 仍是显式 blocker，未被推断数据或占位图遮掩。
+- [x] F6.3 盘点本地 round JSON：数量必须恰为 450，三类各 150 slots，候选轮次只能为 $K=0,1,2,3$。
+- [x] F6.4 实现可重入的冻结脚本：严格解析 JSON、逐文件 SHA-256、记录文件大小与 class/slot，禁止覆盖已有不同冻结内容。
+- [x] F6.5 按每个 slot 的首个 `feasible=true` 聚合首次通过轮次，断言 `selected` 与首次通过候选完全一致。
+- [x] F6.6 与冻结 `slot_summary.csv` 逐槽核对 `accepted_before_diversity`、`n_candidates` 和 `n_feasible_expansions`，断言 450 slots / 286 admitted。
+- [x] F6.7 在 `breeze/results/admission_round_freeze_2026-07-17/` 落盘 manifest、slot aggregate、$K=0..3$ 累计表与机器可读校验报告。
+- [x] F6.8 用冻结聚合表绘制 Fig. 6 累计准入曲线；图中区分三类与总体，如实显示每轮边际增量和 $K=3$ 时 286/450。
+- [x] F6.9 导出可编辑 PDF/SVG、600-dpi TIFF 和 300-dpi PNG，执行尺寸、字体、灰度/色盲和 source-manifest 哈希 QA。
+- [x] F6.10 用新 Fig. 6 替换正式 `acceptance_k.pdf`，重写正文描述与图注，明确这是 slot-level 总体计数而非独立重复的统计推断。
+- [x] F6.11 替换 Fig. 6 blocker 测试，添加冻结完整性、曲线单调性、类别计数和输出哈希测试。
+- [x] F6.12 用 `.venv-breeze` 运行全部相关测试、重编 CAS PDF，按 `pdf` skill 逐页渲染核查 21 页终稿。
+- [x] F6.13 审查 diff 和待提交列表，排除用户未跟踪原件/试验目录；将 Fig. 6 修正推送到 PR #2 分支。
+- [ ] F6.14 合并 PR #2 到 `main`、推送 `origin/main`，再次核对远端提交、图件哈希和 PDF 页数。
 
 ## R. CAS 终稿证据约束重构（2026-07-15）
 

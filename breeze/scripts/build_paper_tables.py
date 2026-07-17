@@ -26,6 +26,9 @@ PHYSICS = ROOT / "breeze" / "results" / "ablation_2026-07-14"
 GATE_ABLATION = ROOT / "breeze" / "results" / "ablation_2026-07-15" / "gate_ablation_v1"
 MEMORIZATION = ROOT / "breeze" / "results" / "ablation_2026-07-16" / "memorization_frozen_v1"
 GLOBAL_BH = ROOT / "breeze" / "results" / "global_bh_sensitivity_2026-07-16"
+ADMISSION_ROUNDS = (
+    ROOT / "breeze" / "results" / "admission_round_freeze_2026-07-17"
+)
 PU_LOCO_V1 = ROOT / "breeze" / "results" / "pu_loco_2026-07-07_v1_frozen"
 PU_LOCO_V2 = ROOT / "breeze" / "results" / "pu_loco_v2_2026-07-08"
 MUTCM = ROOT / "breeze" / "results" / "mutcm_v3_llm_inner_2026-07-09"
@@ -677,6 +680,51 @@ def build_numbers() -> None:
             / len(class_rows)
         )
 
+    round_rows = read_csv(ADMISSION_ROUNDS / "cumulative_admission_by_class.csv")
+    require_unique_grid(
+        round_rows,
+        ("feedback_round_k", "class"),
+        set(product(("0", "1", "2", "3"), ("healthy", "OR", "IR", "all"))),
+        "PU cumulative round admission",
+    )
+    pooled_rounds = {
+        int(row["feedback_round_k"]): row
+        for row in round_rows
+        if row["class"] == "all"
+    }
+    expected_round_counts = {
+        0: (205, 205),
+        1: (36, 241),
+        2: (27, 268),
+        3: (18, 286),
+    }
+    observed_round_counts = {
+        feedback_round: (
+            int(row["newly_admitted"]),
+            int(row["cumulative_admitted"]),
+        )
+        for feedback_round, row in pooled_rounds.items()
+    }
+    if observed_round_counts != expected_round_counts:
+        raise ValueError(
+            f"PU cumulative admission changed: {observed_round_counts}"
+        )
+    final_round_classes = {
+        row["class"]: int(row["cumulative_admitted"])
+        for row in round_rows
+        if row["feedback_round_k"] == "3" and row["class"] != "all"
+    }
+    frozen_class_admitted = {
+        class_name: sum(
+            row["accepted_before_diversity"] == "True"
+            for row in slot_rows
+            if row["class"] == class_name
+        )
+        for class_name in ("healthy", "OR", "IR")
+    }
+    if final_round_classes != frozen_class_admitted:
+        raise ValueError("round-level and frozen class admissions disagree")
+
     mutcm_path = MUTCM / "mutcm_v3_nsyn_selection.json"
     if not mutcm_path.exists():
         raise FileNotFoundError(mutcm_path)
@@ -713,9 +761,21 @@ def build_numbers() -> None:
         ("BreezeGlobalCoreHypotheses", len(global_rows)),
         ("BreezeGlobalDecisionAgreement", global_agreement),
         ("BreezeProposalSlotsPerClass", 150),
+        ("BreezeTotalProposalSlots", len(slot_rows)),
         ("BreezeHealthyAdmissionRate", admission_rates["healthy"]),
         ("BreezeORAdmissionRate", admission_rates["OR"]),
         ("BreezeIRAdmissionRate", admission_rates["IR"]),
+        ("BreezeAdmissionKZeroCumulative", pooled_rounds[0]["cumulative_admitted"]),
+        ("BreezeAdmissionKOneCumulative", pooled_rounds[1]["cumulative_admitted"]),
+        ("BreezeAdmissionKTwoCumulative", pooled_rounds[2]["cumulative_admitted"]),
+        ("BreezeAdmissionKThreeCumulative", pooled_rounds[3]["cumulative_admitted"]),
+        ("BreezeAdmissionKOneIncrement", pooled_rounds[1]["newly_admitted"]),
+        ("BreezeAdmissionKTwoIncrement", pooled_rounds[2]["newly_admitted"]),
+        ("BreezeAdmissionKThreeIncrement", pooled_rounds[3]["newly_admitted"]),
+        (
+            "BreezeAdmissionKThreeUnadmitted",
+            450 - int(pooled_rounds[3]["cumulative_admitted"]),
+        ),
         ("BreezePULOCOVOneFailures", loco_failures[0]),
         ("BreezePULOCOVTwoFailures", loco_failures[1]),
         ("BreezePULOCORegisteredTests", 96),

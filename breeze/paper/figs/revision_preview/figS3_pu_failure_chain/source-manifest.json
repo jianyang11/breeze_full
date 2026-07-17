@@ -1,0 +1,93 @@
+{
+  "figure_directory": "breeze/paper/figs/revision_preview/figS3_pu_failure_chain",
+  "status": "complete",
+  "generated_at_utc": "2026-07-17T02:58:42.511834+00:00",
+  "git_head": "c28a8512b9f37e4783adcc7ad76b2df6dd1466df",
+  "generator": "breeze/src/figure_revision_data.py",
+  "generator_sha256": "91bb3a946cdcd20635ec051bbcc08299beac5270d12b89b98de033ab050aa5c4",
+  "code": [
+    {
+      "path": "breeze/src/figure_revision_data.py",
+      "sha256": "91bb3a946cdcd20635ec051bbcc08299beac5270d12b89b98de033ab050aa5c4",
+      "size_bytes": 38300
+    },
+    {
+      "path": "breeze/src/figures_revision_preview.py",
+      "sha256": "0795c4f0c49fcc9495f80ded2898998a9c0fa242d2d1c970bc31eec96e2f4a5c",
+      "size_bytes": 34932
+    }
+  ],
+  "sources": [
+    {
+      "path": "breeze/results/cwru_patch_v2_2026-07-07_frozen/cwru_patch_v2_wilcoxon.csv",
+      "sha256": "a3b3ddda37d6d312326a7c1ce3f9d1e684b2b33b4d213154b1005a5409c70b0b",
+      "size_bytes": 20841
+    },
+    {
+      "path": "breeze/results/pu_loco_2026-07-07_v1_frozen/pu_loco_wilcoxon.csv",
+      "sha256": "e2cae5175ebbc2742914ce586071eb28a28330623ffc9aee34f479535507e0b4",
+      "size_bytes": 22392
+    },
+    {
+      "path": "breeze/results/pu_loco_v2_2026-07-08/pu_loco_wilcoxon.csv",
+      "sha256": "a8a22ca4f6f8f15fca8dabd8138165dc02feadc41ddc7d2e0988ee0b71fc8d61",
+      "size_bytes": 23139
+    },
+    {
+      "path": "breeze/results/pu_loco_v3_2026-07-08/morphology_condition_map.md",
+      "sha256": "a6e8642577ca205601ab3388564ea2b58f705ccb1f4aaa374af74c9e697919c9",
+      "size_bytes": 7376
+    },
+    {
+      "path": "breeze/results/pu_loco_v4_s2_morphology_2026-07-13/s2_s1_acceptance_failure.md",
+      "sha256": "626b044f2e641a9e55cb252642d8e0b2373017816fb6ebd96454ad822e40465c",
+      "size_bytes": 3629
+    },
+    {
+      "path": "breeze/results/pu_loco_v5_s4_extrapolation_verifier_2026-07-13/pu_loco_v5_failure_analysis.md",
+      "sha256": "7ef5929f36617c03d82b9fe2f898fad62591159ac072420edf0cf0a2d49ce696",
+      "size_bytes": 4182
+    },
+    {
+      "path": "breeze/results/pu_loco_v6_cscoh_2026-07-14/source_separability_summary.csv",
+      "sha256": "507218954a021f5188f3f47249b2ab2398d92963d9c992e0ff02c89e96da2b1f",
+      "size_bytes": 1118
+    }
+  ],
+  "filters": {
+    "stages": "v1-v2 formal held-out; v3-v6 development/admission/source-evidence stops"
+  },
+  "sample_counts": {
+    "stages": 6
+  },
+  "outputs": [
+    {
+      "path": "breeze/paper/figs/revision_preview/figS3_pu_failure_chain/source_data.csv",
+      "sha256": "835e2d3b3f0c90078fbd349dbfbd6f3083952d6f8a8476a1ff6e5a94e900197b",
+      "size_bytes": 338
+    },
+    {
+      "path": "breeze/paper/figs/revision_preview/figS3_pu_failure_chain/figS3_pu_failure_chain.pdf",
+      "sha256": "d68970084d5cb97af73b3abacb473ec5178fd48a42ac3714cab72ce00e0cecc4",
+      "size_bytes": 42203
+    },
+    {
+      "path": "breeze/paper/figs/revision_preview/figS3_pu_failure_chain/figS3_pu_failure_chain.svg",
+      "sha256": "d048a54566957514ee7e462a13577ee38dbfa57ebfd83e2d1824a6fd459e650e",
+      "size_bytes": 10754
+    },
+    {
+      "path": "breeze/paper/figs/revision_preview/figS3_pu_failure_chain/figS3_pu_failure_chain.png",
+      "sha256": "826b7f139c8a505405f7ea6559db396abfed09bb6adc7c179897a31c37f77a8f",
+      "size_bytes": 56291
+    },
+    {
+      "path": "breeze/paper/figs/revision_preview/figS3_pu_failure_chain/figS3_pu_failure_chain.tiff",
+      "sha256": "4adfef727b440bb70e622c8351015da4ef0c188623df624d1d33be5636db5457",
+      "size_bytes": 349294
+    }
+  ],
+  "notes": [
+    "Development stops are not converted into held-out downstream scores."
+  ]
+}

@@ -1,0 +1,116 @@
+dataset,method,class,metric,metric_label,method_distance,rule_distance,log2_ratio,n_pool,status
+pu,llm,healthy,rms_w1,RMS-W1,0.00678454035,0.02775606638,-2.0324801400549615,150,available
+pu,llm,healthy,kurtosis_w1,Kurtosis-W1,4.494772631,4.447599335,0.015221310804763147,150,available
+pu,llm,healthy,psd_w1_mean,PSD-W1,111.9424618,73.52858684,0.6063802175741353,150,available
+pu,llm,healthy,band_energy_relative_error_mean,Band error,0.02214573859,0.06185985481,-1.4819743334764237,150,available
+pu,llm,healthy,envelope_frequency_alignment_error_hz,Fault align.,,,,150,NA: metric unavailable
+pu,llm,OR,rms_w1,RMS-W1,0.01307038771,0.05284261033,-2.015399798115654,150,available
+pu,llm,OR,kurtosis_w1,Kurtosis-W1,0.8574568131,2.189934326,-1.3527516903921495,150,available
+pu,llm,OR,psd_w1_mean,PSD-W1,445.2618132,634.5275882,-0.5110290035579954,150,available
+pu,llm,OR,band_energy_relative_error_mean,Band error,0.06442475568,0.5754285893,-3.158949834950358,150,available
+pu,llm,OR,envelope_frequency_alignment_error_hz,Fault align.,1.089703457,0.8164802065,0.4164457683385797,150,available
+pu,llm,IR,rms_w1,RMS-W1,0.003163510522,0.01119220844,-1.8228964366904188,150,available
+pu,llm,IR,kurtosis_w1,Kurtosis-W1,2.621690843,3.636861195,-0.47219629570515337,150,available
+pu,llm,IR,psd_w1_mean,PSD-W1,153.5791521,106.7646124,0.5245488492677908,150,available
+pu,llm,IR,band_energy_relative_error_mean,Band error,0.04625293898,0.06634449792,-0.5204317854991675,150,available
+pu,llm,IR,envelope_frequency_alignment_error_hz,Fault align.,0.7685276822,0.2772697935,1.4708067724648672,150,available
+pu,noise_aug,healthy,rms_w1,RMS-W1,0.00297316613,0.02775606638,-3.222731138785273,150,available
+pu,noise_aug,healthy,kurtosis_w1,Kurtosis-W1,0.371264863,4.447599335,-3.582506139564572,150,available
+pu,noise_aug,healthy,psd_w1_mean,PSD-W1,140.0706514,73.52858684,0.9297775408250184,150,available
+pu,noise_aug,healthy,band_energy_relative_error_mean,Band error,0.005108399933,0.06185985481,-3.5980600651669636,150,available
+pu,noise_aug,healthy,envelope_frequency_alignment_error_hz,Fault align.,,,,150,NA: metric unavailable
+pu,noise_aug,OR,rms_w1,RMS-W1,0.006782334825,0.05284261033,-2.961847821813482,150,available
+pu,noise_aug,OR,kurtosis_w1,Kurtosis-W1,0.229249193,2.189934326,-3.255899045068636,150,available
+pu,noise_aug,OR,psd_w1_mean,PSD-W1,565.9873114,634.5275882,-0.1649131810747826,150,available
+pu,noise_aug,OR,band_energy_relative_error_mean,Band error,0.01837924087,0.5754285893,-4.968487816602981,150,available
+pu,noise_aug,OR,envelope_frequency_alignment_error_hz,Fault align.,3.042828457,0.8164802065,1.8979231857041623,150,available
+pu,noise_aug,IR,rms_w1,RMS-W1,0.002811443159,0.01119220844,-1.9931119518755662,150,available
+pu,noise_aug,IR,kurtosis_w1,Kurtosis-W1,0.2214162321,3.636861195,-4.037860969147002,150,available
+pu,noise_aug,IR,psd_w1_mean,PSD-W1,221.139901,106.7646124,1.0505258202098589,150,available
+pu,noise_aug,IR,band_energy_relative_error_mean,Band error,0.01892199699,0.06634449792,-1.8099124691294932,150,available
+pu,noise_aug,IR,envelope_frequency_alignment_error_hz,Fault align.,2.045385112,0.2772697935,2.883010145163944,150,available
+pu,random_open_loop,healthy,rms_w1,RMS-W1,0.02690473212,0.02775606638,-0.044943179579982825,150,available
+pu,random_open_loop,healthy,kurtosis_w1,Kurtosis-W1,4.815559675,4.447599335,0.11467665326810818,150,available
+pu,random_open_loop,healthy,psd_w1_mean,PSD-W1,512.3257908,73.52858684,2.800684356916608,150,available
+pu,random_open_loop,healthy,band_energy_relative_error_mean,Band error,0.5660547881,0.06185985481,3.193866344970507,150,available
+pu,random_open_loop,healthy,envelope_frequency_alignment_error_hz,Fault align.,,,,150,NA: metric unavailable
+pu,random_open_loop,OR,rms_w1,RMS-W1,0.01493391824,0.05284261033,-1.8231089971593497,150,available
+pu,random_open_loop,OR,kurtosis_w1,Kurtosis-W1,1.414179094,2.189934326,-0.6309227684299628,150,available
+pu,random_open_loop,OR,psd_w1_mean,PSD-W1,448.2418122,634.5275882,-0.5014056610268557,150,available
+pu,random_open_loop,OR,band_energy_relative_error_mean,Band error,0.7283432173,0.5754285893,0.33998155110723927,150,available
+pu,random_open_loop,OR,envelope_frequency_alignment_error_hz,Fault align.,1.323649957,0.8164802065,0.6970318309456741,150,available
+pu,random_open_loop,IR,rms_w1,RMS-W1,0.03075383423,0.01119220844,1.4582715533263304,150,available
+pu,random_open_loop,IR,kurtosis_w1,Kurtosis-W1,0.7963343792,3.636861195,-2.191247616885402,150,available
+pu,random_open_loop,IR,psd_w1_mean,PSD-W1,587.7904079,106.7646124,2.4608682773229367,150,available
+pu,random_open_loop,IR,band_energy_relative_error_mean,Band error,0.9516425455,0.06634449792,3.842371042278557,150,available
+pu,random_open_loop,IR,envelope_frequency_alignment_error_hz,Fault align.,0.6235316265,0.2772697935,1.169172283712511,150,available
+cwru,llm,healthy,rms_w1,RMS-W1,0.001406427419,0.001548408371,-0.1387509103335054,20,available
+cwru,llm,healthy,kurtosis_w1,Kurtosis-W1,0.1498866588,0.03629177708,2.0461573694160036,20,available
+cwru,llm,healthy,psd_w1_mean,PSD-W1,31.28739953,28.35906868,0.1417715983093565,20,available
+cwru,llm,healthy,band_energy_relative_error_mean,Band error,0.02754341628,0.07639795563,-1.471826521292625,20,available
+cwru,llm,healthy,envelope_frequency_alignment_error_hz,Fault align.,,,,20,NA: metric unavailable
+cwru,llm,IR,rms_w1,RMS-W1,0.2099488305,0.2058929351,0.028143424845910443,20,available
+cwru,llm,IR,kurtosis_w1,Kurtosis-W1,5.353971905,5.929172549,-0.1472212137691388,20,available
+cwru,llm,IR,psd_w1_mean,PSD-W1,82.11023001,74.13706047,0.14736706323738658,20,available
+cwru,llm,IR,band_energy_relative_error_mean,Band error,0.1851035273,0.1678199176,0.14141843593016598,20,available
+cwru,llm,IR,envelope_frequency_alignment_error_hz,Fault align.,2.256165583,2.06373075,0.12861819485688478,20,available
+cwru,llm,B,rms_w1,RMS-W1,0.4840151945,0.4830539932,0.002867883338837595,20,available
+cwru,llm,B,kurtosis_w1,Kurtosis-W1,3.881218851,4.208418541,-0.11676840758277425,20,available
+cwru,llm,B,psd_w1_mean,PSD-W1,75.17643539,49.60466558,0.5998046892683383,20,available
+cwru,llm,B,band_energy_relative_error_mean,Band error,0.2461940344,0.2675069167,-0.11978039066262432,20,available
+cwru,llm,B,envelope_frequency_alignment_error_hz,Fault align.,0.4657666667,0.4657666667,0.0,20,available
+cwru,llm,OR,rms_w1,RMS-W1,0.1936679443,0.1866419371,0.05331199463693929,20,available
+cwru,llm,OR,kurtosis_w1,Kurtosis-W1,7.865027948,6.69426344,0.2325265655379711,20,available
+cwru,llm,OR,psd_w1_mean,PSD-W1,128.5175634,123.9747351,0.051919391016149445,20,available
+cwru,llm,OR,band_energy_relative_error_mean,Band error,0.4166961611,0.4187605092,-0.007129587765766332,20,available
+cwru,llm,OR,envelope_frequency_alignment_error_hz,Fault align.,2.054948167,2.054948167,0.0,20,available
+cwru,noise_aug,healthy,rms_w1,RMS-W1,0.002771292613,0.001548408371,0.8397730367206107,20,available
+cwru,noise_aug,healthy,kurtosis_w1,Kurtosis-W1,0.04275556113,0.03629177708,0.2364693784288969,20,available
+cwru,noise_aug,healthy,psd_w1_mean,PSD-W1,160.7075288,28.35906868,2.502555457790805,20,available
+cwru,noise_aug,healthy,band_energy_relative_error_mean,Band error,33.34606467,0.07639795563,8.769766763714102,20,available
+cwru,noise_aug,healthy,envelope_frequency_alignment_error_hz,Fault align.,,,,20,NA: metric unavailable
+cwru,noise_aug,IR,rms_w1,RMS-W1,0.03968636463,0.2058929351,-2.3751790079156145,20,available
+cwru,noise_aug,IR,kurtosis_w1,Kurtosis-W1,0.8356825353,5.929172549,-2.826803891415509,20,available
+cwru,noise_aug,IR,psd_w1_mean,PSD-W1,272.7602548,74.13706047,1.8793666190571894,20,available
+cwru,noise_aug,IR,band_energy_relative_error_mean,Band error,0.233335675,0.1678199176,0.4754929484578363,20,available
+cwru,noise_aug,IR,envelope_frequency_alignment_error_hz,Fault align.,2.846419583,2.06373075,0.4638935832300462,20,available
+cwru,noise_aug,B,rms_w1,RMS-W1,0.1134450147,0.4830539932,-2.0901912431407683,20,available
+cwru,noise_aug,B,kurtosis_w1,Kurtosis-W1,0.8769931353,4.208418541,-2.2626407374381223,20,available
+cwru,noise_aug,B,psd_w1_mean,PSD-W1,225.5563898,49.60466558,2.1849404316554857,20,available
+cwru,noise_aug,B,band_energy_relative_error_mean,Band error,0.6486714482,0.2675069167,1.2779117442801962,20,available
+cwru,noise_aug,B,envelope_frequency_alignment_error_hz,Fault align.,4.96696,0.4657666667,3.4146838287969854,20,available
+cwru,noise_aug,OR,rms_w1,RMS-W1,0.04757148472,0.1866419371,-1.9721042277549554,20,available
+cwru,noise_aug,OR,kurtosis_w1,Kurtosis-W1,1.516463301,6.69426344,-2.142214742054764,20,available
+cwru,noise_aug,OR,psd_w1_mean,PSD-W1,317.9183519,123.9747351,1.3586101560262642,20,available
+cwru,noise_aug,OR,band_energy_relative_error_mean,Band error,0.347514117,0.4187605092,-0.26905381138619644,20,available
+cwru,noise_aug,OR,envelope_frequency_alignment_error_hz,Fault align.,3.554850417,2.054948167,0.7906868500495248,20,available
+berkeley,llm,healthy,rms_w1,RMS-W1,0.3761197437,0.366441503,0.037609128253354086,20,available
+berkeley,llm,healthy,kurtosis_w1,Kurtosis-W1,,,,20,NA: metric unavailable
+berkeley,llm,healthy,psd_w1_mean,PSD-W1,1.851000805,3.245105695,-0.809959945778681,20,available
+berkeley,llm,healthy,band_energy_relative_error_mean,Band error,0.2041530803,0.2512796798,-0.2996426743292104,20,available
+berkeley,llm,healthy,envelope_frequency_alignment_error_hz,Fault align.,,,,20,NA: metric unavailable
+berkeley,llm,degraded,rms_w1,RMS-W1,0.5663043549,0.5583219615,0.020480318842762472,20,available
+berkeley,llm,degraded,kurtosis_w1,Kurtosis-W1,,,,20,NA: metric unavailable
+berkeley,llm,degraded,psd_w1_mean,PSD-W1,2.920279567,5.630316205,-0.947109458805015,20,available
+berkeley,llm,degraded,band_energy_relative_error_mean,Band error,0.2369595129,0.2352461629,0.01046938875392458,20,available
+berkeley,llm,degraded,envelope_frequency_alignment_error_hz,Fault align.,,,,20,NA: metric unavailable
+berkeley,noise_aug,healthy,rms_w1,RMS-W1,0.1180656104,0.366441503,-1.6339941072363506,20,available
+berkeley,noise_aug,healthy,kurtosis_w1,Kurtosis-W1,,,,20,NA: metric unavailable
+berkeley,noise_aug,healthy,psd_w1_mean,PSD-W1,10.46463711,3.245105695,1.6891849095248679,20,available
+berkeley,noise_aug,healthy,band_energy_relative_error_mean,Band error,7.996137054,0.2512796798,4.991937285302776,20,available
+berkeley,noise_aug,healthy,envelope_frequency_alignment_error_hz,Fault align.,,,,20,NA: metric unavailable
+berkeley,noise_aug,degraded,rms_w1,RMS-W1,0.1738705486,0.5583219615,-1.6830837257577471,20,available
+berkeley,noise_aug,degraded,kurtosis_w1,Kurtosis-W1,,,,20,NA: metric unavailable
+berkeley,noise_aug,degraded,psd_w1_mean,PSD-W1,10.78344585,5.630316205,0.937530411851004,20,available
+berkeley,noise_aug,degraded,band_energy_relative_error_mean,Band error,10.8917897,0.2352461629,5.532926030458792,20,available
+berkeley,noise_aug,degraded,envelope_frequency_alignment_error_hz,Fault align.,,,,20,NA: metric unavailable
+berkeley,random_open_loop,healthy,rms_w1,RMS-W1,0.5374749408,0.366441503,0.5526145804604695,20,available
+berkeley,random_open_loop,healthy,kurtosis_w1,Kurtosis-W1,,,,20,NA: metric unavailable
+berkeley,random_open_loop,healthy,psd_w1_mean,PSD-W1,5.046297033,3.245105695,0.6369596597032149,20,available
+berkeley,random_open_loop,healthy,band_energy_relative_error_mean,Band error,1.841743485,0.2512796798,2.8737062244084717,20,available
+berkeley,random_open_loop,healthy,envelope_frequency_alignment_error_hz,Fault align.,,,,20,NA: metric unavailable
+berkeley,random_open_loop,degraded,rms_w1,RMS-W1,0.6526900522,0.5583219615,0.2253007456208535,20,available
+berkeley,random_open_loop,degraded,kurtosis_w1,Kurtosis-W1,,,,20,NA: metric unavailable
+berkeley,random_open_loop,degraded,psd_w1_mean,PSD-W1,6.663656725,5.630316205,0.24309813490700724,20,available
+berkeley,random_open_loop,degraded,band_energy_relative_error_mean,Band error,3.205960813,0.2352461629,3.768513694834755,20,available
+berkeley,random_open_loop,degraded,envelope_frequency_alignment_error_hz,Fault align.,,,,20,NA: metric unavailable

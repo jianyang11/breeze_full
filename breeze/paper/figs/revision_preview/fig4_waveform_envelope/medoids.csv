@@ -1,0 +1,9 @@
+class,class_index,source,source_index,class_local_index,distance_to_source_robust_center,n_source_class,n_features_total,n_features_retained,reference_split,tie_break
+OR,1,llm,213,63,0.6142711965960538,150,774,774,PU outer-training only,lowest source index
+OR,1,random_open_loop,194,44,1.6331607838056177,150,774,774,PU outer-training only,lowest source index
+OR,1,real,2086,886,0.4422208632907305,1202,774,774,PU outer-training only,lowest source index
+OR,1,rule,282,132,0.395437270446196,150,774,774,PU outer-training only,lowest source index
+IR,2,llm,392,92,0.46873338271586845,150,774,774,PU outer-training only,lowest source index
+IR,2,random_open_loop,405,105,2.267677690440253,150,774,774,PU outer-training only,lowest source index
+IR,2,real,2736,334,0.34285010922328346,1444,774,774,PU outer-training only,lowest source index
+IR,2,rule,440,140,0.48821549727546326,150,774,774,PU outer-training only,lowest source index

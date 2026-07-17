@@ -1,0 +1,7 @@
+stage,scope,outcome,formal
+v1,formal held-out,57/96 fail,True
+v2,formal held-out,60/96 fail,True
+v3,train-only development,morphology map; no balanced pool,False
+v4,train-only admission,S1/S2 candidate pools fail,False
+v5,train-only sanity,wrong-label/noise controls admitted,False
+v6,source-only evidence,CSCoh stop in 4/4 targets,False

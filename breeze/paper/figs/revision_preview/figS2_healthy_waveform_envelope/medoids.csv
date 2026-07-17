@@ -1,0 +1,5 @@
+class,class_index,source,source_index,class_local_index,distance_to_source_robust_center,n_source_class,n_features_total,n_features_retained,reference_split,tie_break
+healthy,0,llm,107,107,0.5223946753994964,150,774,774,PU outer-training only,lowest source index
+healthy,0,random_open_loop,145,145,1.8496038203412497,150,774,774,PU outer-training only,lowest source index
+healthy,0,real,646,646,0.3316760065683788,1200,774,774,PU outer-training only,lowest source index
+healthy,0,rule,27,27,0.5020157214408605,150,774,774,PU outer-training only,lowest source index

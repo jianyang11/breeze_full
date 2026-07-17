@@ -1,0 +1,80 @@
+{
+  "figure_directory": "breeze/paper/figs/revision_preview/fig7_cross_condition",
+  "status": "complete",
+  "generated_at_utc": "2026-07-17T02:58:42.088121+00:00",
+  "git_head": "c28a8512b9f37e4783adcc7ad76b2df6dd1466df",
+  "generator": "breeze/src/figure_revision_data.py",
+  "generator_sha256": "91bb3a946cdcd20635ec051bbcc08299beac5270d12b89b98de033ab050aa5c4",
+  "code": [
+    {
+      "path": "breeze/src/figure_revision_data.py",
+      "sha256": "91bb3a946cdcd20635ec051bbcc08299beac5270d12b89b98de033ab050aa5c4",
+      "size_bytes": 38300
+    },
+    {
+      "path": "breeze/src/figures_revision_preview.py",
+      "sha256": "0795c4f0c49fcc9495f80ded2898998a9c0fa242d2d1c970bc31eec96e2f4a5c",
+      "size_bytes": 34932
+    }
+  ],
+  "sources": [
+    {
+      "path": "breeze/results/cwru_patch_v2_2026-07-07_frozen/cwru_patch_v2_wilcoxon.csv",
+      "sha256": "a3b3ddda37d6d312326a7c1ce3f9d1e684b2b33b4d213154b1005a5409c70b0b",
+      "size_bytes": 20841
+    },
+    {
+      "path": "breeze/results/pu_loco_2026-07-07_v1_frozen/pu_loco_wilcoxon.csv",
+      "sha256": "e2cae5175ebbc2742914ce586071eb28a28330623ffc9aee34f479535507e0b4",
+      "size_bytes": 22392
+    },
+    {
+      "path": "breeze/results/pu_loco_v2_2026-07-08/pu_loco_wilcoxon.csv",
+      "sha256": "a8a22ca4f6f8f15fca8dabd8138165dc02feadc41ddc7d2e0988ee0b71fc8d61",
+      "size_bytes": 23139
+    }
+  ],
+  "filters": {
+    "CWRU": "LLM-rule, source pool load0, held-out loads 1-3; lolo_load0 excluded",
+    "PU": "v1/v2 count of positive Holm-passing registered comparisons out of four"
+  },
+  "sample_counts": {
+    "cwru_cells": 18,
+    "pu_cells": 48
+  },
+  "outputs": [
+    {
+      "path": "breeze/paper/figs/revision_preview/fig7_cross_condition/cwru_source_data.csv",
+      "sha256": "8b483aedf7938ee96b04739d033868b1b646ec487574d9dc766d86012a17b26a",
+      "size_bytes": 1265
+    },
+    {
+      "path": "breeze/paper/figs/revision_preview/fig7_cross_condition/pu_source_data.csv",
+      "sha256": "13119175f4220af98d6b40d552fbfc71d2d0ca02d3f31922110a0325be0c1d17",
+      "size_bytes": 2242
+    },
+    {
+      "path": "breeze/paper/figs/revision_preview/fig7_cross_condition/fig7_cross_condition.pdf",
+      "sha256": "065404bc924b40cce2c0938bf642ed7b2af581240e416da3a4ec79c21dd03612",
+      "size_bytes": 52443
+    },
+    {
+      "path": "breeze/paper/figs/revision_preview/fig7_cross_condition/fig7_cross_condition.svg",
+      "sha256": "8337e21e8c67525c2e49af948e1f97d1a7c9f83b68fd01f0cb267b3fc36fb19b",
+      "size_bytes": 56397
+    },
+    {
+      "path": "breeze/paper/figs/revision_preview/fig7_cross_condition/fig7_cross_condition.png",
+      "sha256": "8e3549d5573195b4cbcba9545667b8a5fa9ac37bfb5acd9705b1dfe53f3599ca",
+      "size_bytes": 195455
+    },
+    {
+      "path": "breeze/paper/figs/revision_preview/fig7_cross_condition/fig7_cross_condition.tiff",
+      "sha256": "533a250d9451ec2b154281eb1835729131c96c8a89c5d3ee426272eddd431229",
+      "size_bytes": 1935200
+    }
+  ],
+  "notes": [
+    "The CWRU protocol is not presented as a strict four-fold LOLO study."
+  ]
+}

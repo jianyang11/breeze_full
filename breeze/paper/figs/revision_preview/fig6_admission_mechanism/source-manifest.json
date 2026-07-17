@@ -1,0 +1,90 @@
+{
+  "figure_directory": "breeze/paper/figs/revision_preview/fig6_admission_mechanism",
+  "status": "complete",
+  "generated_at_utc": "2026-07-17T02:58:40.765659+00:00",
+  "git_head": "c28a8512b9f37e4783adcc7ad76b2df6dd1466df",
+  "generator": "breeze/src/figure_revision_data.py",
+  "generator_sha256": "91bb3a946cdcd20635ec051bbcc08299beac5270d12b89b98de033ab050aa5c4",
+  "code": [
+    {
+      "path": "breeze/src/figure_revision_data.py",
+      "sha256": "91bb3a946cdcd20635ec051bbcc08299beac5270d12b89b98de033ab050aa5c4",
+      "size_bytes": 38300
+    },
+    {
+      "path": "breeze/src/figures_revision_preview.py",
+      "sha256": "0795c4f0c49fcc9495f80ded2898998a9c0fa242d2d1c970bc31eec96e2f4a5c",
+      "size_bytes": 34932
+    }
+  ],
+  "sources": [
+    {
+      "path": "breeze/results/admission_round_freeze_2026-07-17/cumulative_admission_by_class.csv",
+      "sha256": "e89baaac97aeb81962701b16f44d207de77746b3773a7645e3ba08a7f145f091",
+      "size_bytes": 591
+    },
+    {
+      "path": "breeze/results/admission_round_freeze_2026-07-17/round_records_manifest.csv",
+      "sha256": "8cb6f073eb872ec84e2cd223ced34ba3ab55ee1eec9db01a9d5da947890c5f2d",
+      "size_bytes": 58674
+    },
+    {
+      "path": "breeze/results/admission_round_freeze_2026-07-17/slot_first_pass_round.csv",
+      "sha256": "037201ee04c56cc79bd1b2f168e28492479f1b1b6b2bceb981d4b48265632aa7",
+      "size_bytes": 40636
+    },
+    {
+      "path": "breeze/results/admission_round_freeze_2026-07-17/validation_report.json",
+      "sha256": "5683381ff0cbbfcee6e51687d32ddcc19c7b53f20d6ed3b8ba582ecdec8aba9e",
+      "size_bytes": 1003
+    },
+    {
+      "path": "breeze/results/phaseA_v2_frozen_2026-07-06/breeze/runs/rescreen_v2_full/slot_summary.csv",
+      "sha256": "4df45eb7ca29dbd052dce537c6f269fad8572e6c06c4537898bf9114e0ed0a6a",
+      "size_bytes": 8307
+    }
+  ],
+  "filters": {
+    "unit": "proposal slot",
+    "first_pass_round": "minimum archived round with feasible=true",
+    "curve": "cumulative first-pass count divided by all class or pooled slots",
+    "uncertainty": "none; complete accounting of one frozen 450-slot run"
+  },
+  "sample_counts": {
+    "slots": 450,
+    "final_admitted": 286,
+    "classes": 3,
+    "feedback_rounds": 4
+  },
+  "outputs": [
+    {
+      "path": "breeze/paper/figs/revision_preview/fig6_admission_mechanism/source_data.csv",
+      "sha256": "6a3e099073790d75e14e941b5ce988a96d22e4b8519190bc981b6c5ac15cc314",
+      "size_bytes": 538
+    },
+    {
+      "path": "breeze/paper/figs/revision_preview/fig6_admission_mechanism/fig6_admission_mechanism.pdf",
+      "sha256": "079ab7656fe51ff71dec109c65fbc5dc1f36d3ee9c6729ae05ada8b116b30cd4",
+      "size_bytes": 53017
+    },
+    {
+      "path": "breeze/paper/figs/revision_preview/fig6_admission_mechanism/fig6_admission_mechanism.svg",
+      "sha256": "03dd3588352cc3a2b03fde3b247cd2e1ce3f4c4215855cea3a29a6e9245d0183",
+      "size_bytes": 35270
+    },
+    {
+      "path": "breeze/paper/figs/revision_preview/fig6_admission_mechanism/fig6_admission_mechanism.png",
+      "sha256": "6f91cd9ca20ca635147acb22769fab2e4e166ef68e22e9654813fd45c9db87d8",
+      "size_bytes": 139070
+    },
+    {
+      "path": "breeze/paper/figs/revision_preview/fig6_admission_mechanism/fig6_admission_mechanism.tiff",
+      "sha256": "49c2b548041390cc521781b41b1a0dc2e025f84709b37f9c509931e3c3887b86",
+      "size_bytes": 711044
+    }
+  ],
+  "notes": [
+    "The plotted round is reconstructed from the first feasible candidate, not from archive depth.",
+    "Counts do not quantify uncertainty over independent LLM pool generations."
+  ]
+}
