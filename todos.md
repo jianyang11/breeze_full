@@ -21,7 +21,7 @@ Python 环境：`breeze/.venv-breeze/bin/python` (`3.12.13`)。所有 Python 命
 - [x] NS.7 重排 Discussion 开头与 Conclusion，以合成故障波形生成能力开头，将训练式生成器缺席集中为一处 limitation。
 - [x] NS.8 运行摘要词数/句数、claim 禁词、冻结表生成和 LaTeX 引用一致性审计；`generated/*.tex` 重生无 diff，gate semantics 14/14 通过。
 - [x] NS.9 用 `pdf` skill 编译 21 页 PDF，渲染 21/21 页并检查全稿联系表及 Page 1/13/14/17/18/19/20 原尺寸图；无未解析引用或可见裁切/重叠。
-- [ ] NS.10 核对 scoped diff，只提交可安全归属于本任务的改动，推送并核对远端 SHA。
+- [x] NS.10 逐 hunk 核对 scoped diff，排除既有 Fig. 6 图注、图件、实验产物和混合二进制 PDF；叙事提交 `82f5edd` 已推送 `origin/main`。
 
 ## Q1. 一区科研提升主线（2026-07-17 起，当前最高优先级）
 
