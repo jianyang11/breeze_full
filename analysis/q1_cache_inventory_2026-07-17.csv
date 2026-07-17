@@ -1,0 +1,44 @@
+path,category,bytes,file_count,action,rebuild_evidence
+breeze/.venv-breeze,PYTHON_ENVIRONMENT,875494305,33208,PRESERVE_UNTIL_LOCKED_REBUILD,"requirements.txt exists, but an exact clean-environment replay is still required."
+.pytest_cache,PYTEST_CACHE,18903,6,REBUILDABLE_PENDING_AUTHORIZATION,Convention-defined cache rebuilt by pytest; contains no source of record.
+breeze/.pytest_cache,PYTEST_CACHE,2354,5,REBUILDABLE_PENDING_AUTHORIZATION,Convention-defined cache rebuilt by pytest; contains no source of record.
+breeze/scripts/__pycache__,PYTHON_BYTECODE_CACHE,1773887,70,REBUILDABLE_PENDING_AUTHORIZATION,Convention-defined cache rebuilt by Python import/compile; contains no source of record.
+breeze/src/__pycache__,PYTHON_BYTECODE_CACHE,489211,35,REBUILDABLE_PENDING_AUTHORIZATION,Convention-defined cache rebuilt by Python import/compile; contains no source of record.
+breeze/src/verifier/__pycache__,PYTHON_BYTECODE_CACHE,114606,6,REBUILDABLE_PENDING_AUTHORIZATION,Convention-defined cache rebuilt by Python import/compile; contains no source of record.
+breeze/tests/__pycache__,PYTHON_BYTECODE_CACHE,322566,23,REBUILDABLE_PENDING_AUTHORIZATION,Convention-defined cache rebuilt by Python import/compile; contains no source of record.
+breeze/paper/figs/revision_preview/qa/cas_reading_size/cas_figure_qa.log,LATEX_TRANSIENT_CACHE,38405,1,REBUILDABLE_PENDING_AUTHORIZATION,Rebuild with the frozen latexmk publication command.
+breeze/paper/main.aux,LATEX_TRANSIENT_CACHE,5228,1,REBUILDABLE_PENDING_AUTHORIZATION,Rebuild with the frozen latexmk publication command.
+breeze/paper/main.fdb_latexmk,LATEX_TRANSIENT_CACHE,11294,1,REBUILDABLE_PENDING_AUTHORIZATION,Rebuild with the frozen latexmk publication command.
+breeze/paper/main.fls,LATEX_TRANSIENT_CACHE,13466,1,REBUILDABLE_PENDING_AUTHORIZATION,Rebuild with the frozen latexmk publication command.
+breeze/paper/main.log,LATEX_TRANSIENT_CACHE,28513,1,REBUILDABLE_PENDING_AUTHORIZATION,Rebuild with the frozen latexmk publication command.
+breeze/paper/main.out,LATEX_TRANSIENT_CACHE,1925,1,REBUILDABLE_PENDING_AUTHORIZATION,Rebuild with the frozen latexmk publication command.
+breeze/paper/main_cas.aux,LATEX_TRANSIENT_CACHE,29638,1,REBUILDABLE_PENDING_AUTHORIZATION,Rebuild with the frozen latexmk publication command.
+breeze/paper/main_cas.bbl,BIBLIOGRAPHY_BUILD_EVIDENCE,23873,1,PRESERVE,Preserve until the exact BibTeX/biber toolchain is locked and replayed.
+breeze/paper/main_cas.blg,LATEX_TRANSIENT_CACHE,994,1,REBUILDABLE_PENDING_AUTHORIZATION,Rebuild with the frozen latexmk publication command.
+breeze/paper/main_cas.fdb_latexmk,LATEX_TRANSIENT_CACHE,21671,1,REBUILDABLE_PENDING_AUTHORIZATION,Rebuild with the frozen latexmk publication command.
+breeze/paper/main_cas.fls,LATEX_TRANSIENT_CACHE,31741,1,REBUILDABLE_PENDING_AUTHORIZATION,Rebuild with the frozen latexmk publication command.
+breeze/paper/main_cas.log,LATEX_TRANSIENT_CACHE,41357,1,REBUILDABLE_PENDING_AUTHORIZATION,Rebuild with the frozen latexmk publication command.
+breeze/paper/main_cas.out,LATEX_TRANSIENT_CACHE,0,1,REBUILDABLE_PENDING_AUTHORIZATION,Rebuild with the frozen latexmk publication command.
+tmp,WORKSPACE_TEMP_REVIEW,41377860,141,PRESERVE_USER_DIRTY_ASSET,Untracked workspace content may contain active visual-QA evidence.
+/private/tmp/breeze-main-cas-baseline.pdf,PRIVATE_TMP_BREEZE_ARTIFACT,0,1,REVIEW_RENDER_PROVENANCE,Temporary-location naming is insufficient proof of reconstructability.
+/private/tmp/breeze-main-cas-head.pdf,PRIVATE_TMP_BREEZE_ARTIFACT,810937,1,REVIEW_RENDER_PROVENANCE,Temporary-location naming is insufficient proof of reconstructability.
+/private/tmp/breeze-mpl-figures,PRIVATE_TMP_BREEZE_ARTIFACT,285668,1,REVIEW_RENDER_PROVENANCE,Temporary-location naming is insufficient proof of reconstructability.
+/private/tmp/breeze-mpl-framework,PRIVATE_TMP_BREEZE_ARTIFACT,285668,1,REVIEW_RENDER_PROVENANCE,Temporary-location naming is insufficient proof of reconstructability.
+/private/tmp/breeze-narrative-pdf,PRIVATE_TMP_BREEZE_ARTIFACT,7375645,22,REVIEW_RENDER_PROVENANCE,Temporary-location naming is insufficient proof of reconstructability.
+/private/tmp/breeze-solid-baseline,PRIVATE_TMP_BREEZE_ARTIFACT,15572533,73,REVIEW_RENDER_PROVENANCE,Temporary-location naming is insufficient proof of reconstructability.
+/private/tmp/breeze-solid-final,PRIVATE_TMP_BREEZE_ARTIFACT,7678078,22,REVIEW_RENDER_PROVENANCE,Temporary-location naming is insufficient proof of reconstructability.
+/private/tmp/breeze_acceptance_current.png,PRIVATE_TMP_BREEZE_ARTIFACT,77777,1,REVIEW_RENDER_PROVENANCE,Temporary-location naming is insufficient proof of reconstructability.
+/private/tmp/breeze_boundaries_compile.out,PRIVATE_TMP_BREEZE_ARTIFACT,25817,1,REVIEW_RENDER_PROVENANCE,Temporary-location naming is insufficient proof of reconstructability.
+/private/tmp/breeze_conclusion_compile.out,PRIVATE_TMP_BREEZE_ARTIFACT,25928,1,REVIEW_RENDER_PROVENANCE,Temporary-location naming is insufficient proof of reconstructability.
+/private/tmp/breeze_discussion_compile.out,PRIVATE_TMP_BREEZE_ARTIFACT,25938,1,REVIEW_RENDER_PROVENANCE,Temporary-location naming is insufficient proof of reconstructability.
+/private/tmp/breeze_fullword_compile.out,PRIVATE_TMP_BREEZE_ARTIFACT,25817,1,REVIEW_RENDER_PROVENANCE,Temporary-location naming is insufficient proof of reconstructability.
+/private/tmp/breeze_latex_e3.log,PRIVATE_TMP_BREEZE_ARTIFACT,24774,1,REVIEW_RENDER_PROVENANCE,Temporary-location naming is insufficient proof of reconstructability.
+/private/tmp/breeze_latex_e4.log,PRIVATE_TMP_BREEZE_ARTIFACT,38062,1,REVIEW_RENDER_PROVENANCE,Temporary-location naming is insufficient proof of reconstructability.
+/private/tmp/breeze_main_page16.png,PRIVATE_TMP_BREEZE_ARTIFACT,275935,1,REVIEW_RENDER_PROVENANCE,Temporary-location naming is insufficient proof of reconstructability.
+/private/tmp/breeze_main_page16_final.png,PRIVATE_TMP_BREEZE_ARTIFACT,284748,1,REVIEW_RENDER_PROVENANCE,Temporary-location naming is insufficient proof of reconstructability.
+/private/tmp/breeze_mpl,PRIVATE_TMP_BREEZE_ARTIFACT,285668,1,REVIEW_RENDER_PROVENANCE,Temporary-location naming is insufficient proof of reconstructability.
+/private/tmp/breeze_pdf_audit_621dfe7,PRIVATE_TMP_BREEZE_ARTIFACT,1837305,9,REVIEW_RENDER_PROVENANCE,Temporary-location naming is insufficient proof of reconstructability.
+/private/tmp/breeze_pdf_audit_current,PRIVATE_TMP_BREEZE_ARTIFACT,5894889,21,REVIEW_RENDER_PROVENANCE,Temporary-location naming is insufficient proof of reconstructability.
+/private/tmp/breeze_pdf_qa,PRIVATE_TMP_BREEZE_ARTIFACT,343770,1,REVIEW_RENDER_PROVENANCE,Temporary-location naming is insufficient proof of reconstructability.
+/private/tmp/breeze_results_compile.out,PRIVATE_TMP_BREEZE_ARTIFACT,25817,1,REVIEW_RENDER_PROVENANCE,Temporary-location naming is insufficient proof of reconstructability.
+/private/tmp/breeze_setup_compile.out,PRIVATE_TMP_BREEZE_ARTIFACT,12595,1,REVIEW_RENDER_PROVENANCE,Temporary-location naming is insufficient proof of reconstructability.

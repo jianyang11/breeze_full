@@ -46,23 +46,27 @@ Python 环境：`breeze/.venv-breeze/bin/python` (`3.12.13`)。所有 Python 命
 - [x] Q1.0.12 在本文件置顶细粒度动态任务；旧 deferred 与历史重复任务保留供审计，但不再控制执行顺序。
 - [x] Q1.0.13 对本轮仅新增的方案/文献/todos 做 diff、链接、checkbox、路径和 Markdown 审计；176 条 Q1 任务、路径和标题结构已核对；不得把现有图表 dirty diff 带入提交。
 - [x] Q1.0.14 仅提交 `Q1_research_plan_2026-07-17.md`、`analysis/q1_literature_frontier_2026-07-17.md` 和 `todos.md`；提交 `0ca2421` 已推送 `origin/main`，未夹带现有图表 dirty diff。
-- [ ] Q1.0.15 按用户 2026-07-17 新指令迁移发布远端：保留 `origin=jianyang11/breeze_full.git` 作为基线，新增 `publication=jianyang11/new_one.git`；已用 `git ls-remote` 确认目标当前无 refs，待本阶段 scoped commit 后非破坏性推送 `main`，此后一区主线发布到 `publication`。
+- [x] Q1.0.15 按用户 2026-07-17 新指令迁移发布远端：保留 `origin=jianyang11/breeze_full.git` 作为基线，新增 `publication=jianyang11/new_one.git`；目标无既有 refs，提交 `2a8a39d` 已首次非破坏性推送 `publication/main`，本地 `main` 现跟踪新远端。
+- [x] Q1.0.16 落实用户“记得第一性原理”要求：读取项目的第一性原理思维技能，取其渐近极限、五步算法和可逆快速迭代用于科研审查，同时显式排除其过度乐观时间线/不可逆删除等局限；方案新增 §1.1 控制条款。
+- [ ] Q1.0.17 建立 `analysis/q1_claim_evidence_ledger.md`：逐条列主张、理论/物理硬约束、经验未知量、独立实验单位、最小支持证据、最强反例、否证阈值和允许的原理性重构层级。
+- [ ] Q1.0.18 建立 `specs/q1/parameter_provenance.yaml`：所有正式参数逐项绑定公式/一手文献/pilot/fair-budget 依据、冻结时点和敏感性分析；无依据参数阻断 formal run。
+- [ ] Q1.0.19 每个 formal root 写入五步审查快照：需求提出者与主张、删除的冗余 cell、简化后的可识别设计、实测后选择的并行度、自动化前置条件；不得删除负结果和唯一复现资产。
 
 ### Q1.1 G0：50 GB 存储预算与可恢复性
 
 - [x] Q1.1.1 已由 `breeze/scripts/q1_storage_inventory.py` 生成 `analysis/q1_storage_inventory_2026-07-17.csv`：扫描 34,629 个文件，列出 117 个 ≥50 MB 文件（合计 45.095 GiB）；2 个单元测试通过。
 - [x] Q1.1.2 `q1_storage_audit.py` 已完成原始归档 SHA-256（`c653f3dc2e762c9bfd21e8a9248cc12494ff6ae6e5991f93c4b6845a50f37223`）；archive/manifest/local 的 synced MAT 均为 67/67，文件名集合和全部本地 size 对账通过。
 - [x] Q1.1.3 以 seed `20260717` 从 size 最大四分位 17 个文件中无放回抽 3 个大 MAT；一次 solid archive 流按 manifest 精确分界，1.652 GiB 的解压返回码、逐文件 bytes 与 SHA-256 全部 PASS；报告/明细为 `analysis/q1_mutcm_archive_audit_2026-07-17.md`、`analysis/q1_mutcm_archive_checksums_2026-07-17.csv`，未声称对未抽样成员做过全量重哈希。
-- [ ] Q1.1.4 审计 MU-TCM `small_subset` 与 `full_dataset` 同名文件，按 size+SHA-256 生成重复清单；只列候选，不删除。
-- [ ] Q1.1.5 审计 `data/xjtu/` 4.2 GB 分卷是否完整、是否被任何当前 protocol/result manifest 引用；结合历史“跳过 XJTU”决定候选状态。
-- [ ] Q1.1.6 审计 `data/ims/raw/IMS.7z`、`4_Bearings.zip`、三个 test RAR 的内容关系与唯一性；生成可恢复性说明。
-- [ ] Q1.1.7 审计 `proc/dirg_variable_all.npz` 与 LOCO train/test 4.5 GB 是否可从 1.6 GB raw zip 和脚本确定性重建；核对 preprocessing hash。
-- [ ] Q1.1.8 审计 `breeze/runs/` 2.8 GB：区分 formal primary pool、API raw record、可重建 smoke、重复 compact/formal copy；不得删除唯一 ignored release 资产。
-- [ ] Q1.1.9 审计 `.venv`、`__pycache__`、`.pytest_cache`、LaTeX 中间文件和 `/private/tmp` 渲染缓存；缓存候选与科研数据分开列示。
-- [ ] Q1.1.10 写 `analysis/q1_storage_reclamation_plan_2026-07-17.md`，逐项给出预计释放量、保留依据、重建命令、hash、风险和是否需用户授权。
-- [ ] Q1.1.11 在执行任何删除前请求明确授权；删除目标使用完整路径，不使用宽泛 glob/环境变量，不碰用户 dirty 图表和唯一实验产物。
-- [ ] Q1.1.12 获授权后分批处理，每批后核对剩余空间、重建性和 Git 状态；将实际释放量写入 `analysis/q1_storage_ledger.csv`。
-- [ ] Q1.1.13 G0 验收：项目工作水位 ≤47 GB、系统盘余量足够首个 formal cell；未达标不启动训练/API。
+- [x] Q1.1.4 `q1_mutcm_duplicate_audit.py` 已将 34 个 `small_subset` 文件逐项映射到原归档：30 个科研文件（3.811 GiB）size+完整 SHA-256 相同，2 个 subset CSV 尺寸不同，2 个 `.DS_Store` 单列为平台缓存；报告/ledger 已生成，只列候选未删除。
+- [x] Q1.1.5 `q1_xjtu_archive_audit.py` + `rarfile==4.3` 已验证 6 卷 RAR5 连续链并记录逐卷 SHA；manifest 含 9,217 文件、3 工况、15 轴承、11.382 GiB 声明解压量；结构化产物仅 2 个 dataset-label 引用、0 个 raw path/hash 绑定。因它仍是唯一 local raw 且外部重下载未成功复核，状态为高风险候选，未经新恢复性检查和明确授权不得删除。
+- [x] Q1.1.6 `q1_ims_archive_audit.py` 已完成两层容器流式 SHA：`4_Bearings.zip` 精确包含本地 `IMS.7z`，后者精确包含三份本地 RAR 和 README；3 个 RAR 的 9,464 个 payload `(size, CRC)` 无交集。保留外层 ZIP 可重建 1.990 GiB 重复副本；另发现 README Set 3（4,448 文件/截至 04-04）与 `3rd_test.rar`（6,324 文件/`4th_test`/截至 04-18）冲突，已标为协议 blocker，未删除文件。
+- [x] Q1.1.7 `q1_dirg_rebuild_audit.py` 已从 raw ZIP 的 119 个 MAT 内存有界重算 14,875 个窗口；full NPZ 全部 16 个数组的 data SHA/shape/dtype 与 raw 重建一致，300 Hz/1400 N mask 派生的 14,000/875 个 train/test 数组也逐项匹配。三文件 4.685 GiB 可重建，但在分片断点/原子大输出重建器通过前保留，不删除当前结果引用资产。
+- [x] Q1.1.8 `q1_runs_storage_audit.py` 已逐文件读取并 SHA-256 哈希 `breeze/runs/` 的 34,171 个文件（2.708 GiB），另与 tracked Phase-A frozen copy 联合分组；149 个顶层条目按 formal primary/API 记录/smoke/被引用 legacy 分类。五个 release-required roots 的 1,343 个文件（0.143 GiB）全部强制保留；3,854 个非 primary 文件（1.406 GiB）仅因 size+完整 hash 一致列为文件级候选，不把目录名相似当作可重建证据。四份审计报告/CSV 已原子写入，未删除任何资产。
+- [x] Q1.1.9 `q1_cache_audit.py` 已分类 43 个顶层项：18 个 Python/pytest/LaTeX 惯例缓存项共0.003 GiB；0.815 GiB 虚拟环境在 clean-install+全测试通过前保留；`.bbl` 单列为参考文献构建证据；`tmp/` 标为 user-dirty 可视化资产；22 个 `/private/tmp/breeze*` 项共0.038 GiB 在映射重建命令前不仅因临时路径删除。报告/ledger 已生成，3 个分类与 symlink 边界单测通过，未删除文件。
+- [x] Q1.1.10 `q1_storage_reclamation_plan.py` 已生成非破坏性 plan 和 35 行精确 manifest：审计出 30 个 MU-TCM archive-member 副本（3.810511 GiB）和 5 个 IMS exact-nested 副本（1.990158 GiB），合计 5.800669 GiB；当前 50.811047 GiB，理论删后 45.010378 GiB。但后续依赖核查确认 `audit_mutcm_small_subset.py` 直读 `small_subset`、`ims_manifest.py` 直读三个 RAR/PDF，因此“字节可恢复”不等于“删后命令透明可运行”。plan/manifest 已动态改为 `PRESERVE_PENDING_TRANSPARENT_ARCHIVE_READER`，明确排除 runs、DIRG、XJTU、venv、`.bbl`、dirty `tmp/` 和 formal roots；未删除文件。
+- [x] Q1.1.11 已在 35 个 target 与 2 个 retained container 的全量实时 hash preflight PASS 后，仅对首批 30 个 MU-TCM exact archive-member 副本请求明确删除授权；用户拒绝了该破坏性操作。执行器未启动，35 个目标全部仍在，无 deletion ledger。依赖复核后执行器又增加 preservation lock：即使传入旧授权 token 也会拒绝当前 manifest，7 个回归测试通过。
+- [ ] Q1.1.12 **BLOCKED BY AUTHORIZATION**：首批删除授权被拒绝，故不得分批删除或产生虚假释放记录；若后续获得授权，使用 `q1_storage_reclaim.py` 的精确 manifest、二次 preflight、逐文件 ledger 和原子恢复继续。
+- [ ] Q1.1.13 **G0 NOT MET**：当前项目 50.811047 GiB，系统可用空间约 5.1 GiB；已证明的 5.800669 GiB 最小无损回收集未获删除授权。在实测 ≤47 GiB 且 formal cell 预算通过前，禁止启动训练/API，不以缩小数据或降低核心目标规避。
 
 ### Q1.2 长任务运行合同、heartbeat 与任务分片
 

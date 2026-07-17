@@ -1,0 +1,4 @@
+archive,file_count,uncompressed_bytes,root_paths,first_member,last_member,manifest_sha256,encrypted_entries
+1st_test.rar,2156,2477767237,1st_test,1st_test/2003.10.22.12.06.24,1st_test/2003.11.25.23.39.56,19cbe2ca9e0f64c3f325ef23e97be66b49609c5924d32e0b424792ffa1d3a523,0
+2nd_test.rar,984,544618480,2nd_test,2nd_test/2004.02.12.10.32.39,2nd_test/2004.02.19.06.22.39,36ad7323de52693aca9c1066d41c2a1cb062caf33703c68b4a2a371900941fe4,0
+3rd_test.rar,6324,3502648779,4th_test,4th_test/txt/2004.03.04.09.27.46,4th_test/txt/2004.04.18.02.32.55,0f610729c08207b8bb24f1cc77087f5db672ecf7b00bf2788cf9354b993b5143,0

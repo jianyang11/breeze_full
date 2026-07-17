@@ -5,3 +5,4 @@ scikit-learn
 matplotlib
 requests
 torch
+rarfile==4.3
