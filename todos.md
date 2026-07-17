@@ -26,7 +26,7 @@ Python 环境：`breeze/.venv-breeze/bin/python` (`3.12.13`)。所有 Python 命
 - [x] F6.11 替换 Fig. 6 blocker 测试，添加冻结完整性、曲线单调性、类别计数和输出哈希测试。
 - [x] F6.12 用 `.venv-breeze` 运行全部相关测试、重编 CAS PDF，按 `pdf` skill 逐页渲染核查 21 页终稿。
 - [x] F6.13 审查 diff 和待提交列表，排除用户未跟踪原件/试验目录；将 Fig. 6 修正推送到 PR #2 分支。
-- [ ] F6.14 合并 PR #2 到 `main`、推送 `origin/main`，再次核对远端提交、图件哈希和 PDF 页数。
+- [x] F6.14 合并 PR #2 到 `main`、推送 `origin/main`，再次核对远端提交、图件哈希和 PDF 页数。
 
 ## R. CAS 终稿证据约束重构（2026-07-15）
 

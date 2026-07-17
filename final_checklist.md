@@ -58,4 +58,5 @@ Last verified: 2026-07-17 Asia/Shanghai
 - [ ] Author order, affiliations, ORCIDs, corresponding-author email, funding,
   contributions, and approval metadata remain the sole author-supplied blocker.
 - [x] Push the audited Fig. 6 commit to PR #2 and verify the remote PR head.
-- [ ] Merge PR #2 and verify `origin/main` at the merge commit.
+- [x] Merge PR #2 and verify that merge commit `b476646` is present on
+  `origin/main`; PR head `fd909a0` is its second parent.
