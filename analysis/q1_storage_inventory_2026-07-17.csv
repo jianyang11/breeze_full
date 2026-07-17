@@ -1,0 +1,118 @@
+path,bytes,gib,mtime_utc,category,git_visibility
+data/MU-TCM face-milling dataset/full_dataset.7z,4426244593,4.122262,2026-07-09T04:06:28.219516+00:00,raw_archive,ignored
+proc/dirg_variable_all.npz,2515239796,2.342500,2026-07-05T07:15:56.631454+00:00,processed_array,ignored
+proc/dirg_variable_loco_speed300_load1400_train.npz,2360290780,2.198192,2026-07-05T07:17:04.693805+00:00,processed_array,ignored
+data/dirg/raw/VariableSpeedAndLoad.zip,1642952410,1.530119,2026-07-05T07:11:46.372031+00:00,raw_archive,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert3Edge1_Vc100.0_fz0.1_ap1.5_VB0.213_Rep1.mat,1286683104,1.198317,2024-10-23T07:03:26.437102+00:00,extracted_raw,ignored
+data/ims/raw/4_Bearings.zip,1075597174,1.001728,2026-07-05T04:12:04.251501+00:00,raw_archive,ignored
+data/ims/raw/IMS.7z,1075320408,1.001470,2026-07-05T04:12:49.172609+00:00,raw_archive,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert6Edge1_Vc50.0_fz0.05_ap1.5_VB0.287_Rep2.mat,791011440,0.736687,2024-10-23T07:04:38.077839+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert3Edge1_Vc50.0_fz0.05_ap1.5_VB0.202_Rep3.mat,777933632,0.724507,2024-10-23T07:03:39.516834+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert3Edge1_Vc50.0_fz0.05_ap1.5_VB0.202_Rep2.mat,777406304,0.724016,2024-10-23T07:03:33.740347+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert6Edge1_Vc50.0_fz0.05_ap1.5_VB0.287_Rep1.mat,774255520,0.721082,2024-10-23T07:04:31.915781+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert1Edge1_Vc50.0_fz0.05_ap1.5_VB0.132_Rep1.mat,763142368,0.710732,2024-10-23T07:03:00.792604+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert1Edge1_Vc50.0_fz0.05_ap1.5_VB0.132_Rep2.mat,762320096,0.709966,2024-10-23T07:03:03.387378+00:00,extracted_raw,ignored
+data/xjtu/XJTU-SY_Bearing_Datasets/Data/XJTU-SY_Bearing_Datasets.part01.rar,744488960,0.693359,2026-07-06T08:53:09.427941+00:00,raw_archive,ignored
+data/xjtu/XJTU-SY_Bearing_Datasets/Data/XJTU-SY_Bearing_Datasets.part02.rar,744488960,0.693359,2026-07-06T08:50:14.044541+00:00,raw_archive,ignored
+data/xjtu/XJTU-SY_Bearing_Datasets/Data/XJTU-SY_Bearing_Datasets.part03.rar,744488960,0.693359,2026-07-06T08:51:31.807130+00:00,raw_archive,ignored
+data/xjtu/XJTU-SY_Bearing_Datasets/Data/XJTU-SY_Bearing_Datasets.part04.rar,744488960,0.693359,2026-07-06T08:50:32.848737+00:00,raw_archive,ignored
+data/xjtu/XJTU-SY_Bearing_Datasets/Data/XJTU-SY_Bearing_Datasets.part05.rar,744488960,0.693359,2026-07-06T08:47:30.097782+00:00,raw_archive,ignored
+data/xjtu/XJTU-SY_Bearing_Datasets/Data/XJTU-SY_Bearing_Datasets.part06.rar,722155640,0.672560,2026-07-06T08:53:39.400693+00:00,raw_archive,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert9Edge1_Vc50.0_fz0.05_ap1.5_VB0.0_Rep2.mat,617887776,0.575453,2024-10-23T07:04:56.472422+00:00,extracted_raw,ignored
+data/ims/raw/3rd_test.rar,609047134,0.567219,2017-07-18T22:33:55.641293+00:00,raw_archive,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert6Edge1_Vc50.0_fz0.1_ap1.5_VB0.287_Rep1.mat,527098720,0.490899,2024-10-23T07:04:41.793593+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert1Edge1_Vc50.0_fz0.1_ap1.5_VB0.137_Rep1.mat,526834896,0.490653,2024-10-23T07:03:05.027647+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert9Edge1_Vc50.0_fz0.05_ap1.5_VB0.0_Rep1.mat,507406192,0.472559,2024-10-23T07:04:52.828784+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert0Edge2_Vc200.0_fz0.1_ap1.5_VB0.018_Rep1.mat,469130968,0.436912,2024-10-23T07:02:46.935377+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert1Edge1_Vc50.0_fz0.1_ap1.5_VB0.137_Rep2.mat,387517824,0.360904,2024-10-23T07:03:06.178454+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert4Edge1_Vc100.0_fz0.2_ap1.5_VB0.202_Rep2.mat,385135144,0.358685,2024-10-23T07:03:53.080018+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert3Edge1_Vc50.0_fz0.1_ap1.5_VB0.206_Rep1.mat,381528592,0.355326,2024-10-23T07:03:42.473976+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert1Edge1_Vc100.0_fz0.05_ap1.5_VB0.137_Rep2.mat,380710016,0.354564,2024-10-23T07:02:54.178343+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert3Edge1_Vc50.0_fz0.1_ap1.5_VB0.206_Rep2.mat,379619904,0.353549,2024-10-23T07:03:44.892546+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert9Edge1_Vc50.0_fz0.1_ap1.5_VB0.03_Rep1.mat,379552256,0.353486,2024-10-23T07:04:59.044789+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert3Edge1_Vc100.0_fz0.05_ap1.5_VB0.206_Rep1.mat,379457952,0.353398,2024-10-23T07:03:16.206748+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert6Edge1_Vc50.0_fz0.1_ap1.5_VB0.287_Rep2.mat,379229936,0.353185,2024-10-23T07:04:48.997327+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert9Edge1_Vc50.0_fz0.1_ap1.5_VB0.03_Rep2.mat,378672960,0.352667,2024-10-23T07:05:02.005339+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert1Edge1_Vc100.0_fz0.05_ap1.5_VB0.137_Rep1.mat,378463216,0.352471,2024-10-23T07:02:52.903746+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert3Edge1_Vc100.0_fz0.05_ap1.5_VB0.206_Rep2.mat,377922064,0.351967,2024-10-23T07:03:18.019957+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert9Edge2_Vc100.0_fz0.05_ap1.5_VB0.0_Rep2.mat,377521824,0.351595,2024-10-23T07:05:04.721505+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert6Edge1_Vc100.0_fz0.05_ap1.5_VB0.291_Rep1.mat,377351600,0.351436,2024-10-23T07:04:02.616121+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert6Edge1_Vc100.0_fz0.05_ap1.5_VB0.291_Rep2.mat,372976672,0.347362,2024-10-23T07:04:05.468959+00:00,extracted_raw,ignored
+data/ims/raw/1st_test.rar,366567310,0.341392,2007-09-18T07:44:22+00:00,raw_archive,ignored
+proc/pu_loco_N15_M01_F10_train.npz,332488832,0.309654,2026-07-07T01:48:49.506888+00:00,processed_array,ignored
+proc/pu_loco_N15_M07_F10_train.npz,331442887,0.308680,2026-07-07T01:49:12.864965+00:00,processed_array,ignored
+proc/pu_loco_N15_M07_F04_train.npz,331285233,0.308533,2026-07-07T01:49:01.448388+00:00,processed_array,ignored
+proc/pu_loco_N09_M07_F10_train.npz,331224931,0.308477,2026-07-07T01:48:38.628577+00:00,processed_array,ignored
+data/MU-TCM face-milling dataset/small_subset/signals_unsynced/Insert3Edge1_Vc100.0_fz0.1_ap1.5_VB0.213_Rep2.mat,268337664,0.249909,2024-10-23T09:35:14.323414+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/small_subset/signals_unsynced/Insert9Edge2_Vc100.0_fz0.1_ap1.5_VB0.039_Rep2.mat,268335616,0.249907,2024-10-23T09:37:13.169667+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/small_subset/signals_unsynced/Insert6Edge1_Vc100.0_fz0.1_ap1.5_VB0.291_Rep1.mat,268335360,0.249907,2024-10-23T09:36:11.832543+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/small_subset/signals_unsynced/Insert1Edge1_Vc100.0_fz0.1_ap1.5_VB0.139_Rep1.mat,268328960,0.249901,2024-10-23T09:34:12.021811+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/small_subset/signals_unsynced/Insert0Edge2_Vc100.0_fz0.1_ap1.5_VB0.0_Rep1.mat,268327160,0.249899,2024-10-23T09:33:54.583514+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/small_subset/signals_unsynced/Insert6Edge1_Vc100.0_fz0.1_ap1.5_VB0.276_Rep1.mat,268326392,0.249898,2024-10-23T09:36:07.574366+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/small_subset/signals_unsynced/Insert2Edge1_Vc100.0_fz0.1_ap1.5_VB0.12_Rep1.mat,268308344,0.249882,2024-10-23T09:34:26.692824+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/small_subset/signals_unsynced/Insert4Edge1_Vc100.0_fz0.1_ap1.5_VB0.201_Rep1.mat,268302840,0.249876,2024-10-23T09:35:35.952866+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert1Edge1_Vc100.0_fz0.1_ap1.5_VB0.139_Rep1.mat,250982336,0.233746,2024-10-23T07:02:54.967872+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/small_subset/signals_synced/Insert1Edge1_Vc100.0_fz0.1_ap1.5_VB0.139_Rep1.mat,250982336,0.233746,2024-10-23T07:02:54.967872+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert6Edge1_Vc100.0_fz0.1_ap1.5_VB0.276_Rep1.mat,250800424,0.233576,2024-10-23T07:04:07.232832+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/small_subset/signals_synced/Insert6Edge1_Vc100.0_fz0.1_ap1.5_VB0.276_Rep1.mat,250800424,0.233576,2024-10-23T07:04:07.232832+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert1Edge1_Vc100.0_fz0.1_ap1.5_VB0.139_Rep2.mat,250063456,0.232890,2024-10-23T07:02:55.689912+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert9Edge2_Vc100.0_fz0.1_ap1.5_VB0.039_Rep2.mat,248971696,0.231873,2024-10-23T07:05:06.203733+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/small_subset/signals_synced/Insert9Edge2_Vc100.0_fz0.1_ap1.5_VB0.039_Rep2.mat,248971696,0.231873,2024-10-23T07:05:06.203733+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert6Edge1_Vc100.0_fz0.1_ap1.5_VB0.291_Rep1.mat,244002000,0.227245,2024-10-23T07:04:11.126752+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/small_subset/signals_synced/Insert6Edge1_Vc100.0_fz0.1_ap1.5_VB0.291_Rep1.mat,244002000,0.227245,2024-10-23T07:04:11.126752+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert6Edge1_Vc100.0_fz0.1_ap1.5_VB0.276_Rep2.mat,242262536,0.225625,2024-10-23T07:04:09.295376+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert6Edge1_Vc100.0_fz0.1_ap1.5_VB0.291_Rep2.mat,242003280,0.225383,2024-10-23T07:04:13.453485+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert3Edge1_Vc100.0_fz0.1_ap1.5_VB0.213_Rep2.mat,237855920,0.221521,2024-10-23T07:03:28.261641+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/small_subset/signals_synced/Insert3Edge1_Vc100.0_fz0.1_ap1.5_VB0.213_Rep2.mat,237855920,0.221521,2024-10-23T07:03:28.261641+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert4Edge1_Vc100.0_fz0.1_ap1.5_VB0.201_Rep1.mat,237102232,0.220819,2024-10-23T07:03:46.687201+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/small_subset/signals_synced/Insert4Edge1_Vc100.0_fz0.1_ap1.5_VB0.201_Rep1.mat,237102232,0.220819,2024-10-23T07:03:46.687201+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert0Edge2_Vc100.0_fz0.1_ap1.5_VB0.0_Rep1.mat,237058360,0.220778,2024-10-23T07:02:44.518618+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/small_subset/signals_synced/Insert0Edge2_Vc100.0_fz0.1_ap1.5_VB0.0_Rep1.mat,237058360,0.220778,2024-10-23T07:02:44.518618+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert2Edge1_Vc100.0_fz0.1_ap1.5_VB0.12_Rep2.mat,236742840,0.220484,2024-10-23T07:03:07.983958+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert4Edge1_Vc100.0_fz0.1_ap1.5_VB0.201_Rep2.mat,236480184,0.220239,2024-10-23T07:03:48.536804+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert2Edge1_Vc100.0_fz0.1_ap1.5_VB0.12_Rep1.mat,236478632,0.220238,2024-10-23T07:03:07.199488+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/small_subset/signals_synced/Insert2Edge1_Vc100.0_fz0.1_ap1.5_VB0.12_Rep1.mat,236478632,0.220238,2024-10-23T07:03:07.199488+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert0Edge3_Vc100.0_fz0.1_ap1.5_VB0.0_Rep2.mat,230459464,0.214632,2024-10-23T07:02:47.746074+00:00,extracted_raw,ignored
+data/just/raw/hwg8v5j8t6_condition1.zip,228585472,0.212887,2026-07-05T08:16:55.189967+00:00,raw_archive,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert6Edge1_Vc100.0_fz0.2_ap1.5_VB0.281_Rep2.mat,225282392,0.209811,2024-10-23T07:04:21.242154+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert6Edge1_Vc100.0_fz0.2_ap1.5_VB0.281_Rep1.mat,224471400,0.209055,2024-10-23T07:04:19.640372+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert0Edge2_Vc100.0_fz0.2_ap1.5_VB0.0_Rep1.mat,224385592,0.208975,2024-10-23T07:02:45.321852+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert6Edge1_Vc200.0_fz0.1_ap1.5_VB0.274_Rep2.mat,220668280,0.205513,2024-10-23T07:04:22.771840+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert2Edge1_Vc100.0_fz0.2_ap1.5_VB0.123_Rep2.mat,217777784,0.202821,2024-10-23T07:03:09.882121+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert0Edge3_Vc200.0_fz0.1_ap1.5_VB0.0_Rep2.mat,217754696,0.202800,2024-10-23T07:02:49.807471+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert4Edge1_Vc100.0_fz0.2_ap1.5_VB0.202_Rep1.mat,217745416,0.202791,2024-10-23T07:03:50.129974+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert2Edge1_Vc100.0_fz0.2_ap1.5_VB0.123_Rep1.mat,217720520,0.202768,2024-10-23T07:03:08.753795+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert0Edge3_Vc100.0_fz0.2_ap1.5_VB0.0_Rep2.mat,217675160,0.202726,2024-10-23T07:02:48.476757+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert0Edge3_Vc200.0_fz0.1_ap1.5_VB0.0_Rep1.mat,217319784,0.202395,2024-10-23T07:02:49.152091+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert2Edge1_Vc200.0_fz0.1_ap1.5_VB0.125_Rep1.mat,217309112,0.202385,2024-10-23T07:03:10.800408+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert4Edge1_Vc200.0_fz0.1_ap1.5_VB0.211_Rep2.mat,217273768,0.202352,2024-10-23T07:03:56.325738+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert4Edge1_Vc200.0_fz0.1_ap1.5_VB0.211_Rep1.mat,217242824,0.202323,2024-10-23T07:03:54.450848+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert2Edge1_Vc200.0_fz0.1_ap1.5_VB0.125_Rep2.mat,217091400,0.202182,2024-10-23T07:03:11.798632+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert6Edge1_Vc200.0_fz0.1_ap1.5_VB0.284_Rep3.mat,213335064,0.198684,2024-10-23T07:04:24.100420+00:00,extracted_raw,ignored
+proc/pu_loco_v3_internal_N15_M01_F10_train.npz,207803200,0.193532,2026-07-08T06:40:36.442591+00:00,processed_array,ignored
+proc/pu_loco_v3_internal_N15_M07_F10_train.npz,207196920,0.192967,2026-07-08T06:40:54.031801+00:00,processed_array,ignored
+proc/pu_loco_v3_internal_N09_M07_F10_train.npz,207090903,0.192868,2026-07-08T06:40:28.113552+00:00,processed_array,ignored
+proc/pu_loco_v3_internal_N15_M07_F04_train.npz,207044631,0.192825,2026-07-08T06:40:45.375388+00:00,processed_array,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert2Edge1_Vc200.0_fz0.2_ap1.5_VB0.125_Rep2.mat,194333304,0.180987,2024-10-23T07:03:13.865386+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert0Edge3_Vc200.0_fz0.2_ap1.5_VB0.0_Rep2.mat,193875464,0.180561,2024-10-23T07:02:51.086163+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert0Edge3_Vc200.0_fz0.2_ap1.5_VB0.0_Rep1.mat,193868936,0.180555,2024-10-23T07:02:50.452847+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert6Edge1_Vc200.0_fz0.2_ap1.5_VB0.272_Rep1.mat,180395240,0.168006,2024-10-23T07:04:25.226672+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert4Edge1_Vc200.0_fz0.2_ap1.5_VB0.242_Rep2.mat,180351272,0.167965,2024-10-23T07:03:59.236995+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert2Edge1_Vc200.0_fz0.2_ap1.5_VB0.125_Rep1.mat,180273128,0.167892,2024-10-23T07:03:12.949982+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert6Edge1_Vc200.0_fz0.2_ap1.5_VB0.272_Rep2.mat,180024536,0.167661,2024-10-23T07:04:26.679209+00:00,extracted_raw,ignored
+data/MU-TCM face-milling dataset/full_dataset/signals_synced/Insert4Edge1_Vc200.0_fz0.2_ap1.5_VB0.242_Rep1.mat,179890120,0.167536,2024-10-23T07:03:57.596140+00:00,extracted_raw,ignored
+proc/dirg_variable_loco_speed300_load1400_test.npz,154936547,0.144296,2026-07-05T07:17:09.437476+00:00,processed_array,ignored
+proc/hit_channel1_train.npz,145150238,0.135182,2026-07-05T08:09:55.547382+00:00,processed_array,ignored
+proc/pu_loco_N09_M07_F10_test.npz,110923380,0.103305,2026-07-07T01:48:41.323769+00:00,processed_array,ignored
+proc/pu_loco_N15_M07_F04_test.npz,110863231,0.103249,2026-07-07T01:49:04.324054+00:00,processed_array,ignored
+proc/pu_loco_N15_M07_F10_test.npz,110705076,0.103102,2026-07-07T01:49:15.614690+00:00,processed_array,ignored
+proc/pu_loco_N15_M01_F10_test.npz,109659188,0.102128,2026-07-07T01:48:52.516400+00:00,processed_array,ignored
+data/ims/raw/2nd_test.rar,85581092,0.079704,2007-09-18T13:54:12+00:00,raw_archive,ignored
+proc/mutcm_v2_schemeA_window_signal.npz,74281094,0.069180,2026-07-09T07:44:40.047610+00:00,processed_array,ignored
+proc/mutcm_v2_schemeA_window_signal_1p0s.npz,74281094,0.069180,2026-07-09T07:44:37.633078+00:00,processed_array,ignored
+data/3. Milling-mill/mill.mat,72575144,0.067591,2007-11-27T07:59:52+00:00,extracted_raw,ignored
+proc/pu_loco_v3_internal_N15_M07_F04_test.npz,69334463,0.064573,2026-07-08T06:40:47.171371+00:00,processed_array,ignored
+proc/pu_loco_v3_internal_N09_M07_F10_test.npz,69288310,0.064530,2026-07-08T06:40:30.029783+00:00,processed_array,ignored
+proc/pu_loco_v3_internal_N15_M07_F10_test.npz,69182957,0.064432,2026-07-08T06:40:56.028696+00:00,processed_array,ignored
+proc/pu_loco_v3_internal_N15_M01_F10_test.npz,68576296,0.063867,2026-07-08T06:40:38.782496+00:00,processed_array,ignored
+proc/dirg_variable_smoke.npz,61247774,0.057041,2026-07-05T07:14:12.449944+00:00,processed_array,ignored

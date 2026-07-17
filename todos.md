@@ -30,13 +30,14 @@ Python 环境：`breeze/.venv-breeze/bin/python` (`3.12.13`)。所有 Python 命
 - [x] Q1.0.11 编写 `Q1_research_plan_2026-07-17.md`，冻结 RQ、可证伪假设、方法、强基线、层级统计、存储、日志、可视化和 G0--G8 验收门。
 - [x] Q1.0.12 在本文件置顶细粒度动态任务；旧 deferred 与历史重复任务保留供审计，但不再控制执行顺序。
 - [x] Q1.0.13 对本轮仅新增的方案/文献/todos 做 diff、链接、checkbox、路径和 Markdown 审计；176 条 Q1 任务、路径和标题结构已核对；不得把现有图表 dirty diff 带入提交。
-- [ ] Q1.0.14 仅提交 `Q1_research_plan_2026-07-17.md`、`analysis/q1_literature_frontier_2026-07-17.md` 和 `todos.md`，推送 `origin/main` 并再次核对远端 SHA。
+- [x] Q1.0.14 仅提交 `Q1_research_plan_2026-07-17.md`、`analysis/q1_literature_frontier_2026-07-17.md` 和 `todos.md`；提交 `0ca2421` 已推送 `origin/main`，未夹带现有图表 dirty diff。
+- [ ] Q1.0.15 按用户 2026-07-17 新指令迁移发布远端：保留 `origin=jianyang11/breeze_full.git` 作为基线，新增 `publication=jianyang11/new_one.git`；已用 `git ls-remote` 确认目标当前无 refs，待本阶段 scoped commit 后非破坏性推送 `main`，此后一区主线发布到 `publication`。
 
 ### Q1.1 G0：50 GB 存储预算与可恢复性
 
-- [ ] Q1.1.1 生成 `analysis/q1_storage_inventory_2026-07-17.csv`：所有 ≥50 MB 文件记录 path、bytes、mtime、类别（raw/archive/extracted/proc/pool/checkpoint/cache）、git/ignore 状态。
-- [ ] Q1.1.2 为 `data/MU-TCM face-milling dataset/full_dataset.7z` 计算 SHA-256，核对已有 67/67 synced MAT manifest、文件名、size 和抽取报告。
-- [ ] Q1.1.3 确认 MU-TCM 约 23 GB 解压目录是否能从 4.4 GB 原始归档按 manifest 无损重建；随机抽 3 个大 MAT 做 archive CRC/解压 hash 对照。
+- [x] Q1.1.1 已由 `breeze/scripts/q1_storage_inventory.py` 生成 `analysis/q1_storage_inventory_2026-07-17.csv`：扫描 34,629 个文件，列出 117 个 ≥50 MB 文件（合计 45.095 GiB）；2 个单元测试通过。
+- [x] Q1.1.2 `q1_storage_audit.py` 已完成原始归档 SHA-256（`c653f3dc2e762c9bfd21e8a9248cc12494ff6ae6e5991f93c4b6845a50f37223`）；archive/manifest/local 的 synced MAT 均为 67/67，文件名集合和全部本地 size 对账通过。
+- [x] Q1.1.3 以 seed `20260717` 从 size 最大四分位 17 个文件中无放回抽 3 个大 MAT；一次 solid archive 流按 manifest 精确分界，1.652 GiB 的解压返回码、逐文件 bytes 与 SHA-256 全部 PASS；报告/明细为 `analysis/q1_mutcm_archive_audit_2026-07-17.md`、`analysis/q1_mutcm_archive_checksums_2026-07-17.csv`，未声称对未抽样成员做过全量重哈希。
 - [ ] Q1.1.4 审计 MU-TCM `small_subset` 与 `full_dataset` 同名文件，按 size+SHA-256 生成重复清单；只列候选，不删除。
 - [ ] Q1.1.5 审计 `data/xjtu/` 4.2 GB 分卷是否完整、是否被任何当前 protocol/result manifest 引用；结合历史“跳过 XJTU”决定候选状态。
 - [ ] Q1.1.6 审计 `data/ims/raw/IMS.7z`、`4_Bearings.zip`、三个 test RAR 的内容关系与唯一性；生成可恢复性说明。
