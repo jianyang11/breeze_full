@@ -165,7 +165,11 @@ structured synthetic fault signals that satisfy declared train-supported gates,
 and the resulting fixed pools improve the stated few-shot tasks under their
 frozen protocols. The scope is training-free augmentation, not training-free
 diagnosis; few-shot real calibration and a trained downstream classifier remain
-necessary.
+necessary. Throughout, ``training-free'' is shorthand for
+generator-training-free: no generator is optimized on target signals and no
+LLM is fine-tuned, while gate thresholds are still calibrated from
+outer-training statistics and the downstream classifier is trained in the
+usual way.
 
 \section{Related work: where generative knowledge resides}
 \label{sec:related}
@@ -199,6 +203,29 @@ xu2026mrddim}. The prior resides in an objective or architecture, but its effect
 on generated signals still passes through optimized weights. \breeze\ places
 the signal equations in a fixed renderer and evaluates physical evidence after
 rendering through train-calibrated admission.
+
+\subsection{Phenomenological simulation and simulation-driven augmentation}
+
+Explicit bearing-signal models predate learned generation. The
+McFadden--Smith point-defect model expresses the vibration of a defective
+rolling-element bearing as a resonant impulse train with load and transfer-path
+modulation~\citep{mcfadden1984model}, and such phenomenological or
+lumped-parameter dynamic models have been used to train classifiers on
+simulated faults before applying them to measured
+signals~\citep{sobie2018simulation}. Because simulated and measured signals
+differ, simulation-driven diagnosis typically adds a domain-adaptation stage
+that aligns the two distributions~\citep{liu2022simulationdriven}. The \breeze\
+renderer belongs to this phenomenological model family: its
+Eqs.~\eqref{eq:vibration}--\eqref{eq:current} are fixed simulation equations,
+not learned weights. The differences are in who selects the simulation
+parameters and how mismatch is handled. Simulation-driven pipelines fix or
+sweep parameter values and reconcile mismatch with adaptation losses, whereas
+\breeze\ delegates parameter selection to a prompted LLM and replaces
+adaptation with train-calibrated admission that rejects unsupported
+candidates. The formal comparisons in this paper isolate the proposal source
+under a fixed renderer; they do not compare against a tuned
+simulation-plus-adaptation pipeline, which remains a relevant external
+baseline for future work.
 
 \subsection{Description-conditioned learned generation}
 
@@ -243,6 +270,7 @@ corpus.}
 \toprule
 Method family & Generative mechanism & Target training & Where physical knowledge resides & Physical control & Primary evidence pattern \\
 \midrule
+Simulation-driven diagnosis & Phenomenological or dynamic simulation plus domain adaptation & Adaptation only & Fixed simulation equations and fixed or swept parameters & Model structure and adaptation losses & Simulated-to-real transfer and diagnosis \\
 DFE-GAN / SGAN-DDS & Learned adversarial generator plus filtering or sampling & Yes & Generator and discriminator weights & Learned features, filtering, and spectrum guidance & Fidelity, diversity, and diagnosis \\
 Physics-informed GAN / diffusion & Learned generator with physical priors or condition embedding & Yes & Physical objective, architecture, and optimized weights & Training loss or architecture & Mechanism, multidomain fidelity, diagnosis \\
 BearGen & LLM descriptions condition a learned diffusion model & Yes & Description prompt and learned denoising weights & Description-conditioned denoising & Eight bearing datasets, quality, few-shot, cost \\
@@ -312,7 +340,11 @@ implemented predicate types are
 \end{align}
 The empty-set clause admits the first candidate with respect to diversity only;
 all active per-candidate gates must still pass. Subsequent candidates must meet
-the distance lower bound. The intersection of the active predicates defines the
+the distance lower bound. Because $\mathcal{S}_y$ grows greedily as candidates
+are admitted, the diversity predicate depends on the archived evaluation
+order; the admitted pool is therefore a recorded function of that order rather
+than a static feasible set, and replay preserves it exactly through the frozen
+candidate sequence and selection seed. The intersection of the active predicates defines the
 admissible set.
 Membership therefore records compliance with the configured gates under their
 training calibration.
@@ -510,7 +542,13 @@ evaluates a within-load0 split and three folds that hold out load1, load2, or
 load3. The frozen synthetic pools derive from load0, which belongs to the
 training side of these three folds. Reusing these pools gives the archived
 held-out-load0 fold target-load provenance, so that fold remains an audit
-artifact.
+artifact. Within load0, CWRU offers a single continuous drive-end recording per
+class/severity, so record-level isolation would leave no within-load0 test
+data; the protocol therefore splits each file chronologically, with training
+windows strictly preceding test windows and no overlapping window keys. This
+answers a weaker within-recording question than the file-level PU and
+case/run-level Berkeley splits, which is why the CWRU claim leans on the
+held-out-load transfer folds rather than on the within-load0 cell alone.
 
 The Berkeley protocol isolates machining case/run groups before windowing. Its
 six channels contain spindle AC and DC current, table and spindle vibration,
@@ -1094,7 +1132,9 @@ manifests, physics manifests with SHA-256 hashes, and the evidence ledger.
 Primary CWRU and Berkeley waveform pools, recipes, and detailed candidate
 records currently reside in ignored \texttt{breeze/runs/} paths and are not
 part of the versioned Git tree. They will be deposited as a checksum-indexed
-repository release or data-repository supplement for exact waveform replay;
+repository release or DOI-issuing data-repository supplement (e.g.\ Zenodo)
+for exact waveform replay, together with the per-slot round-level admission
+records that back the feedback-round audit;
 until that deposit, the Git repository supports numerical-result audit and PU
 pool replay, but not complete CWRU/Berkeley waveform replay. API credentials,
 provider-side sampling state, and raw third-party datasets remain outside the
